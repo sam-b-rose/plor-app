@@ -1,0 +1,4 @@
+{
+  "name": "plor",
+  "dotenv": ".prod.env"
+}
