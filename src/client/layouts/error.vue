@@ -6,12 +6,22 @@
     <h2>
       {{ error.message }}
     </h2>
-    <button router to="/app" v-if="error.statusCode === 404">Home</button>
+    <nuxt-link
+      class="button"
+      to="/app"
+      v-if="error.statusCode === 404">
+      Home
+    </nuxt-link>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['error']
-}
+  props: {
+    error: {
+      type: Object,
+      default: () => {}
+    }
+  }
+};
 </script>

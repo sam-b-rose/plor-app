@@ -1,66 +1,98 @@
-import Connection from './models'
-import { ServerError } from 'express-server-error'
+import Connection from './models';
+import { ServerError } from 'express-server-error';
 
 export const index = {
-  async get (req, res) {
+  async get(req, res) {
     try {
-      let connections = await Connection.find({})
-      if (!connections) throw new ServerError('You have no connections at this moment.', { status: 404 })
-      res.json(connections)
+      let connections = await Connection.find({});
+      if (!connections)
+        throw new ServerError('You have no connections at this moment.', {
+          status: 404
+        });
+      res.json(connections);
     } catch (error) {
-      res.handleServerError(error)
+      res.handleServerError(error);
     }
   },
-  async post (req, res) {
+  async post(req, res) {
     try {
-      const { type, username, accessToken, accessTokenSecret, verifier } = req.body
-      let connection = await (new Connection({ type, username, accessToken, accessTokenSecret, verifier })).save()
-      res.json({ message: `Your Connection has been made! - ${connection.type}!`, connection })
+      const {
+        type,
+        email,
+        accessToken,
+        accessTokenSecret,
+        verifier
+      } = req.body;
+      let connection = await new Connection({
+        type,
+        email,
+        accessToken,
+        accessTokenSecret,
+        verifier
+      }).save();
+      res.json({
+        message: `Your Connection has been made! - ${connection.type}!`,
+        connection
+      });
     } catch (error) {
-      res.handleServerError(error)
+      res.handleServerError(error);
     }
   }
-}
+};
 
-export const username = {
-  async get (req, res) {
+export const email = {
+  async get(req, res) {
     try {
-      let posts = await Connection.find({ username: req.params.username })
-      if (!posts) throw new ServerError(`No connections belonging to '${req.params.username}'.`, { status: 404 })
-      res.json(posts)
+      let posts = await Connection.find({ email: req.params.email });
+      if (!posts)
+        throw new ServerError(
+          `No connections belonging to '${req.params.email}'.`,
+          { status: 404 }
+        );
+      res.json(posts);
     } catch (error) {
-      res.handleServerError(error)
+      res.handleServerError(error);
     }
   }
-}
+};
 
 export const connectionid = {
-  async get (req, res) {
+  async get(req, res) {
     try {
-      let fetchedPost = await Connection.findOne({ _id: req.params.postid })
-      if (!fetchedPost) throw new ServerError(`Connection with id '${req.params.postid}' doesn't exist.`, { status: 404 })
+      let fetchedPost = await Connection.findOne({ _id: req.params.postid });
+      if (!fetchedPost)
+        throw new ServerError(
+          `Connection with id '${req.params.postid}' doesn't exist.`,
+          { status: 404 }
+        );
       res.json({
         message: fetchedPost.message,
-        username: fetchedPost.username
-      })
+        email: fetchedPost.email
+      });
     } catch (error) {
-      res.handleServerError(error)
+      res.handleServerError(error);
     }
   },
-  async post (req, res) {
-    res.json({ message: 'Update the post, and return the updated post.' })
+  async post(req, res) {
+    res.json({ message: 'Update the post, and return the updated post.' });
   },
-  async delete (req, res) {
+  async delete(req, res) {
     try {
-      if (req.user.username === req.params.username) {
-        let deleted = await Connection.findOneAndRemove({ _id: req.params.postid })
-        if (!deleted) throw new ServerError(`Connection with id '${req.params.postid}' doesn't exist.`, { status: 404 })
-        res.json({ message: 'Successfully deleted post.' })
+      if (req.user.email === req.params.email) {
+        let deleted = await Connection.findOneAndRemove({
+          _id: req.params.postid
+        });
+        if (!deleted)
+          throw new ServerError(
+            `Connection with id '${req.params.postid}' doesn't exist.`,
+            { status: 404 }
+          );
+        res.json({ message: 'Successfully deleted post.' });
       } else {
-        throw new ServerError('Unauthorized.', { status: 401 })
+        throw new ServerError('Unauthorized.', { status: 401 });
       }
     } catch (error) {
-      res.handleServerError(error)
+      res.handleServerError(error);
     }
   }
-}
+};

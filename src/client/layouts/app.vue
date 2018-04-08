@@ -1,23 +1,23 @@
 <template>
   <div class="columns is-gapless">
-    <sidebar class="sidebar column is-one-quarter" />
+    <sidebar class="sidebar column is-one-fifth" />
     <main class="column">
-      <nuxt></nuxt>
+      <nuxt />
     </main>
   </div>
 </template>
 
 <script>
-import sidebar from '~/components/shared/sidebar'
+import sidebar from '~/components/shared/sidebar';
 
 export default {
   components: {
     sidebar
   },
-  data () {
-    return { }
+  data() {
+    return {};
   }
-}
+};
 </script>
 
 <style>

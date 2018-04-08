@@ -3,29 +3,31 @@
     <div class="profile" />
     <ul class="menu-list">
       <li>
-        <nuxt-link to="/app"><i class="far fa-square-full"></i> Posts</nuxt-link>
+        <nuxt-link to="/app">
+          <i class="far fa-square-full" /> Posts
+        </nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/analytics"><i class="far fa-square-full"></i> Analytics</nuxt-link>
+        <nuxt-link to="/analytics">
+          <i class="far fa-square-full" /> Analytics
+        </nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/manage"><i class="far fa-square-full"></i> Manage</nuxt-link>
+        <nuxt-link to="/manage">
+          <i class="far fa-square-full" /> Manage
+        </nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/settings"><i class="far fa-square-full"></i> Settings</nuxt-link>
+        <nuxt-link to="/settings">
+          <i class="far fa-square-full" /> Settings
+        </nuxt-link>
       </li>
     </ul>
   </aside>
 </template>
 
 <script>
-export default {
-  computed: {
-    username () {
-      return this.$store.state.user.username || null
-    }
-  }
-}
+export default {};
 </script>
 
 <style lang="scss" scoped>

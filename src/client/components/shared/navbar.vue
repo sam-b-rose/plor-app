@@ -1,25 +1,39 @@
 <template>
-  <div>
-    <h4>plor</h4>
-    <nuxt-link to="/app">Posts</nuxt-link>
-    <nuxt-link to="/manage">Manage</nuxt-link>
-    <nuxt-link v-if="username" to="/users" class="profile">
-      <image src="/images/placeholders/image.png" />
-      {{ username }}
-    </nuxt-link>
-    <nuxt-link v-else to="/users/auth/sign-in">Login</nuxt-link>
-  </div>
+  <nav class="navbar is-primary is-fixed-top">
+    <div class="navbar-brand">
+      <nuxt-link class="navbar-item is-size-4" to="/">
+        plor
+      </nuxt-link>
+      <div class="navbar-burger burger">
+        <span />
+        <span />
+        <span />
+      </div>
+    </div>
+
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <nuxt-link class="navbar-item" to="/site/about">About</nuxt-link>
+        <nuxt-link class="navbar-item" to="/site/contact">Contact</nuxt-link>
+        <nuxt-link class="navbar-item" to="/site/updates">Updates</nuxt-link>
+      </div>
+
+      <div class="navbar-end">
+        <nuxt-link class="navbar-item" to="/app">Login</nuxt-link>
+        <nuxt-link class="navbar-item" to="/users/auth/sign-up">Sign up</nuxt-link>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>
 export default {
-  computed: {
-    username () {
-      return this.$store.state.user.username || null
-    }
-  }
-}
+  name: 'Navbar'
+};
 </script>
 
 <style lang="scss">
+.navbar-brand .navbar-item {
+  color: $blue-dark;
+}
 </style>

@@ -1,6 +1,42 @@
-// Colors
-$light: #EFF1F5;
-$gray: #A5ACBB;
-$blue: #2B67F5;
+// 1. Import the initial variables
+@import '~bulma/sass/utilities/initial-variables';
+@import '~bulma/sass/utilities/functions';
+
+// 2. Set your own initial variables
+
+/* Colors */
+$light: #eff1f5;
+$gray: #a5acbb;
+$blue: #2b67f5;
 $blue-dark: #122758;
-$purple: #612DF7;
+$purple: #612df7;
+
+/* Default properties */
+$default-radius: 6px;
+
+// Add blue dark invert
+$blue-dark-invert: findColorInvert($blue-dark);
+
+// 3. Set the derived variables
+// Use the new pink as the primary color
+$primary: $blue-dark;
+$primary-invert: $blue-dark-invert;
+// Use the existing orange as the danger color
+$danger: $orange;
+
+// 4. Setup your Custom Colors
+$linkedin: #0077b5;
+$linkedin-invert: findColorInvert($linkedin);
+$twitter: #55acee;
+$twitter-invert: findColorInvert($twitter);
+$github: #333;
+$github-invert: findColorInvert($github);
+
+// 5. Add new color variables to the color map.
+@import '~bulma/sass/utilities/derived-variables';
+$addColors: (
+  'twitter': ($twitter, $twitter-invert),
+  'linkedin': ($linkedin, $linkedin-invert),
+  'github': ($github, $github-invert)
+);
+$colors: map-merge($colors, $addColors);

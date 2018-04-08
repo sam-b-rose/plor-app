@@ -3,7 +3,7 @@
     <main class="column is-half">
       <section class="hero is-fullheight">
         <div class="hero-body">
-          <nuxt class="container"></nuxt>
+          <nuxt class="container" />
         </div>
       </section>
     </main>
@@ -13,15 +13,15 @@
 
 <script>
 export default {
-  data () {
-    return { }
+  data() {
+    return {};
   }
-}
+};
 </script>
 
 <style lang="scss">
 .artwork {
-  background: $blue-dark;
+  background: $primary;
 }
 
 .container {
