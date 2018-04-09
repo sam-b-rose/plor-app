@@ -12,13 +12,21 @@
 
 <script>
 export default {
-  props: ['redirect'],
+  props: {
+    redirect: {
+      type: Object,
+      default: () => {
+        name: 'index';
+      }
+    }
+  },
   methods: {
-    signOut () {
+    signOut() {
       this.$store.dispatch('user/signOut').then(() => {
-        if (this.$store.state.notification.success) this.$router.replace(this.redirect)
-      })
+        if (this.$store.state.notification.success)
+          this.$router.replace(this.redirect);
+      });
     }
   }
-}
+};
 </script>

@@ -12,8 +12,8 @@
 
 <script>
 export default {
-  name: 'deck'
-}
+  name: 'Deck'
+};
 </script>
 
 <style>

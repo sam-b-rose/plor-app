@@ -1,12 +1,12 @@
 <template>
   <form @submit.prevent @keyup.enter="signIn">
-     <div class="field">
+    <div class="field">
       <label class="label">Email</label>
       <div class="control">
         <input
           class="input"
           type="text"
-          v-model="email" />
+          v-model="email">
       </div>
     </div>
     <div class="field">
@@ -15,7 +15,7 @@
         <input
           class="input"
           v-model="password"
-          type="password" />
+          type="password">
       </div>
     </div>
     <div class="field">
@@ -40,26 +40,36 @@
 
 <script>
 export default {
-  props: [ 'redirect' ],
-  data () {
+  props: {
+    redirect: {
+      type: Object,
+      default: () => {
+        name: 'index';
+      }
+    }
+  },
+  data() {
     return {
       email: '',
       password: ''
-    }
+    };
   },
   methods: {
-    signIn () {
-      this.$store.dispatch('user/signIn', {
-        email: this.email,
-        password: this.password
-      }).then(() => {
-        if (this.$store.state.notification.success) this.$router.replace(this.redirect)
-        else {
-          this.email = ''
-          this.password = ''
-        }
-      })
+    signIn() {
+      this.$store
+        .dispatch('user/signIn', {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          if (this.$store.state.notification.success)
+            this.$router.replace(this.redirect);
+          else {
+            this.email = '';
+            this.password = '';
+          }
+        });
     }
   }
-}
+};
 </script>

@@ -1,12 +1,11 @@
 <template>
-   <div>Manage</div>
+  <div>Manage</div>
 </template>
 
 <script>
-
 export default {
   layout: 'app',
   middleware: 'authenticated'
-}
+};
 </script>
 

@@ -61,7 +61,6 @@
     "pug": "^2.0.0-rc.4",
     "pug-loader": "^2.3.0",
     "sass-loader": "^6.0.7",
-    "semantic-ui-css": "^2.2.14",
     "slug": "^0.9.1",
     "source-map-support": "^0.5.0",
     "uuid": "^3.1.0",
