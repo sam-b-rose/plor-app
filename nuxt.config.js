@@ -1,17 +1,15 @@
-const path = require('path')
+const path = require('path');
 
 require('dotenv').config({
   silent: true,
   path: process.env.NODE_ENV === 'production' ? '.prod.env' : '.dev.env'
-})
+});
 
 module.exports = {
   build: {
     extractCSS: true,
     vendor: ['jwt-decode', 'axios', '~/static/js/fontawesome-all.min.js'],
-    postcss: [
-      require('autoprefixer')()
-    ]
+    postcss: [require('autoprefixer')()]
   },
   buildDir: 'dist/client',
   cache: true,
@@ -25,7 +23,11 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Social media management with ease.' }
+      {
+        hid: 'plor',
+        name: 'plor.io',
+        content: 'Social media management with ease.'
+      }
     ]
   },
   manifest: {
@@ -36,19 +38,18 @@ module.exports = {
   modules: [
     '@nuxtjs/pwa',
     '@nuxtjs/component-cache',
-    ['nuxt-sass-resources-loader', [
-      '@/assets/style/variables.scss'
-    ]]
+    'nuxt-sass-resources-loader'
   ],
+  sassResources: ['@/assets/style/variables.scss'],
   loading: {
     color: '#2b67f5'
   },
   render: {
     static: {
       maxAge: '1y',
-      setHeaders (res, path) {
+      setHeaders(res, path) {
         if (path.includes('sw.js')) {
-          res.setHeader('Cache-Control', 'public, max-age=0')
+          res.setHeader('Cache-Control', 'public, max-age=0');
         }
       }
     }
@@ -57,4 +58,4 @@ module.exports = {
     middleware: ['ssr-cookie', 'https']
   },
   srcDir: path.resolve(__dirname, 'src', 'client')
-}
+};
