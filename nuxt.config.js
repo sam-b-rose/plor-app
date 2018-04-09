@@ -8,7 +8,7 @@ require('dotenv').config({
 module.exports = {
   build: {
     extractCSS: true,
-    vendor: ['jwt-decode', 'axios', '~/static/js/fontawesome-all.min.js'],
+    vendor: ['jwt-decode', 'axios'],
     postcss: [require('autoprefixer')()]
   },
   buildDir: 'dist/client',
@@ -36,11 +36,11 @@ module.exports = {
     theme_color: '#2b67f5'
   },
   modules: [
+    ['nuxt-sass-resources-loader', '@/assets/style/variables.scss'],
     '@nuxtjs/pwa',
-    '@nuxtjs/component-cache',
-    'nuxt-sass-resources-loader'
+    '@nuxtjs/component-cache'
   ],
-  sassResources: ['@/assets/style/variables.scss'],
+  plugins: ['~/plugins/axios', '~/plugins/font-awesome'],
   loading: {
     color: '#2b67f5'
   },

@@ -52,18 +52,22 @@ export default {
   data() {
     return {
       filterItems: [
-        { text: 'Tags', icon: 'far fa-tag' },
-        { text: 'Social Accounts', icon: 'far fa-comment' },
-        { text: 'Members', icon: 'far fa-users' },
-        { text: 'Media', icon: 'far fa-images' }
+        { text: 'Tags', icon: ['far', 'tag'] },
+        { text: 'Social Accounts', icon: ['far', 'comment'] },
+        { text: 'Members', icon: ['far', 'users'] },
+        { text: 'Media', icon: ['far', 'images'] }
       ],
       connectionItems: [
         {
           text: 'Connect to Facebook',
-          icon: 'fab fa-facebook',
+          icon: ['fab', 'facebook'],
           color: '#3B5998'
         },
-        { text: 'Connect to Twitter', icon: 'fab fa-twitter', color: '#1DA1F2' }
+        {
+          text: 'Connect to Twitter',
+          icon: ['fab', 'twitter'],
+          color: '#1DA1F2'
+        }
       ]
     };
   }

@@ -20,7 +20,9 @@
       <div class="field is-grouped">
         <div class="control">
           <button class="button">
-            <span class="icon"><i class="far fa-image" /></span>
+            <span class="icon">
+              <font-awesome-icon :icon="['far', 'image']" />
+            </span>
             <span>Image / Video</span>
           </button>
         </div>

@@ -8,7 +8,7 @@
         v-if="isObject && item.icon"
         class="icon"
         :style="{ color: item.color }">
-        <i :class="item.icon" />
+        <font-awesome-icon :icon="item.icon" />
       </span>
       <span>{{ isObject ? item[textKey] : item }}</span>
     </li>
