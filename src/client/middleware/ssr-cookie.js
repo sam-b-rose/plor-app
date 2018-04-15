@@ -1,7 +1,7 @@
-import axios from '~/plugins/axios'
+import axios from '~/plugins/axios';
 
-export default function ({isServer, req}) {
-  if (isServer) {
-    axios.defaults.headers.common.cookie = req.headers.cookie
+export default function({ req }) {
+  if (process.server) {
+    axios.defaults.headers.common.cookie = req.headers.cookie;
   }
 }

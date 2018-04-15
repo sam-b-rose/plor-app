@@ -1,21 +1,31 @@
-import { Router } from 'express'
-import authenticate from '~/middleware/authenticate'
-import { index, email, signIn, signOut, check } from './controllers'
+import { Router } from 'express';
+import authenticate from '~/middleware/authenticate';
+import {
+  index,
+  email,
+  signIn,
+  signOut,
+  check,
+  updatePassword
+} from './controllers';
 
-const router = Router()
+const router = Router();
 
-router.get('/', authenticate(), index.get)
-router.post('/', index.post)
+router.get('/', authenticate(), index.get);
+router.post('/', index.post);
 
-router.get('/check', check.get)
+router.get('/check', check.get);
 
-router.post('/sign-in', signIn.post)
-router.post('/sign-out', authenticate(), signOut.post)
+router.post('/sign-in', signIn.post);
+router.post('/sign-out', authenticate(), signOut.post);
 
-router.route('/:email')
+router
+  .route('/:email')
   .all(authenticate())
   .get(email.get)
   .post(email.post)
-  .delete(email.delete)
+  .delete(email.delete);
 
-export default router
+router.post('/password', authenticate(), updatePassword.post);
+
+export default router;

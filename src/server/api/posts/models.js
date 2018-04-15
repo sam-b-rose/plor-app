@@ -1,24 +1,27 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 // import { ServerError } from 'express-server-error'
 
-const postSchema = new mongoose.Schema({
-  message: {
-    type: String,
-    required: true
+const postSchema = new mongoose.Schema(
+  {
+    message: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      require: true
+    }
+    // connections: {
+    //   type: [mongoose.Schema.ObjectId],
+    //   ref: 'Connection',
+    //   required: 'You must supply a Connection'
+    // }
   },
-  email: {
-    type: String,
-    require: true
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   }
-  // connections: {
-  //   type: [mongoose.Schema.ObjectId],
-  //   ref: 'Connection',
-  //   required: 'You must supply a Connection'
-  // }
-}, {
-  timestamps: true,
-  toJSON: { virtuals: true },
-  toObject: { virtuals: true }
-})
+);
 
-export default mongoose.model('Post', postSchema)
+export default mongoose.model('Post', postSchema);

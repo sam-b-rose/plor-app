@@ -90,7 +90,26 @@ export const email = {
     }
   },
   async post(req, res) {
-    res.json({ message: 'Update the user, and return the updated user.' });
+    try {
+      if (req.user.email === req.body.email) {
+        const updates = {
+          fullName: req.body.fullName,
+          email: req.body.email
+        };
+
+        let user = await User.findOneAndUpdate(
+          { _id: req.user._id },
+          { $set: updates },
+          { new: true }
+        );
+        user = stripUser(user);
+        res.json({ message: 'User has been updated!', user });
+      } else {
+        throw new ServerError('Unauthorized.', { status: 401 });
+      }
+    } catch (error) {
+      res.handleServerError(error);
+    }
   },
   async delete(req, res) {
     try {
@@ -105,6 +124,46 @@ export const email = {
       } else {
         throw new ServerError('Unauthorized.', { status: 401 });
       }
+    } catch (error) {
+      res.handleServerError(error);
+    }
+  }
+};
+
+export const updatePassword = {
+  async post(req, res) {
+    try {
+      let { email } = req.user;
+      let { password, password1, password2 } = req.body;
+      let user = await User.findOne({ email });
+      if (!user) {
+        throw new ServerError(`Could not find a user with the email ${email}`, {
+          status: 401,
+          log: false
+        });
+      }
+
+      let passwordHash = user.password;
+      let matched = await bcrypt.compare(password, passwordHash);
+      if (!matched) {
+        throw new ServerError(
+          'Authentication failed. Incorrect current password',
+          { status: 401, log: false }
+        );
+      }
+
+      if (password1 !== password2) {
+        throw new ServerError('Passwords do not match.', { status: 400 });
+      }
+
+      password = await bcrypt.hash(password1, 10);
+      user = await User.findOneAndUpdate(
+        { _id: req.user._id },
+        { $set: password },
+        { new: true }
+      );
+      user = stripUser(user);
+      res.json({ message: 'Password has been updated!', user });
     } catch (error) {
       res.handleServerError(error);
     }

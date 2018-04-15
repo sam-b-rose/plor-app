@@ -55,6 +55,26 @@ export const mutations = {
   SIGN_OUT_FAILURE(state, error) {
     console.error(error);
   },
+  UPDATE_USER_REQUEST(state) {
+    console.log('Update user pending...');
+  },
+  UPDATE_USER_SUCCESS(state, data) {
+    state.fullName = data.user.fullName;
+    state.email = data.user.email;
+    console.log('Update user success!');
+  },
+  UPDATE_USER_FAILURE(error) {
+    console.error(error);
+  },
+  UPDATE_PASSWORD_REQUEST(state) {
+    console.log('Update password pending...');
+  },
+  UPDATE_PASSWORD_SUCCESS(state, data) {
+    console.log('Update password success!');
+  },
+  UPDATE_PASSWORD_FAILURE(error) {
+    console.error(error);
+  },
   DELETE_USER_REQUEST(state) {
     console.log('Delete user pending...');
   },
@@ -107,6 +127,28 @@ export const actions = {
       commit('notification/FAILURE', error.response.data, { root: true });
     }
   },
+  async updateUser({ state, commit }, payload) {
+    try {
+      commit('UPDATE_USER_REQUEST');
+      let { data } = await axios.post(`/users/${payload.email}`, payload);
+      commit('UPDATE_USER_SUCCESS', data);
+      commit('notification/SUCCESS', data, { root: true });
+    } catch (error) {
+      commit('UPDATE_USER_FAILURE', error);
+      commit('notification/FAILURE', error.response.data, { root: true });
+    }
+  },
+  async updatePassword({ state, commit }, payload) {
+    try {
+      commit('UPDATE_PASSWORD_REQUEST');
+      let { data } = await axios.post(`/users/password`, payload);
+      commit('UPDATE_PASSWORD_SUCCESS', data);
+      commit('notification/SUCCESS', data, { root: true });
+    } catch (error) {
+      commit('UPDATE_PASSWORD_FAILURE', error);
+      commit('notification/FAILURE', error.response.data, { root: true });
+    }
+  },
   async deleteUser({ state, commit }) {
     try {
       commit('DELETE_USER_REQUEST');
@@ -116,7 +158,7 @@ export const actions = {
       commit('CLEAR_LISTS', null, { root: true });
     } catch (error) {
       commit('DELETE_USER_FAILURE', error);
-      commit('notification/SUCCESS', error.response.data, { root: true });
+      commit('notification/FAILURE', error.response.data, { root: true });
     }
   }
 };

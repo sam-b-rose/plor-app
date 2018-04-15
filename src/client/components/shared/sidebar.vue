@@ -23,24 +23,46 @@
         </nuxt-link>
       </li>
     </ul>
+    <ul class="menu-list bottom">
+      <li>
+        <nuxt-link :to="`/users/${email}`">
+          {{ fullName }}
+        </nuxt-link>
+      </li>
+    </ul>
   </aside>
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'Sidebar',
+  data() {
+    return {
+      fullName: this.$store.state.user.fullName,
+      email: this.$store.state.user.email
+    };
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 .menu {
-  background-color: $light;
+  display: flex;
+  flex-flow: column nowrap;
   height: 100vh;
+  background-color: $light;
 }
 
 .menu-list {
+  flex: 1 1 auto;
   margin: 1rem;
 
   svg {
     margin-right: 10px;
+  }
+
+  &.bottom {
+    flex: 0 0 auto;
   }
 }
 
