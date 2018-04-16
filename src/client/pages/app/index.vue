@@ -33,9 +33,9 @@
 </template>
 
 <script>
-import post from '../../components/app/post';
-import deck from '../../components/app/deck';
-import list from '../../components/shared/list';
+import post from '@/components/app/post';
+import deck from '@/components/app/deck';
+import list from '@/components/shared/list';
 
 export default {
   layout: 'app',
@@ -45,12 +45,9 @@ export default {
     deck,
     list
   },
-  fetch({ store }) {
-    const { email } = store.state.user;
-    return store.dispatch('posts/fetchPosts', { email });
-  },
   data() {
     return {
+      posts: [],
       filterItems: [
         { text: 'Tags', icon: ['far', 'tag'] },
         { text: 'Social Accounts', icon: ['far', 'comment'] },

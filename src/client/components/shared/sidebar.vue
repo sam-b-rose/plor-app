@@ -25,8 +25,8 @@
     </ul>
     <ul class="menu-list bottom">
       <li>
-        <nuxt-link :to="`/users/${email}`">
-          {{ fullName }}
+        <nuxt-link :to="`/users/account`">
+          {{ name }}
         </nuxt-link>
       </li>
     </ul>
@@ -38,7 +38,7 @@ export default {
   name: 'Sidebar',
   data() {
     return {
-      fullName: this.$store.state.user.fullName,
+      name: this.$store.state.user.name,
       email: this.$store.state.user.email
     };
   }

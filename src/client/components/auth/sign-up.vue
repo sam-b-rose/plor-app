@@ -6,8 +6,8 @@
         <input
           class="input"
           type="text"
-          name="fullName"
-          v-model="fullName">
+          name="name"
+          v-model="name">
       </div>
     </div>
     <div class="field">
@@ -16,8 +16,7 @@
         <input
           class="input"
           v-model="email"
-          :rules="[isEmail, emailExists]"
-          @keyup="checkEmail"
+          :rules="[isEmail]"
           type="email"
           required>
       </div>
@@ -31,9 +30,7 @@
       <div class="control">
         <input
           class="input"
-          v-model="password1"
-          label="Password"
-          min="8"
+          v-model="password"
           type="password"
           required>
       </div>
@@ -44,7 +41,7 @@
       <div class="control">
         <input
           class="input"
-          v-model="password2"
+          v-model="passwordConfirm"
           :rules="[passwordsMatch]"
           type="password"
           required>
@@ -75,9 +72,7 @@
 </template>
 
 <script>
-import axios from '~/plugins/axios';
 import isEmail from 'validator/lib/isEmail';
-let emailTimeout = null;
 
 export default {
   props: {
@@ -91,9 +86,9 @@ export default {
   data() {
     return {
       email: '',
-      fullName: '',
-      password1: '',
-      password2: '',
+      name: '',
+      password: '',
+      passwordConfirm: '',
       pw1: true,
       pw2: true,
       emailExistsData: false
@@ -101,10 +96,9 @@ export default {
   },
   computed: {
     passwordsMatch() {
-      return this.password1 === this.password2 ? '' : "Passwords don't match";
-    },
-    emailExists() {
-      return this.emailExistsData ? 'User with that email already exists.' : '';
+      return this.password === this.passwordConfirm
+        ? ''
+        : "Passwords don't match";
     },
     isEmail() {
       return !isEmail(this.email) && this.email.length
@@ -113,32 +107,13 @@ export default {
     }
   },
   methods: {
-    checkEmail(e) {
-      clearTimeout(emailTimeout);
-      emailTimeout = setTimeout(() => {
-        let email = e.target.value;
-        axios
-          .get(`/users/check`, {
-            params: {
-              check: 'email',
-              data: email
-            }
-          })
-          .then(data => {
-            this.emailExistsData = data.data.exists;
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      }, 500);
-    },
     submit() {
       this.$store
-        .dispatch('user/signUp', {
+        .dispatch('user/register', {
           email: this.email,
-          fullName: this.fullName,
-          password1: this.password1,
-          password2: this.password2
+          name: this.name,
+          password: this.password,
+          passwordConfirm: this.passwordConfirm
         })
         .then(() => {
           if (this.$store.state.notification.success) {

@@ -7,17 +7,17 @@
 </template>
 
 <script>
-import signUp from '~/components/auth/sign-up'
+import signUp from '~/components/auth/sign-up';
 
 export default {
   layout: 'auth',
-  data () {
+  data() {
     return {
       redirect: { name: 'app' }
-    }
+    };
   },
   components: {
     signUp
   }
-}
+};
 </script>
