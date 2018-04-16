@@ -31,7 +31,7 @@
       <div class="control">
         <p>
           New to us?
-          <nuxt-link :to="{ name: 'users-auth-sign-up' }">Sign in</nuxt-link>
+          <nuxt-link :to="{ name: 'users-auth-sign-up' }">Sign up</nuxt-link>
         </p>
       </div>
     </div>
@@ -57,7 +57,7 @@ export default {
   methods: {
     signIn() {
       this.$store
-        .dispatch('user/signIn', {
+        .dispatch('user/login', {
           email: this.email,
           password: this.password
         })

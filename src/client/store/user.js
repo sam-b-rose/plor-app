@@ -4,160 +4,153 @@ import Cookies from 'js-cookie';
 export const state = () => {
   return {
     isAuthenticated: false,
-    token: '',
-    fullName: '',
-    email: '',
-    admin: false
+    name: '',
+    email: ''
   };
 };
 
 export const mutations = {
-  SIGN_UP_REQUEST(state) {
-    state.signUpPending = true;
-    console.log('Sign Up pending...');
+  REGISTER_REQUEST(state) {
+    state.registerPending = true;
+    console.log('Register pending...');
   },
-  SIGN_UP_SUCCESS(state, user) {
-    console.log('Sign Up success!');
-  },
-  SIGN_UP_FAILURE(state, error) {
-    console.log('Sign Up Failure.');
-    console.error(error);
-  },
-  SIGN_IN_REQUEST(state) {
-    state.signInPending = false;
-    console.log('Sign In pending...');
-  },
-  SIGN_IN_SUCCESS(state, data) {
-    if (process.browser) Cookies.set('token', `${data.token}`);
-    state.fullName = data.user.fullName;
-    state.admin = data.user.admin;
+  REGISTER_SUCCESS(state, user) {
+    state.name = data.user.name;
     state.email = data.user.email;
-    state.token = data.token;
     state.isAuthenticated = true;
-    console.log('Sign In success!');
+    console.log('Register success!');
   },
-  SIGN_IN_FAILURE(state, error) {
-    console.log('Sign In Failure.', error.response.data);
+  REGISTER_FAILURE(state, error) {
+    console.log('Register failure.');
     console.error(error);
   },
-  SIGN_OUT_REQUEST(state) {
-    // send post request to revoke token.
-    console.log('Sign out request pending....');
+  LOGIN_REQUEST(state) {
+    state.registerPending = false;
+    console.log('Login pending...');
   },
-  SIGN_OUT_SUCCESS(state, message) {
-    Cookies.remove('token');
-    state.isAuthenticated = false;
-    state.token = '';
-    state.fullName = '';
-    state.email = '';
-    console.log('Sign out success!', message);
-  },
-  SIGN_OUT_FAILURE(state, error) {
-    console.error(error);
-  },
-  UPDATE_USER_REQUEST(state) {
-    console.log('Update user pending...');
-  },
-  UPDATE_USER_SUCCESS(state, data) {
-    state.fullName = data.user.fullName;
+  LOGIN_SUCCESS(state, data) {
+    state.name = data.user.name;
     state.email = data.user.email;
-    console.log('Update user success!');
+    state.isAuthenticated = true;
+    console.log('Login success!');
   },
-  UPDATE_USER_FAILURE(error) {
+  LOGIN_FAILURE(state, error) {
+    console.log('Login failure.', error.response.data);
     console.error(error);
   },
-  UPDATE_PASSWORD_REQUEST(state) {
-    console.log('Update password pending...');
+  LOGOUT_REQUEST(state) {
+    console.log('Logout request pending....');
   },
-  UPDATE_PASSWORD_SUCCESS(state, data) {
-    console.log('Update password success!');
-  },
-  UPDATE_PASSWORD_FAILURE(error) {
-    console.error(error);
-  },
-  DELETE_USER_REQUEST(state) {
-    console.log('Delete user pending...');
-  },
-  DELETE_USER_SUCCESS(state, message) {
-    Cookies.remove('token');
+  LOGOUT_SUCCESS(state, message) {
     state.isAuthenticated = false;
-    Object.keys(state).forEach(key => {
-      if (typeof key === 'string') state[key] = '';
-    });
-    console.log('Delete user success!');
+    state.name = '';
+    state.email = '';
+    console.log('Logout success!', message);
   },
-  DELETE_USER_FAILURE(error) {
+  LOGOUT_FAILURE(state, error) {
+    console.log('Logout failure.', error.response.data);
+    console.error(error);
+  },
+  UPDATE_ACCOUNT_REQUEST(state) {
+    console.log('Update account pending...');
+  },
+  UPDATE_ACCOUNT_SUCCESS(state, data) {
+    state.name = data.user.name;
+    state.email = data.user.email;
+    console.log('Update account success!');
+  },
+  UPDATE_ACCOUNT_FAILURE(error) {
+    console.log('Update account failure.', error.response.data);
+    console.error(error);
+  },
+  FORGOT_PASSWORD_REQUEST(state) {
+    console.log('Sending password reset email pending...');
+  },
+  FORGOT_PASSWORD_SUCCESS(state, data) {
+    console.log('Password reset email sent!');
+  },
+  FORGOT_PASSWORD_FAILURE(error) {
+    console.log('Password reset email send failure.', error.response.data);
+    console.error(error);
+  },
+  RESET_PASSWORD_REQUEST(state) {
+    console.log('Password reset pending...');
+  },
+  RESET_PASSWORD_SUCCESS(state, data) {
+    console.log('Password reset sent!');
+  },
+  RESET_PASSWORD_FAILURE(error) {
+    console.log('Password reset failure.', error.response.data);
     console.error(error);
   }
 };
 
 export const actions = {
-  async signUp({ commit }, payload) {
+  async register({ commit }, payload) {
     try {
-      commit('SIGN_UP_REQUEST');
-      let { data } = await axios.post('/users', payload);
-      commit('SIGN_UP_SUCCESS', data);
+      commit('REGISTER_REQUEST');
+      let { data } = await axios.post('/users/register', payload);
+      commit('REGISTER_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
-      commit('SIGN_UP_FAILURE', error);
+      commit('REGISTER_FAILURE', error);
       commit('notification/FAILURE', error.response.data, { root: true });
     }
   },
-  async signIn({ commit }, payload) {
+  async login({ commit }, payload) {
     try {
-      commit('SIGN_IN_REQUEST');
+      commit('LOGIN_REQUEST');
       commit('notification/PENDING', null, { root: true });
-      let { data } = await axios.post('/users/sign-in', payload);
-      commit('SIGN_IN_SUCCESS', data);
+      let { data } = await axios.post('/users/login', payload);
+      commit('LOGIN_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
-      commit('SIGN_IN_FAILURE', error);
+      commit('LOGIN_FAILURE', error);
       commit('notification/FAILURE', error.response.data, { root: true });
     }
   },
-  async signOut({ commit }) {
+  async logout({ commit }) {
     try {
-      commit('SIGN_OUT_REQUEST');
-      let { data } = await axios.post('/users/sign-out');
-      commit('SIGN_OUT_SUCCESS', data);
+      commit('LOGOUT_REQUEST');
+      let { data } = await axios.post('/users/logout');
+      commit('LOGOUT_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
       commit('CLEAR_LISTS', null, { root: true });
     } catch (error) {
-      commit('SIGN_OUT_FAILURE', error);
+      commit('LOGOUT_FAILURE', error);
       commit('notification/FAILURE', error.response.data, { root: true });
     }
   },
-  async updateUser({ state, commit }, payload) {
+  async updateAccount({ state, commit }, payload) {
     try {
-      commit('UPDATE_USER_REQUEST');
-      let { data } = await axios.post(`/users/${payload.email}`, payload);
-      commit('UPDATE_USER_SUCCESS', data);
+      commit('UPDATE_ACCOUNT_REQUEST');
+      let { data } = await axios.post(`/users/account`, payload);
+      commit('UPDATE_ACCOUNT_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
-      commit('UPDATE_USER_FAILURE', error);
+      commit('UPDATE_ACCOUNT_FAILURE', error);
       commit('notification/FAILURE', error.response.data, { root: true });
     }
   },
-  async updatePassword({ state, commit }, payload) {
+  async forgotPassword({ state, commit }, payload) {
     try {
-      commit('UPDATE_PASSWORD_REQUEST');
-      let { data } = await axios.post(`/users/password`, payload);
-      commit('UPDATE_PASSWORD_SUCCESS', data);
+      commit('FORGOT_PASSWORD_REQUEST');
+      let { data } = await axios.post(`/users/account/forgot`, payload);
+      commit('FORGOT_PASSWORD_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
-      commit('UPDATE_PASSWORD_FAILURE', error);
+      commit('FORGOT_PASSWORD_FAILURE', error);
       commit('notification/FAILURE', error.response.data, { root: true });
     }
   },
-  async deleteUser({ state, commit }) {
+  async resetPassword({ state, commit }, payload) {
     try {
-      commit('DELETE_USER_REQUEST');
-      let { data } = await axios.delete(`/users/${state.email}`);
-      commit('DELETE_USER_SUCCESS', data);
+      commit('RESET_PASSWORD_REQUEST');
+      let { data } = await axios.post(`/users/account/reset/${token}`, payload);
+      commit('RESET_PASSWORD_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
-      commit('CLEAR_LISTS', null, { root: true });
     } catch (error) {
-      commit('DELETE_USER_FAILURE', error);
+      commit('RESET_PASSWORD_FAILURE', error);
       commit('notification/FAILURE', error.response.data, { root: true });
     }
   }

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import signIn from '../components/auth/sign-in';
+import signIn from '@/components/auth/sign-in';
 
 export default {
   components: {

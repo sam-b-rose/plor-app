@@ -18,9 +18,9 @@
               <input
                 v-if="isEditing"
                 class="input"
-                v-model="fullName"
+                v-model="name"
                 type="text">
-              <p v-else>{{ fullName }}</p>
+              <p v-else>{{ name }}</p>
             </div>
           </div>
           <div class="field">
@@ -54,7 +54,7 @@
           </div>
           <div
             v-else
-            class="field">
+            class="field is-grouped">
             <div class="control">
               <button
                 class="button"
@@ -62,44 +62,11 @@
                 Edit
               </button>
             </div>
-          </div>
-        </form>
-
-        <hr>
-        <form @submit.prevent @keyup.enter="updatePassword">
-          <div class="field">
-            <label class="label">Current password</label>
-            <div class="control">
-              <input
-                class="input"
-                v-model="password"
-                type="password">
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">New Password</label>
-            <div class="control">
-              <input
-                class="input"
-                type="password"
-                v-model="password1">
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Confirm Password</label>
-            <div class="control">
-              <input
-                class="input"
-                type="password"
-                v-model="password2">
-            </div>
-          </div>
-          <div class="field">
             <div class="control">
               <button
                 class="button"
-                @click="updatePassword">
-                Update
+                @click="reset">
+                Reset password
               </button>
             </div>
           </div>
@@ -118,45 +85,21 @@ export default {
   data() {
     return {
       isEditing: false,
-      fullName: this.$store.state.fetchedUser.fullName,
-      email: this.$store.state.fetchedUser.email,
-      password: '',
-      password1: '',
-      password2: ''
+      name: this.$store.state.user.name,
+      email: this.$store.state.user.email
     };
   },
-  fetch({ store, params, req }) {
-    const email = params.email;
-    const token = process.SERVER_BUILD
-      ? req.cookies.token
-      : Cookies.get('token');
-    return store.dispatch('fetchedUser/fetchUser', { email, token });
-  },
   methods: {
-    deleteUser() {
-      this.$store.dispatch('user/deleteUser').then(() => {
-        this.$router.replace({ path: '/' });
-      });
-    },
     updateUser() {
-      const { email, fullName } = this;
-      this.$store.dispatch('user/updateUser', { email, fullName }).then(() => {
+      const { email, name } = this;
+      this.$store.dispatch('user/updateAccount', { email, name }).then(() => {
         this.isEditing = false;
       });
     },
-    updatePassword() {
-      const { password, password1, password2 } = this;
-      this.$store
-        .dispatch('user/updatePassword', {
-          password,
-          password1,
-          password2
-        })
-        .then(() => {
-          this.password = '';
-          this.password1 = '';
-          this.password2 = '';
-        });
+    reset() {
+      this.$store.dispatch('user/forgotPassword').then(() => {
+        console.log(`Password reset has been sent to ${this.email}`);
+      });
     }
   }
 };

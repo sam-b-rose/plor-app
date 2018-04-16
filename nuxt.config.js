@@ -8,7 +8,7 @@ require('dotenv').config({
 module.exports = {
   build: {
     extractCSS: true,
-    vendor: ['jwt-decode', 'axios'],
+    vendor: ['axios'],
     postcss: [require('autoprefixer')()]
   },
   buildDir: 'dist/client',

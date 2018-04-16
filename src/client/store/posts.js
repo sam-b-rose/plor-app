@@ -18,16 +18,6 @@ export const mutations = {
     console.log('Add post failure.');
     console.error(error);
   },
-  FETCH_POSTS_REQUEST(state) {
-    console.log('Fetch posts pending...');
-  },
-  FETCH_POSTS_SUCCESS(state, data) {
-    state.posts = data;
-    console.log('Fetch posts success!');
-  },
-  FETCH_POSTS_FAILURE(state, error) {
-    console.error(error.response.data.error);
-  },
   DELETE_POST_REQUEST(state) {
     console.log('Delete post pending...');
   },
@@ -55,19 +45,6 @@ export const actions = {
       commit('notification/FAILURE', error.response.data, { root: true });
     }
   },
-
-  async fetchPosts({ commit }, { email }) {
-    try {
-      commit('FETCH_POSTS_REQUEST');
-      let { data } = await axios.get(`/posts/by/${email}`);
-      commit('FETCH_POSTS_SUCCESS', data);
-      commit('notification/SUCCESS', data, { root: true });
-    } catch (error) {
-      commit('FETCH_POSTS_FAILURE', error);
-      commit('notification/FAILURE', error.response.data, { root: true });
-    }
-  },
-
   async deletePost({ state, commit }) {
     try {
       commit('DELETE_POST_REQUEST');
@@ -76,7 +53,7 @@ export const actions = {
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
       commit('DELETE_POST_FAILURE', error);
-      commit('notification/SUCCESS', error.response.data, { root: true });
+      commit('notification/FAILURE', error.response.data, { root: true });
     }
   }
 };

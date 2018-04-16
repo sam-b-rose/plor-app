@@ -1,13 +1,11 @@
 <template>
-  <div>
-    Welcome to the admin
-  </div>
+  <div>Reset password</div>
 </template>
 
 <script>
 export default {
-  middleware: 'admin'
-}
+  name: 'Reset'
+};
 </script>
 
 <style>
