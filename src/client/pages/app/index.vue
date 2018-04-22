@@ -8,42 +8,58 @@
         <h3 class="title is-4">Posts</h3>
       </div>
       <div class="navbar-end">
-        <nuxt-link class="navbar-item is-tab is-active" to="/">Queue</nuxt-link>
-        <nuxt-link class="navbar-item is-tab" to="/">Drafts</nuxt-link>
-        <nuxt-link class="navbar-item is-tab" to="/">History</nuxt-link>
+        <nuxt-link
+          class="navbar-item is-tab is-active"
+          to="/">
+          Queue
+        </nuxt-link>
+        <nuxt-link
+          class="navbar-item is-tab"
+          to="/">
+          Drafts
+        </nuxt-link>
+        <nuxt-link
+          class="navbar-item is-tab"
+          to="/">
+          History
+        </nuxt-link>
       </div>
     </nav>
     <div class="tile is-ancestor">
       <div class="tile is-parent is-vertical is-3">
-        <list class="tile is-child" :items="filterItems"/>
+        <PlorList
+          class="tile is-child"
+          :items="filterItems" />
       </div>
       <div class="tile is-parent is-vertical is-6">
-        <post class="tile is-child" />
-        <deck class="tile is-child" />
+        <PlorPost class="tile is-child" />
+        <PlorDeck class="tile is-child" />
       </div>
       <div class="tile is-parent is-vertical is-3">
         <div class="tile is-child notification">
           <button class="delete" />
           <small>Try <strong class="has-text-info">adding networks</strong> to help spread the word about your awesome sock business!</small>
         </div>
-        <list class="tile is-child" :items="connectionItems" />
+        <PlorList
+          class="tile is-child"
+          :items="connectionItems" />
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import post from '@/components/app/post';
-import deck from '@/components/app/deck';
-import list from '@/components/shared/list';
+import PlorPost from '@/components/app/PlorPost';
+import PlorDeck from '@/components/app/PlorDeck';
+import PlorList from '@/components/shared/PlorList';
 
 export default {
   layout: 'app',
   middleware: 'authenticated',
   components: {
-    post,
-    deck,
-    list
+    PlorPost,
+    PlorDeck,
+    PlorList
   },
   data() {
     return {

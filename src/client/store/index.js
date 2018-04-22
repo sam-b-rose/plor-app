@@ -9,6 +9,7 @@ export const mutations = {
     state.user.isAuthenticated = true;
     state.user.name = data.name;
     state.user.email = data.email;
+    state.user.gravatar = data.gravatar;
   }
 };
 export const actions = {

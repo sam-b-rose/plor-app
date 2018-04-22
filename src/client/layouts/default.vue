@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar />
+    <PlorNavbar />
     <main>
       <nuxt />
     </main>
@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import navbar from '~/components/shared/navbar';
+import PlorNavbar from '~/components/shared/PlorNavbar';
 
 export default {
   components: {
-    navbar
+    PlorNavbar
   }
 };
 </script>

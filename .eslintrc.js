@@ -13,17 +13,6 @@ module.exports = {
   // required to lint *.vue files
   plugins: ['vue'],
   // add your custom rules here
-  rules: {
-    'vue/max-attributes-per-line': [
-      2,
-      {
-        singleline: 2,
-        multiline: {
-          max: 1,
-          allowFirstLine: false
-        }
-      }
-    ]
-  },
+  rules: {},
   globals: {}
 };

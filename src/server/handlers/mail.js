@@ -1,17 +1,39 @@
-import nodemailer from 'nodemailer';
+import { createTransport, createTestAccount } from 'nodemailer';
 import pug from 'pug';
 import juice from 'juice';
 import htmlToText from 'html-to-text';
-import promisify from 'es6-promisify';
 
-const transport = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT,
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS
+let transporter = null;
+
+// Generate SMTP service account from ethereal.email
+createTestAccount((err, account) => {
+  if (err) {
+    console.error('Failed to create a testing account. ' + err.message);
+    return;
   }
+
+  console.log('Credentials obtained, sending message...');
+
+  // Create a SMTP transporter object
+  transporter = createTransport({
+    host: account.smtp.host,
+    port: account.smtp.port,
+    secure: account.smtp.secure,
+    auth: {
+      user: account.user,
+      pass: account.pass
+    }
+  });
 });
+
+// const transport = nodemailer.createTransport({
+//   host: process.env.MAIL_HOST,
+//   port: process.env.MAIL_PORT,
+//   auth: {
+//     user: process.env.MAIL_USER,
+//     pass: process.env.MAIL_PASS
+//   }
+// });
 
 const generateHTML = (filename, options = {}) => {
   const html = pug.renderFile(
@@ -34,7 +56,6 @@ export default {
       html,
       text
     };
-    const sendMail = promisify(transport.sendMail, transport);
-    return sendMail(mailOptions);
+    await transport.sendMail(mailOptions);
   }
 };

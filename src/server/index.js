@@ -10,7 +10,6 @@ dotenv.config({
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DB_URL, { useMongoClient: true });
 
-
 // Start our app!
 app.listen(process.env.PORT, process.env.HOST, err => {
   if (err) {

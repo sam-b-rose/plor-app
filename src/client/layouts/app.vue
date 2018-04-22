@@ -1,6 +1,6 @@
 <template>
   <div class="columns is-gapless">
-    <sidebar class="sidebar column is-one-fifth" />
+    <PlorSidenav class="sidebar column is-one-fifth" />
     <main class="column">
       <nuxt />
     </main>
@@ -8,14 +8,14 @@
 </template>
 
 <script>
-import sidebar from '~/components/shared/sidebar';
+import PlorSidenav from '~/components/shared/PlorSidenav';
 
 export default {
-  components: {
-    sidebar
-  },
   data() {
     return {};
+  },
+  components: {
+    PlorSidenav
   }
 };
 </script>

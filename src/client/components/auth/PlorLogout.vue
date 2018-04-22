@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     signOut() {
-      this.$store.dispatch('user/signOut').then(() => {
+      this.$store.dispatch('user/logout').then(() => {
         if (this.$store.state.notification.success)
           this.$router.replace(this.redirect);
       });
