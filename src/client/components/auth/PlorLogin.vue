@@ -1,5 +1,7 @@
 <template>
-  <form @submit.prevent @keyup.enter="signIn">
+  <form
+    @submit.prevent
+    @keyup.enter="signIn">
     <div class="field">
       <label class="label">Email</label>
       <div class="control">
@@ -31,7 +33,7 @@
       <div class="control">
         <p>
           New to us?
-          <nuxt-link :to="{ name: 'users-auth-sign-up' }">Sign up</nuxt-link>
+          <nuxt-link :to="{ name: 'auth-register' }">Sign up</nuxt-link>
         </p>
       </div>
     </div>

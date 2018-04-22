@@ -17,6 +17,7 @@ export const mutations = {
   REGISTER_SUCCESS(state, user) {
     state.name = data.user.name;
     state.email = data.user.email;
+    state.gravatar = data.user.gravatar;
     state.isAuthenticated = true;
     console.log('Register success!');
   },
@@ -31,6 +32,7 @@ export const mutations = {
   LOGIN_SUCCESS(state, data) {
     state.name = data.user.name;
     state.email = data.user.email;
+    state.gravatar = data.user.gravatar;
     state.isAuthenticated = true;
     console.log('Login success!');
   },

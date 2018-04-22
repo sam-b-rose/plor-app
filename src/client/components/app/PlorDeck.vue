@@ -4,7 +4,7 @@
     <p>11:00 AM</p>
     <div
       v-for="post in $store.state.posts.posts"
-      :key="post.id">
+      :key="post._id">
       {{ post.message }}
     </div>
   </div>
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'Deck'
+  name: 'PlorDeck'
 };
 </script>
 

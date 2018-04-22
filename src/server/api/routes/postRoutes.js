@@ -5,8 +5,14 @@ import { catchErrors } from '../../handlers/errorHandlers';
 
 const router = Router();
 
+router.get(
+  '/',
+  authController.isLoggedIn,
+  catchErrors(postController.getPosts)
+);
+
 router.post(
-  '/posts',
+  '/',
   authController.isLoggedIn,
   catchErrors(postController.addPost)
 );

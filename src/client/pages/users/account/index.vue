@@ -11,7 +11,9 @@
     </nav>
     <div class="columns">
       <div class="column is-half">
-        <form @submit.prevent @keyup.enter="save">
+        <form
+          @submit.prevent
+          @keyup.enter="save">
           <div class="field">
             <label class="label">Full Name</label>
             <div class="control">
@@ -64,7 +66,7 @@
             </div>
             <div class="control">
               <button
-                class="button"
+                class="button is-text"
                 @click="reset">
                 Reset password
               </button>
@@ -77,7 +79,6 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie';
 export default {
   name: 'Profile',
   middleware: 'authenticated',
@@ -97,7 +98,8 @@ export default {
       });
     },
     reset() {
-      this.$store.dispatch('user/forgotPassword').then(() => {
+      const { email } = this;
+      this.$store.dispatch('user/forgotPassword', { email }).then(() => {
         console.log(`Password reset has been sent to ${this.email}`);
       });
     }

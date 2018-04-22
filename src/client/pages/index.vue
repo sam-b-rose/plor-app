@@ -14,15 +14,8 @@
 </template>
 
 <script>
-import signIn from '@/components/auth/sign-in';
-
 export default {
-  components: {
-    signIn
-  }
+  name: 'Home',
+  layout: 'default'
 };
 </script>
-
-<style scoped>
-
-</style>

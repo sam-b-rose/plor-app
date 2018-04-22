@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'List',
+  name: 'PlorList',
   props: {
     textKey: {
       type: String,

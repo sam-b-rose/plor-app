@@ -65,7 +65,7 @@ export const twitter = {
         }
       );
     } else {
-      res.redirect('/users/auth/sign-in');
+      res.redirect('/auth/login');
     }
   }
 };

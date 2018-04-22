@@ -2,12 +2,12 @@
   <div>
     <h1 class="title">Sign up</h1>
     <h2 class="subtitle">Create an account</h2>
-    <sign-up :redirect="redirect"/>
+    <PlorRegister :redirect="redirect"/>
   </div>
 </template>
 
 <script>
-import signUp from '~/components/auth/sign-up';
+import PlorRegister from '~/components/auth/PlorRegister';
 
 export default {
   layout: 'auth',
@@ -17,7 +17,7 @@ export default {
     };
   },
   components: {
-    signUp
+    PlorRegister
   }
 };
 </script>

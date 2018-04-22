@@ -1,6 +1,8 @@
 <template>
   <aside class="menu">
-    <div class="profile" />
+    <div
+      class="profile"
+      :style="{ backgroundImage: `url('${gravatar}')` }"/>
     <ul class="menu-list">
       <li>
         <nuxt-link to="/app">
@@ -35,11 +37,12 @@
 
 <script>
 export default {
-  name: 'Sidebar',
+  name: 'PlorSidenav',
   data() {
     return {
       name: this.$store.state.user.name,
-      email: this.$store.state.user.email
+      email: this.$store.state.user.email,
+      gravatar: this.$store.state.user.gravatar
     };
   }
 };
@@ -83,5 +86,6 @@ a.nuxt-link-active {
   margin: 6rem auto;
   border-radius: 50%;
   background-color: $gray;
+  background-size: cover;
 }
 </style>

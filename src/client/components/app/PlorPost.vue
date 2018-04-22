@@ -52,17 +52,12 @@ export default {
   },
   methods: {
     submit() {
-      this.$store
-        .dispatch('posts/addPost', {
-          message: this.message,
-          email: this.$store.state.user.email
-        })
-        .then(() => {
-          if (this.$store.state.notification.success) {
-            console.log('Post added!');
-            this.message = '';
-          }
-        });
+      this.$store.dispatch('posts/addPost', { text: this.message }).then(() => {
+        if (this.$store.state.notification.success) {
+          console.log('Post added!');
+          this.message = '';
+        }
+      });
     }
   }
 };
