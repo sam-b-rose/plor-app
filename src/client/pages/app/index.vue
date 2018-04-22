@@ -61,6 +61,9 @@ export default {
     PlorDeck,
     PlorList
   },
+  async fetch({ store }) {
+    await store.dispatch('posts/fetchPosts');
+  },
   data() {
     return {
       posts: [],
