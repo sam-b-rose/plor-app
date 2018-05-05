@@ -14,7 +14,7 @@ export const mutations = {
     state.registerPending = true;
     console.log('Register pending...');
   },
-  REGISTER_SUCCESS(state, user) {
+  REGISTER_SUCCESS(state, data) {
     state.name = data.user.name;
     state.email = data.user.email;
     state.gravatar = data.user.gravatar;

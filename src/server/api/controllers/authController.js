@@ -19,7 +19,7 @@ export default {
 
   async logout(req, res) {
     req.logout();
-    req.json({ message: 'You are now logged out! 👋' });
+    res.json({ message: 'You are now logged out! 👋' });
   },
 
   async isLoggedIn(req, res, next) {
