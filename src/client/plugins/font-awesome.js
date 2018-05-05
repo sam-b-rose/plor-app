@@ -1,10 +1,20 @@
 import Vue from 'vue';
 
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
+import {
+  FontAwesomeIcon,
+  FontAwesomeLayers
+} from '@fortawesome/vue-fontawesome';
 import fontawesome from '@fortawesome/fontawesome';
 
 // Brands
-import { faFacebook, faTwitter } from '@fortawesome/fontawesome-free-brands';
+import {
+  faFacebook,
+  faFacebookF,
+  faTwitter
+} from '@fortawesome/fontawesome-free-brands';
+
+// Solid
+import faCircle from '@fortawesome/fontawesome-pro-solid/faCircle';
 
 // Regular
 import faComment from '@fortawesome/fontawesome-pro-regular/faComment';
@@ -17,7 +27,10 @@ import faUsers from '@fortawesome/fontawesome-pro-regular/faUsers';
 fontawesome.library.add(
   // Brands
   faFacebook,
+  faFacebookF,
   faTwitter,
+  // Solid
+  faCircle,
   // Regular
   faImage,
   faImages,
@@ -27,3 +40,4 @@ fontawesome.library.add(
   faUsers
 );
 Vue.component(FontAwesomeIcon.name, FontAwesomeIcon);
+Vue.component(FontAwesomeLayers.name, FontAwesomeLayers);

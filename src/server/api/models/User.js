@@ -28,8 +28,8 @@ const userSchema = new Schema(
       trim: true
     },
     resetPasswordToken: String,
-    resetPasswordExpires: Date
-    // connections: [{ type: mongoose.Schema.ObjectId, ref: 'Connection' }]
+    resetPasswordExpires: Date,
+    connections: [{ type: mongoose.Schema.ObjectId, ref: 'Connection' }]
   },
   {
     toObject: { virtuals: true },
@@ -42,14 +42,7 @@ userSchema.virtual('gravatar').get(function() {
   return `https://gravatar.com/avatar/${hash}?s=200`;
 });
 
-// find posts where the users _id property === posts author property
-// userSchema.virtual('posts', {
-//   ref: 'Post', // what model to link?
-//   localField: '_id', // which field on the user?
-//   foreignField: 'author' // which field on the post?
-// });
-
 userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
-// userSchema.plugin(mongodbErrorHandler);
+userSchema.plugin(mongodbErrorHandler);
 
 export default mongoose.model('User', userSchema);

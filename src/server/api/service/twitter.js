@@ -1,16 +1,18 @@
 import OAuth from 'oauth';
-import { connections } from '../connections/services';
+import Connection from '../models/Connection';
 
+// Plor Twitter info
 const oauthToken = 'UWQ2xMGVAUgLvjslljpjyrnaa';
 const oauthTokenSecret = '8sfT2zKZJ0bAR24EMkBdMVGtP3MBp6IpnblPBqZ0hSK0OQCwvN';
 
+// Configure oauth
 const oauth = new OAuth.OAuth(
   'https://api.twitter.com/oauth/request_token',
   'https://api.twitter.com/oauth/access_token',
   oauthToken,
   oauthTokenSecret,
   '1.0A',
-  'http://localhost:3000/api/connect/twitter/callback',
+  'http://localhost:3000/api/connections/twitter/callback',
   'HMAC-SHA1'
 );
 
@@ -55,11 +57,11 @@ export const twitter = {
             req.session.oauth.accessToken = oauthAccessToken;
             req.session.oauth.accessTokenSecret = oauthAccessTokenSecret;
             console.log(req.session.oauth);
-            await connections.create(
-              'twitter',
-              req.user.email,
-              req.session.oauth
-            );
+            const newConnection = new Connection({
+              type: 'twitter',
+              oauth: req.session.oauth
+            });
+            const connection = await newConnection.save();
             res.redirect('/manage');
           }
         }
