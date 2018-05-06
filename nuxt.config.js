@@ -38,7 +38,7 @@ module.exports = {
   modules: [
     '@nuxtjs/pwa',
     '@nuxtjs/component-cache',
-    'nuxt-sass-resources-loader'
+    '~~/node_modules/nuxt-sass-resources-loader'
   ],
   sassResources: ['@/assets/style/variables.scss'],
   plugins: ['~/plugins/axios', '~/plugins/font-awesome'],
@@ -56,7 +56,7 @@ module.exports = {
     }
   },
   router: {
-    middleware: ['ssr-cookie', 'https']
+    middleware: ['https']
   },
   srcDir: path.resolve(__dirname, 'src', 'client')
 };
