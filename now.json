@@ -1,4 +1,5 @@
 {
   "name": "plor",
-  "dotenv": ".prod.env"
+  "dotenv": ".prod.env",
+  "forwardNpm": true
 }

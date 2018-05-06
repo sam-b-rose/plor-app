@@ -38,8 +38,9 @@ module.exports = {
   modules: [
     '@nuxtjs/pwa',
     '@nuxtjs/component-cache',
-    ['nuxt-sass-resources-loader', '@/assets/style/variables.scss']
+    'nuxt-sass-resources-loader'
   ],
+  sassResources: ['@/assets/style/variables.scss'],
   plugins: ['~/plugins/axios', '~/plugins/font-awesome'],
   loading: {
     color: '#2b67f5'
