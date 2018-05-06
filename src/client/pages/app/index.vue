@@ -68,9 +68,9 @@ export default {
     return {
       posts: [],
       filterItems: [
-        { text: 'Tags', icon: ['far', 'tag'] },
+        { text: 'Tags', icon: ['fas', 'tag'] },
         { text: 'Social Accounts', icon: ['far', 'comment'] },
-        { text: 'Members', icon: ['far', 'users'] },
+        { text: 'Members', icon: ['fas', 'users'] },
         { text: 'Media', icon: ['far', 'images'] }
       ],
       connectionItems: [

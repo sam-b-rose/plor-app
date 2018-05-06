@@ -14,15 +14,17 @@ import {
 } from '@fortawesome/fontawesome-free-brands';
 
 // Solid
-import faCircle from '@fortawesome/fontawesome-pro-solid/faCircle';
+import faCircle from '@fortawesome/fontawesome-free-solid/faCircle';
+import faTag from '@fortawesome/fontawesome-free-solid/faTag';
+import faUsers from '@fortawesome/fontawesome-free-solid/faUsers';
 
 // Regular
-import faComment from '@fortawesome/fontawesome-pro-regular/faComment';
-import faImage from '@fortawesome/fontawesome-pro-regular/faImage';
-import faImages from '@fortawesome/fontawesome-pro-regular/faImages';
-import faSquare from '@fortawesome/fontawesome-pro-regular/faSquare';
-import faTag from '@fortawesome/fontawesome-pro-regular/faTag';
-import faUsers from '@fortawesome/fontawesome-pro-regular/faUsers';
+import faComment from '@fortawesome/fontawesome-free-regular/faComment';
+import faImage from '@fortawesome/fontawesome-free-regular/faImage';
+import faImages from '@fortawesome/fontawesome-free-regular/faImages';
+import faSquare from '@fortawesome/fontawesome-free-regular/faSquare';
+// import faTag from '@fortawesome/fontawesome-pro-regular/faTag';
+// import faUsers from '@fortawesome/fontawesome-pro-regular/faUsers';
 
 fontawesome.library.add(
   // Brands
