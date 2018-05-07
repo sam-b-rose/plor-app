@@ -38,7 +38,7 @@ module.exports = {
   modules: [
     '@nuxtjs/pwa',
     '@nuxtjs/component-cache',
-    '~~/node_modules/nuxt-sass-resources-loader'
+    'nuxt-sass-resources-loader'
   ],
   sassResources: ['@/assets/style/variables.scss'],
   plugins: ['~/plugins/axios', '~/plugins/font-awesome'],
