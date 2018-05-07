@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import app from './app';
 
 dotenv.config({
-  path: process.env.NODE_ENV === 'production' ? '.prod.env' : '.env'
+  path: process.env.NODE_ENV === 'production' ? '.prod.env' : '.dev.env'
 });
 
 // setup the database connection
