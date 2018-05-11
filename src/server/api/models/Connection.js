@@ -14,7 +14,11 @@ const connectionSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    required: 'Your connection must have type.'
+    required: 'Your connection must have a type.'
+  },
+  account: {
+    type: Object,
+    required: 'Your connection must have an account.'
   },
   oauth: {
     type: Object,

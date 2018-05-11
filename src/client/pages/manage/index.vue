@@ -38,6 +38,9 @@
           <div class="level-left">Social Accounts</div>
           <div class="level-right">
             <button class="button is-link is-small">+ Add Account</button>
+            <portal to="plor-modal">
+              Twitter or Facebook
+            </portal>
           </div>
         </div>
         <PlorTable
@@ -50,6 +53,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 import PlorList from '@/components/shared/PlorList';
 import PlorTable from '@/components/shared/PlorTable';
 
@@ -59,6 +64,9 @@ export default {
   components: {
     PlorList,
     PlorTable
+  },
+  async fetch({ store }) {
+    await store.dispatch('connections/fetchConnections');
   },
   data() {
     return {
@@ -70,23 +78,17 @@ export default {
         },
         {
           text: 'Connect to Twitter',
+          url: '/api/connections/twitter',
           icon: ['fab', 'twitter'],
           color: '#1DA1F2'
         }
       ],
       labels: ['Handle', 'Network'],
-      order: ['handle', 'type'],
-      connections: [
-        {
-          type: 'twitter',
-          handle: '_samrose3_'
-        },
-        {
-          type: 'facebook',
-          handle: 'samrose3'
-        }
-      ]
+      order: ['handle', 'type']
     };
+  },
+  computed: {
+    ...mapState('connections', ['connections'])
   }
 };
 </script>

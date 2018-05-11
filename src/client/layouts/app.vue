@@ -4,6 +4,15 @@
     <main class="column">
       <nuxt />
     </main>
+    <div class="modal">
+      <div class="modal-background" />
+      <div class="modal-content">
+        <portal-target name="plor-modal" />
+      </div>
+      <button
+        class="modal-close is-large"
+        aria-label="close" />
+    </div>
   </div>
 </template>
 

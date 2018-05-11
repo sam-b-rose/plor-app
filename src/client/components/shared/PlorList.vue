@@ -10,7 +10,11 @@
         :style="{ color: item.color }">
         <font-awesome-icon :icon="item.icon" />
       </span>
-      <span>{{ isObject ? item[textKey] : item }}</span>
+      <span>
+        <a :href="isObject && item.url">
+          {{ isObject ? item[textKey] : item }}
+        </a>
+      </span>
     </li>
   </ul>
 </template>

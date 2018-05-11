@@ -40,7 +40,7 @@
         </nuxt-link>
         <nuxt-link
           class="navbar-item"
-          to="/auth/login">
+          to="/auth/register">
           Sign up
         </nuxt-link>
       </div>

@@ -16,8 +16,7 @@
     "git": "run-s git-*",
     "start-app": "pm2 start ./dist/server/main.js -i max",
     "stop-app": "pm2 delete all",
-    "start-db":
-      "mongod --fork --dbpath ./db/data --logpath ./db/logs/mongodb.log",
+    "start-db": "mongod --fork --dbpath ./db/data --logpath ./db/logs/mongodb.log",
     "stop-db": "mongo --eval \"db.getSiblingDB('admin').shutdownServer()\"",
     "build-server": "backpack build",
     "build-client": "nuxt build",
@@ -25,8 +24,7 @@
     "precommit": "run-s lint",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "git-pull": "git pull",
-    "git-push":
-      "git add . && git commit -m 'General Update' && git push -u origin master"
+    "git-push": "git add . && git commit -m 'General Update' && git push -u origin master"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.5",
@@ -68,6 +66,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.0",
+    "portal-vue": "^1.3.0",
     "pug": "^2.0.0-rc.4",
     "slugs": "^0.1.3",
     "uuid": "^3.1.0",

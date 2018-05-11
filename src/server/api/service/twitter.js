@@ -1,9 +1,21 @@
+import dotenv from 'dotenv';
 import OAuth from 'oauth';
 import Connection from '../models/Connection';
+import axios from 'axios';
+
+const BASE_URL = 'https://api.twitter.com/1.1/';
+const _axios = axios.create({
+  baseURL: BASE_URL,
+  timeout: 1000
+});
+
+dotenv.config({
+  path: process.env.NODE_ENV === 'production' ? '.prod.env' : '.dev.env'
+});
 
 // Plor Twitter info
-const oauthToken = 'UWQ2xMGVAUgLvjslljpjyrnaa';
-const oauthTokenSecret = '8sfT2zKZJ0bAR24EMkBdMVGtP3MBp6IpnblPBqZ0hSK0OQCwvN';
+const oauthToken = process.env.TWITTER_API_KEY;
+const oauthTokenSecret = process.env.TWITTER_API_SECRET;
 
 // Configure oauth
 const oauth = new OAuth.OAuth(
@@ -15,6 +27,27 @@ const oauth = new OAuth.OAuth(
   'http://localhost:3000/api/connections/twitter/callback',
   'HMAC-SHA1'
 );
+
+const getOAuthAccessToken = (token, tokenSecret, verifier) => {
+  return new Promise((resolve, reject) => {
+    oauth.getOAuthAccessToken(
+      token,
+      tokenSecret,
+      verifier,
+      (error, oauthAccessToken, oauthAccessTokenSecret, results) => {
+        if (error) return reject(error);
+        resolve({ oauthAccessToken, oauthAccessTokenSecret, results });
+      }
+    );
+  });
+};
+
+function buildAuthHeader(params) {
+  const auth = ['OAuth '];
+  Object.keys(params).forEach(key => {
+    auth.push();
+  });
+}
 
 export const twitter = {
   async get(req, res) {
@@ -43,29 +76,31 @@ export const twitter = {
   async callback(req, res) {
     if (req.session.oauth && req.user.email) {
       req.session.oauth.verifier = req.query['oauth_verifier'];
-      const oauthData = req.session.oauth;
 
-      await oauth.getOAuthAccessToken(
-        oauthData.token,
-        oauthData.tokenSecret,
-        oauthData.verifier,
-        async (error, oauthAccessToken, oauthAccessTokenSecret, results) => {
-          if (error) {
-            console.log(error);
-            res.send('Authentication Failure!');
-          } else {
-            req.session.oauth.accessToken = oauthAccessToken;
-            req.session.oauth.accessTokenSecret = oauthAccessTokenSecret;
-            console.log(req.session.oauth);
-            const newConnection = new Connection({
-              type: 'twitter',
-              oauth: req.session.oauth
-            });
-            const connection = await newConnection.save();
-            res.redirect('/manage');
-          }
-        }
-      );
+      const { token, tokenSecret, verifier } = req.session.oauth;
+      try {
+        const {
+          oauthAccessToken,
+          oauthAccessTokenSecret,
+          results
+        } = await getOAuthAccessToken(token, tokenSecret, verifier);
+
+        req.session.oauth.accessToken = oauthAccessToken;
+        req.session.oauth.accessTokenSecret = oauthAccessTokenSecret;
+
+        const user = req.user._id;
+        const newConnection = new Connection({
+          user,
+          type: 'twitter',
+          account: results,
+          oauth: req.session.oauth
+        });
+        const connection = await newConnection.save();
+        res.redirect('/manage');
+      } catch (error) {
+        console.log(error);
+        res.end('Authentication Failure!', JSON.stringify(error));
+      }
     } else {
       res.redirect('/auth/login');
     }

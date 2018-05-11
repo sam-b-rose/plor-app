@@ -41,7 +41,11 @@ module.exports = {
     'nuxt-sass-resources-loader'
   ],
   sassResources: ['@/assets/style/variables.scss'],
-  plugins: ['~/plugins/axios', '~/plugins/font-awesome'],
+  plugins: [
+    '~/plugins/axios',
+    '~/plugins/font-awesome',
+    '~/plugins/portal-vue'
+  ],
   loading: {
     color: '#2b67f5'
   },
