@@ -3,7 +3,11 @@
 
 // Bulma Overrides
 .button {
+  border-width: 2px;
   border-radius: $default-radius;
+  padding-left: $button-padding-horizontal;
+  padding-right: $button-padding-horizontal;
+  font-weight: 700;
 }
 
 .card {
