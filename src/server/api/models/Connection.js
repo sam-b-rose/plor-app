@@ -16,9 +16,16 @@ const connectionSchema = new mongoose.Schema({
     type: String,
     required: 'Your connection must have a type.'
   },
-  account: {
+  uid: {
     type: Object,
-    required: 'Your connection must have an account.'
+    required: 'Your connection must have a unique identifier.'
+  },
+  handle: {
+    type: Object,
+    required: 'Your connection must have a handle name.'
+  },
+  profileImageUrl: {
+    type: String
   },
   oauth: {
     type: Object,

@@ -14,6 +14,11 @@
         <a :href="isObject && item.url">
           {{ isObject ? item[textKey] : item }}
         </a>
+        <nuxt-link
+          v-if="isObject && item.link"
+          :to="item.link">
+          {{ isObject ? item[textKey] : item }}
+        </nuxt-link>
       </span>
     </li>
   </ul>

@@ -11,7 +11,7 @@
         <nuxt-link
           class="navbar-item is-tab is-active"
           to="/">
-          Socail Accounts
+          Accounts
         </nuxt-link>
         <nuxt-link
           class="navbar-item is-tab"

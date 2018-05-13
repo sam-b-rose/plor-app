@@ -42,6 +42,20 @@ const getOAuthAccessToken = (token, tokenSecret, verifier) => {
   });
 };
 
+const oauthGet = (url, oauthAccessToken, oauthAccessTokenSecret) => {
+  return new Promise((resolve, reject) =>
+    oauth.get(
+      url,
+      oauthAccessToken,
+      oauthAccessTokenSecret,
+      (error, data, result) => {
+        if (error) return reject(error);
+        resolve({ data, result });
+      }
+    )
+  );
+};
+
 function buildAuthHeader(params) {
   const auth = ['OAuth '];
   Object.keys(params).forEach(key => {
@@ -88,14 +102,24 @@ export const twitter = {
         req.session.oauth.accessToken = oauthAccessToken;
         req.session.oauth.accessTokenSecret = oauthAccessTokenSecret;
 
+        // Get more account info
+        const { data } = await oauthGet(
+          `${BASE_URL}/account/verify_credentials.json`,
+          oauthAccessToken,
+          oauthAccessTokenSecret
+        );
+        const { profile_image_url } = JSON.parse(data);
         const user = req.user._id;
         const newConnection = new Connection({
           user,
           type: 'twitter',
-          account: results,
+          uid: results.user_id,
+          handle: results.screen_name,
+          profileImageUrl: profile_image_url,
           oauth: req.session.oauth
         });
         const connection = await newConnection.save();
+
         res.redirect('/manage');
       } catch (error) {
         console.log(error);

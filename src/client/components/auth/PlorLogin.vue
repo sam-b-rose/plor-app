@@ -67,7 +67,6 @@ export default {
           if (this.$store.state.notification.success)
             this.$router.replace(this.redirect);
           else {
-            this.email = '';
             this.password = '';
           }
         });

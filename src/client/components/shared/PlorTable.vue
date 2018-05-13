@@ -16,19 +16,19 @@
         class="column"
         v-for="([key, value], j) in row"
         :key="j">
-        <span
+        <!-- HANDLE -->
+        <img
           v-if="key === 'handle'"
-          class="handle" />
+          class="handle"
+          :src="rows[i].profileImageUrl || 'https://gravatar.com/avatar/s=200'">
+        <!-- TYPE -->
         <font-awesome-layers
           v-if="key === 'type'"
           class="type">
-          <!-- HANDLE -->
-          <!-- TODO: Replace with account profile picture -->
           <font-awesome-icon
             :class="value"
             transform="grow-6"
             :icon="['fas', 'circle']" />
-          <!-- TYPE -->
           <font-awesome-icon
             class="icon"
             transform="shrink-4"

@@ -24,6 +24,10 @@ $primary-invert: $blue-dark-invert;
 // Use the existing orange as the danger color
 $danger: $orange;
 
+// Use the new serif family
+$family-inter: 'Inter UI', $family-sans-serif;
+$family-primary: $family-inter;
+
 // 4. Setup your Custom Colors
 $linkedin: #0077b5;
 $linkedin-invert: findColorInvert($linkedin);

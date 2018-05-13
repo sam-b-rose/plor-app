@@ -77,12 +77,14 @@ export default {
         {
           text: 'Connect to Facebook',
           icon: ['fab', 'facebook'],
-          color: '#3B5998'
+          color: '#3B5998',
+          url: '/manage'
         },
         {
           text: 'Connect to Twitter',
           icon: ['fab', 'twitter'],
-          color: '#1DA1F2'
+          color: '#1DA1F2',
+          url: '/manage'
         }
       ]
     };
