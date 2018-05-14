@@ -6,12 +6,10 @@
         <section class="hero is-fullheight">
           <div class="hero-body">
             <div class="container">
-              <div class="content">
-                <div class="title">Build your audience by socializing smarter</div>
-                <p>Spread the word without a hassle so you and your team can get back to business.</p>
-                <p>Plor takes the stress of managing all those social media accounts off your shoulders. Less time posting or tweeting and more time relaxing.</p>
-                <button class="button is-link is-outlined">Get early access</button>
-              </div>
+              <div class="title">Build your audience by socializing smarter</div>
+              <p>Spread the word without a hassle so you and your team can get back to business.</p>
+              <p>Plor takes the stress of managing all those social media accounts off your shoulders. Less time posting or tweeting and more time relaxing.</p>
+              <button class="button is-link is-outlined">Get early access</button>
             </div>
           </div>
         </section>
@@ -22,12 +20,36 @@
         <section class="hero is-fullheight">
           <div class="hero-body">
             <div class="container">
-              <div class="content">
-                <div class="title">Tools designed for you</div>
-                <div class="feature">Schedule Posts</div>
-                <div class="feature">Create Drafts</div>
-                <div class="feature">Manage Accounts</div>
-                <div class="feature">Integrate Platforms</div>
+              <div class="title">Tools designed for you</div>
+              <div class="features">
+                <div class="feature">
+                  <CalendarIcon class="feature-icon" />
+                  <div class="feature-content">
+                    <h5 class="title is-5">Schedule Posts</h5>
+                    <p>Post whatever you'd like, whenever you'd like, as many times as you'd like.</p>
+                  </div>
+                </div>
+                <div class="feature">
+                  <PencilIcon class="feature-icon" />
+                  <div class="feature-content">
+                    <h5 class="title is-5">Create Drafts</h5>
+                    <p>Draft posts to store for later so you can review them with your team.</p>
+                  </div>
+                </div>
+                <div class="feature">
+                  <PeopleIcon class="feature-icon" />
+                  <div class="feature-content">
+                    <h5 class="title is-5">Manage Accounts</h5>
+                    <p>People management can get messy. Like eatting chicken wings! Use tools to easily govern all your memebers.</p>
+                  </div>
+                </div>
+                <div class="feature">
+                  <PlatformsIcon class="feature-icon" />
+                  <div class="feature-content">
+                    <h5 class="title is-5">Integrate Platforms</h5>
+                    <p>Are you a social butterfly? We support Twitter and Facebook, and we're adding more platforms soon!</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -74,9 +96,20 @@
 </template>
 
 <script>
+import CalendarIcon from '@/components/svg/CalendarIcon';
+import PencilIcon from '@/components/svg/PencilIcon';
+import PeopleIcon from '@/components/svg/PeopleIcon';
+import PlatformsIcon from '@/components/svg/PlatformsIcon';
+
 export default {
   name: 'Home',
-  layout: 'default'
+  layout: 'default',
+  components: {
+    CalendarIcon,
+    PencilIcon,
+    PeopleIcon,
+    PlatformsIcon
+  }
 };
 </script>
 
@@ -86,7 +119,7 @@ export default {
 }
 
 .artwork {
-  background-color: $gray;
+  background-color: $grey-lighter;
 }
 
 .columns {
@@ -95,11 +128,28 @@ export default {
   }
 }
 
-.content {
-  p {
-    color: $blue-light;
-    font-size: $size-5;
-  }
+p {
+  color: $blue-light;
+  font-size: $size-5;
+  margin-bottom: 1em;
+}
+
+.features {
+  margin-top: 5rem;
+}
+
+.feature {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.feature-icon {
+  flex: 0 0 auto;
+  margin-right: 1.5rem;
+}
+
+.feature-content {
+  flex: 1 1 auto;
 }
 
 .has-artwork {
