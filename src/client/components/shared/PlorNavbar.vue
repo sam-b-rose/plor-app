@@ -1,38 +1,40 @@
 <template>
   <nav class="navbar is-transparent is-fixed-top has-text-weight-bold">
-    <div class="navbar-brand">
-      <nuxt-link
-        class="logo navbar-item is-bold is-size-4"
-        to="/">
-        Plor
-        <span class="beta">beta</span>
-      </nuxt-link>
-      <div class="navbar-burger burger">
-        <span />
-        <span />
-        <span />
+    <div class="container">
+      <div class="navbar-brand">
+        <nuxt-link
+          class="logo navbar-item is-bold is-size-4"
+          to="/">
+          Plor
+          <span class="beta">beta</span>
+        </nuxt-link>
+        <div class="navbar-burger burger">
+          <span />
+          <span />
+          <span />
+        </div>
       </div>
-    </div>
 
-    <div class="navbar-menu">
-      <div class="navbar-start" />
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="field is-grouped">
-            <p class="control">
-              <nuxt-link
-                class="button is-text"
-                to="/app">
-                Login
-              </nuxt-link>
-            </p>
-            <p class="control">
-              <nuxt-link
-                class="button is-link is-outlined"
-                to="/auth/register">
-                Sign up
-              </nuxt-link>
-            </p>
+      <div class="navbar-menu">
+        <div class="navbar-start" />
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <p class="control">
+                <nuxt-link
+                  class="button is-text"
+                  to="/app">
+                  Login
+                </nuxt-link>
+              </p>
+              <p class="control">
+                <nuxt-link
+                  class="button is-link is-outlined"
+                  to="/auth/register">
+                  Sign up
+                </nuxt-link>
+              </p>
+            </div>
           </div>
         </div>
       </div>
