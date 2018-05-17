@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-transparent is-fixed-top has-text-weight-bold">
+  <nav class="navbar has-text-weight-bold is-spaced">
     <div class="container">
       <div class="navbar-brand">
         <nuxt-link
@@ -22,7 +22,7 @@
             <div class="field is-grouped">
               <p class="control">
                 <nuxt-link
-                  class="button is-text"
+                  class="button is-white is-text login"
                   to="/app">
                   Login
                 </nuxt-link>
@@ -49,9 +49,19 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~bulma/sass/utilities/mixins';
+
+.navbar {
+  background-color: transparent;
+}
+
 .navbar-brand > .navbar-item,
 .navbar-brand > .navbar-item:hover {
   color: $blue-dark;
+
+  // @include desktop() {
+  //   color: white;
+  // }
 }
 
 .logo {
@@ -70,5 +80,11 @@ export default {
   font-size: $size-7;
   border-radius: 4px;
   background-color: $orange;
+}
+
+.button.login {
+  // color: white;
+  background-color: transparent;
+  text-decoration: none;
 }
 </style>

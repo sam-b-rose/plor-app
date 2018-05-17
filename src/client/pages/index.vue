@@ -1,21 +1,24 @@
 <template>
   <div>
-    <div class="columns is-centered is-gapless">
-      <aside class="column is-half is-hidden-touch artwork"/>
-      <main class="column is-half-desktop is-two-thirds-tablet">
-        <section class="hero is-fullheight">
-          <div class="hero-body">
-            <div class="container">
-              <div class="title">Build your audience by socializing smarter</div>
-              <p>Spread the word without a hassle so you and your team can get back to business.</p>
-              <p>Plor takes the stress of managing all those social media accounts off your shoulders. Less time posting or tweeting and more time relaxing.</p>
-              <button class="button is-link is-outlined">Get early access</button>
+    <div class="container">
+      <PlorNavbar />
+      <div class="columns is-centered">
+        <aside class="column is-half is-hidden-touch"/>
+        <main class="column is-half-desktop is-two-thirds-tablet">
+          <section class="hero is-fullheight">
+            <div class="hero-body">
+              <div class="container">
+                <div class="title">Build your audience by socializing smarter</div>
+                <p>Spread the word without a hassle so you and your team can get back to business.</p>
+                <p>Plor takes the stress of managing all those social media accounts off your shoulders. Less time posting or tweeting and more time relaxing.</p>
+                <button class="button is-link is-outlined">Get early access</button>
+              </div>
             </div>
-          </div>
-        </section>
-      </main>
+          </section>
+        </main>
+      </div>
     </div>
-    <div class="columns is-centered is-gapless">
+    <div class="columns is-centered">
       <main class="column is-half-desktop is-two-thirds-tablet">
         <section class="hero is-fullheight">
           <div class="hero-body">
@@ -58,12 +61,28 @@
       <aside class="column is-half is-hidden-touch has-artwork">
         <img
           class="art"
-          src="/images/for-you.png"
+          src="/images/tools.jpg"
           alt="Tools designed for you">
       </aside>
     </div>
-    <div class="columns is-centered is-gapless is-light">
-      <aside class="column is-half is-hidden-touch"/>
+    <div class="columns is-centered is-mountains">
+      <div class="column is-half explorers">
+        <div
+          class="explorer show"
+          :style="`background-image: ${linGrad}, url('/images/mitchellbernstein.jpg');`">
+          Mitchell Bernstein
+        </div>
+        <div
+          class="explorer show"
+          :style="`background-image: ${linGrad}, url('/images/samrose.jpg');`">
+          Sam Rose
+        </div>
+        <div
+          class="explorer show"
+          :style="`background-image: ${linGrad}, url('/images/franklin.jpg');`">
+          Franklin Rose
+        </div>
+      </div>
       <main class="column is-half-desktop is-two-thirds-tablet">
         <section class="hero is-fullheight">
           <div class="hero-body">
@@ -96,6 +115,7 @@
 </template>
 
 <script>
+import PlorNavbar from '~/components/shared/PlorNavbar';
 import CalendarIcon from '@/components/svg/CalendarIcon';
 import PencilIcon from '@/components/svg/PencilIcon';
 import PeopleIcon from '@/components/svg/PeopleIcon';
@@ -105,15 +125,42 @@ export default {
   name: 'Home',
   layout: 'default',
   components: {
+    PlorNavbar,
     CalendarIcon,
     PencilIcon,
     PeopleIcon,
     PlatformsIcon
+  },
+  data() {
+    return {
+      linGrad:
+        'linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 50%, rgba(0, 0, 0, 0.5) 100%)'
+    };
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import '~bulma/sass/utilities/mixins';
+
+@include desktop() {
+  .intro {
+    background-image: linear-gradient(
+      300.26deg,
+      #fb8485 -24.61%,
+      #752393 75.39%
+    );
+
+    .title {
+      color: white;
+    }
+
+    p {
+      color: rgba(white, 0.7);
+    }
+  }
+}
+
 .hero-body {
   padding: 3rem 6rem;
 }
@@ -161,5 +208,86 @@ p {
 .art {
   position: absolute;
   width: 80%;
+}
+
+.is-mountains {
+  position: relative;
+  background-image: url('/images/mountains.png');
+  background-position: bottom left;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  .hero-body {
+    align-items: flex-start;
+  }
+}
+
+.explorers {
+  height: 100vh;
+}
+
+.explorer {
+  display: flex;
+  position: absolute;
+  align-items: flex-end;
+  background-color: #fff;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 250px;
+  height: 300px;
+  padding: 1.2rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  cursor: pointer;
+  transform: translateY(0);
+  transition-timing-function: ease-out;
+  transition-duration: 0.15s;
+  transform-origin: top;
+  // transition: 0.3s;
+  // transform: perspective(1000px) rotateX(-40deg) translateY(25%);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 32px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  &.show {
+    opacity: 1;
+    // transform: rotate(0) translateY(0);
+  }
+
+  &:nth-child(1) {
+    top: 18%;
+    left: 12%;
+  }
+
+  &:nth-child(2) {
+    top: 47%;
+    left: calc(18% + 250px);
+  }
+
+  &:nth-child(3) {
+    top: calc(40% + 150px);
+    left: 12%;
+  }
+
+  @include mobile() {
+    &:nth-child(1) {
+      top: 8%;
+    }
+
+    &:nth-child(2) {
+      top: 20%;
+    }
+
+    &:nth-child(3) {
+      top: calc(20% + 150px);
+    }
+  }
 }
 </style>

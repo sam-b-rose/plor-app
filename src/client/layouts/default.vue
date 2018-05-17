@@ -1,19 +1,8 @@
 <template>
-  <div>
-    <PlorNavbar />
-    <main>
-      <nuxt />
-    </main>
-  </div>
+  <nuxt />
 </template>
 
 <script>
-import PlorNavbar from '~/components/shared/PlorNavbar';
-
-export default {
-  components: {
-    PlorNavbar
-  }
-};
+export default {};
 </script>
 
