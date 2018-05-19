@@ -81,6 +81,7 @@ a.nuxt-link-active {
 }
 
 .profile {
+  flex: 0 0 auto;
   width: 65px;
   height: 65px;
   margin: 6rem auto;
