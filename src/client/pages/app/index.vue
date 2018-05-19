@@ -5,7 +5,7 @@
       role="navigation"
       ria-label="secondary navigation">
       <div class="navbar-start">
-        <h3 class="title is-4">Posts</h3>
+        <h3 class="navbar-item title is-4">Posts</h3>
       </div>
       <div class="navbar-end">
         <nuxt-link

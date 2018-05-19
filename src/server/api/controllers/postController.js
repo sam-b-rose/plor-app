@@ -4,7 +4,7 @@ export default {
   async getPosts(req, res) {
     const author = req.user._id;
     const posts = await Post.find({ author });
-    res.json({ message: `Posts by ${author}`, posts });
+    res.json({ message: `Posts by ${req.user.email}`, posts });
   },
   async addPost(req, res) {
     req.body.author = req.user._id;

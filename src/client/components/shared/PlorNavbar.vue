@@ -48,20 +48,20 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~bulma/sass/utilities/mixins';
 
 .navbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
   background-color: transparent;
 }
 
 .navbar-brand > .navbar-item,
 .navbar-brand > .navbar-item:hover {
   color: $blue-dark;
-
-  // @include desktop() {
-  //   color: white;
-  // }
 }
 
 .logo {

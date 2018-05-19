@@ -11,7 +11,9 @@
         <font-awesome-icon :icon="item.icon" />
       </span>
       <span>
-        <a :href="isObject && item.url">
+        <a
+          class="list-link"
+          :href="isObject && item.url">
           {{ isObject ? item[textKey] : item }}
         </a>
         <nuxt-link
@@ -52,16 +54,25 @@ export default {
 
 .list-item {
   display: flex;
+  color: $dark;
   border-top: 1px solid $gray;
   padding: 0.75rem 0;
+
+  a {
+    color: $dark;
+  }
 
   &:last-child {
     border-bottom: 1px solid $gray;
   }
 
   &:hover {
-    color: $blue;
+    color: $link;
     cursor: pointer;
+
+    a {
+      color: $link;
+    }
   }
 
   .icon {
