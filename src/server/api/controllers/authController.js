@@ -24,10 +24,11 @@ export default {
 
   async isLoggedIn(req, res, next) {
     // first check if the user is authenticated
-    if (req.isAuthenticated()) {
-      next(); // carry on! They are logged in!
-      return;
-    }
+    console.log('Checking authentication...');
+    if (req.isAuthenticated()) return next(); // carry on! They are logged in!
+
+    console.log('Not logged in!');
+    res.end();
     throw new ServerError('Oops you must be logged in to do that!', {
       status: 401,
       log: false

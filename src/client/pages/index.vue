@@ -5,20 +5,7 @@
       <PlorBuild />
       <PlorTools />
       <PlorExplorers />
-      <div class="columns is-gapless">
-        <main class="column is-half">
-          <section class="hero is-halfheight">
-            <div class="hero-body">
-              <div class="container">
-                <div class="content">
-                  <div class="title">Get early access</div>
-                  <p>We are currently building Plor to be totally rad. Sign up and we'll let you know when we are ready for your greatness. We promise absolutely no spam.</p>
-                </div>
-              </div>
-            </div>
-          </section>
-        </main>
-      </div>
+      <PlorEarly />
     </div>
   </div>
 </template>
@@ -29,6 +16,7 @@ import PlorNavbar from '@/components/shared/PlorNavbar';
 import PlorBuild from '@/components/landing/PlorBuild';
 import PlorExplorers from '@/components/landing/PlorExplorers';
 import PlorTools from '@/components/landing/PlorTools';
+import PlorEarly from '@/components/landing/PlorEarly';
 
 export default {
   name: 'Home',
@@ -37,13 +25,15 @@ export default {
     PlorNavbar,
     PlorBuild,
     PlorExplorers,
-    PlorTools
+    PlorTools,
+    PlorEarly
   }
 };
 </script>
 
 <style lang="scss">
 @import '~bulma/sass/utilities/mixins';
+
 .hero-body {
   @include desktop() {
     padding: 3rem 6rem;

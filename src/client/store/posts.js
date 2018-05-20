@@ -70,7 +70,6 @@ export const actions = {
   async fetchPosts({ commit }) {
     try {
       commit('FETCH_POSTS_REQUEST');
-      debugger;
       let { data } = await axios.get('/posts');
       commit('FETCH_POSTS_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
