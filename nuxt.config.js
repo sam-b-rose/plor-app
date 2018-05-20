@@ -60,7 +60,7 @@ module.exports = {
     }
   },
   router: {
-    middleware: ['https']
+    middleware: ['https', 'ssr-cookie']
   },
   srcDir: path.resolve(__dirname, 'src', 'client')
 };
