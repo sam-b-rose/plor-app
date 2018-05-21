@@ -21,11 +21,11 @@ export default {
     }
   },
   methods: {
-    signOut() {
-      this.$store.dispatch('user/logout').then(() => {
-        if (this.$store.state.notification.success)
-          this.$router.replace(this.redirect);
-      });
+    async signOut() {
+      await this.$store.dispatch('user/logout');
+
+      if (this.$store.state.notification.success)
+        this.$router.replace(this.redirect);
     }
   }
 };

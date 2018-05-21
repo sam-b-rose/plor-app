@@ -50,9 +50,9 @@ export default {
 .mountains {
   position: relative;
   background-image: url('/images/mountains.png');
+  background-repeat: no-repeat;
   background-position: bottom center;
   background-size: contain;
-  background-repeat: no-repeat;
 
   @include desktop() {
     min-height: 800px;
@@ -76,26 +76,26 @@ export default {
   display: flex;
   position: absolute;
   align-items: flex-end;
-  background-color: #fff;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   width: 250px;
   height: 300px;
   padding: 1.2rem;
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: white;
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  cursor: pointer;
   transform: translateY(0);
-  transition-timing-function: ease-out;
-  transition-duration: 0.15s;
   transform-origin: top;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-out;
   // transition: 0.3s;
   // transform: perspective(1000px) rotateX(-40deg) translateY(25%);
+  border-radius: 8px;
+  opacity: 0;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
 
   &:hover {
     transform: translateY(-5px);

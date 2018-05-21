@@ -42,6 +42,7 @@ $github-invert: findColorInvert($github);
 
 // 5. Add new color variables to the color map.
 @import '~bulma/sass/utilities/derived-variables';
+
 $addColors: (
   'twitter': ($twitter, $twitter-invert),
   'linkedin': ($linkedin, $linkedin-invert),

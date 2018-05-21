@@ -109,19 +109,17 @@ export default {
     }
   },
   methods: {
-    submit() {
-      this.$store
-        .dispatch('user/register', {
-          email: this.email,
-          name: this.name,
-          password: this.password,
-          passwordConfirm: this.passwordConfirm
-        })
-        .then(() => {
-          if (this.$store.state.notification.success) {
-            this.$router.replace(this.redirect);
-          }
-        });
+    async submit() {
+      this.$store.dispatch('user/register', {
+        email: this.email,
+        name: this.name,
+        password: this.password,
+        passwordConfirm: this.passwordConfirm
+      });
+
+      if (this.$store.state.notification.success) {
+        this.$router.replace(this.redirect);
+      }
     }
   }
 };

@@ -57,19 +57,17 @@ export default {
     };
   },
   methods: {
-    signIn() {
-      this.$store
-        .dispatch('user/login', {
-          email: this.email,
-          password: this.password
-        })
-        .then(() => {
-          if (this.$store.state.notification.success)
-            this.$router.replace(this.redirect);
-          else {
-            this.password = '';
-          }
-        });
+    async signIn() {
+      await this.$store.dispatch('user/login', {
+        email: this.email,
+        password: this.password
+      });
+
+      if (this.$store.state.notification.success)
+        this.$router.replace(this.redirect);
+      else {
+        this.password = '';
+      }
     }
   }
 };

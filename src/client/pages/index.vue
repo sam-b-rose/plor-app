@@ -42,9 +42,9 @@ export default {
 
 .landing {
   p {
+    margin-bottom: 1em;
     color: $blue-light;
     font-size: $size-5;
-    margin-bottom: 1em;
   }
 }
 </style>
