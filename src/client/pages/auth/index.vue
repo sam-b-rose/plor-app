@@ -4,5 +4,6 @@
 
 <script>
 export default {
-}
+  middleware: ['authenticated', 'go-home']
+};
 </script>

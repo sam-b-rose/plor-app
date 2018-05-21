@@ -69,14 +69,15 @@ export default {
 }
 
 .card-footer {
-  background: $light;
   padding: 0.5rem;
+  background: $light;
 }
 
 .field {
   &.is-grouped {
     flex: 1 1 auto;
   }
+
   &:not(:last-child) {
     margin-bottom: 0;
   }
@@ -86,8 +87,8 @@ export default {
   &,
   &:focus,
   &:active {
-    border: none;
     overflow: auto;
+    border: none;
     outline: none;
     box-shadow: none;
     resize: none;

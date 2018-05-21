@@ -3,10 +3,10 @@
 
 // Bulma Overrides
 .button {
+  padding-right: $button-padding-horizontal;
+  padding-left: $button-padding-horizontal;
   border-width: 2px;
   border-radius: $default-radius;
-  padding-left: $button-padding-horizontal;
-  padding-right: $button-padding-horizontal;
   font-weight: 700;
 }
 

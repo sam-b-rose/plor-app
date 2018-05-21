@@ -86,6 +86,10 @@
     "now-client": "^1.1.6",
     "prettier": "^1.11.1",
     "rimraf": "^2.6.2",
-    "sass-loader": "^6.0.7"
+    "sass-loader": "^6.0.7",
+    "stylelint": "^9.2.1",
+    "stylelint-config-property-sort-order-smacss": "^4.0.0",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-scss": "^3.1.0"
   }
 }

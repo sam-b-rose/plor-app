@@ -14,12 +14,3 @@
     </main>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'PlorEarly'
-};
-</script>
-
-<style>
-</style>
