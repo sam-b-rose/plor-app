@@ -93,12 +93,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$navbar-min-height: 3rem;
+
 .section {
   padding: 3rem;
 }
 
 .navbar {
+  min-height: $navbar-min-height;
   margin-bottom: 2rem;
   border-bottom: 1px solid $light;
+}
+
+.navbar-item {
+  &.is-tab {
+    min-height: $navbar-min-height;
+  }
 }
 </style>

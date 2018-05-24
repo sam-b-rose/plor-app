@@ -82,9 +82,9 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  color: #0b265b;
-  font-size: 0.75rem;
   background-color: #edf0f6;
+  color: $blue-dark;
+  font-size: 0.75rem;
 }
 
 .columns {
@@ -100,9 +100,9 @@ export default {
 
 .handle {
   display: inline-block;
-  margin-right: 0.75rem;
   width: 40px;
   height: 40px;
+  margin-right: 0.75rem;
   border-radius: 50%;
   background-color: $white-ter;
 }

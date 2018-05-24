@@ -7,19 +7,24 @@ const postSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  sent: {
+    type: Boolean,
+    default: false
+  },
+  text: {
+    type: String,
+    required: 'Your post must have text!'
+  },
   author: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: 'You must supply an author!'
   },
-  text: {
-    type: String,
-    required: 'Your post must have text!'
-  }
+  connections: [{ type: mongoose.Schema.ObjectId, ref: 'Connection' }]
 });
 
 function autopopulate(next) {
-  this.populate('author');
+  this.populate('connections');
   next();
 }
 

@@ -22,7 +22,7 @@
             <div class="field is-grouped">
               <p class="control">
                 <nuxt-link
-                  class="button is-white is-text login"
+                  class="button is-text login"
                   to="/app">
                   Login
                 </nuxt-link>
@@ -53,14 +53,15 @@ export default {
 
 .navbar {
   position: absolute;
-  left: 0;
-  right: 0;
   top: 0;
+  right: 0;
+  left: 0;
   background-color: transparent;
 }
 
 .navbar-brand > .navbar-item,
 .navbar-brand > .navbar-item:hover {
+  background-color: transparent;
   color: $blue-dark;
 }
 
@@ -74,17 +75,16 @@ export default {
   left: 90%;
   padding: 0.05rem 0.3rem;
   transform: translateY(-100%);
-  color: $white;
-  font-style: italic;
-  font-weight: 700;
-  font-size: $size-7;
   border-radius: 4px;
   background-color: $orange;
+  color: $white;
+  font-size: $size-7;
+  font-style: italic;
+  font-weight: 700;
 }
 
 .button.login {
-  // color: white;
-  background-color: transparent;
+  color: $link;
   text-decoration: none;
 }
 </style>

@@ -9,21 +9,21 @@
           <i class="far fa-square-full" /> Posts
         </nuxt-link>
       </li>
-      <li>
+      <!-- <li>
         <nuxt-link to="/analytics">
           <i class="far fa-square-full" /> Analytics
         </nuxt-link>
-      </li>
+      </li> -->
       <li>
         <nuxt-link to="/manage">
           <i class="far fa-square-full" /> Manage
         </nuxt-link>
       </li>
-      <li>
+      <!-- <li>
         <nuxt-link to="/settings">
           <i class="far fa-square-full" /> Settings
         </nuxt-link>
-      </li>
+      </li> -->
     </ul>
     <ul class="menu-list bottom">
       <li>
@@ -76,8 +76,8 @@ a {
 }
 
 a.nuxt-link-active {
-  color: white;
   background-color: $blue-dark;
+  color: white;
 }
 
 .profile {

@@ -10,6 +10,7 @@ export const mutations = {
     state.user.name = data.name;
     state.user.email = data.email;
     state.user.gravatar = data.gravatar;
+    state.connections.connections = data.connections;
   }
 };
 export const actions = {

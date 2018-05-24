@@ -1,6 +1,6 @@
 <template>
   <div class="columns is-gapless">
-    <main class="column is-half">
+    <div class="column is-half">
       <section class="hero is-halfheight">
         <div class="hero-body">
           <div class="container">
@@ -11,6 +11,15 @@
           </div>
         </div>
       </section>
-    </main>
+    </div>
+    <div class="column is-half is-hidden-touch">
+      <section class="hero is-halfheight">
+        <div class="hero-body">
+          <div class="container">
+            <button class="button is-link is-outlined">Get early access</button>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 </template>

@@ -22,10 +22,9 @@ $navbar-height: 6.25rem;
 $button-padding-horizontal: 1.25rem;
 
 // 3. Set the derived variables
-// Use the new pink as the primary color
-$primary: $blue-dark;
-$primary-invert: $blue-dark-invert;
-// Use the existing orange as the danger color
+$primary: $purple;
+$primary-invert: $purple;
+$link: $purple;
 $danger: $orange;
 
 // Use the new serif family

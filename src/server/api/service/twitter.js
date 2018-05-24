@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import OAuth from 'oauth';
 import Connection from '../models/Connection';
+import User from '../models/User';
 import axios from 'axios';
 
 const BASE_URL = 'https://api.twitter.com/1.1/';
@@ -56,14 +57,9 @@ const oauthGet = (url, oauthAccessToken, oauthAccessTokenSecret) => {
   );
 };
 
-function buildAuthHeader(params) {
-  const auth = ['OAuth '];
-  Object.keys(params).forEach(key => {
-    auth.push();
-  });
-}
-
 export const twitter = {
+  oauth,
+  twitterBaseUrl: BASE_URL,
   async get(req, res) {
     try {
       oauth.getOAuthRequestToken(
@@ -119,6 +115,11 @@ export const twitter = {
           oauth: req.session.oauth
         });
         const connection = await newConnection.save();
+
+        // Add Connection to User
+        const updatedUser = await User.findByIdAndUpdate(req.user._id, {
+          $push: { connections: connection }
+        });
 
         res.redirect('/manage');
       } catch (error) {
