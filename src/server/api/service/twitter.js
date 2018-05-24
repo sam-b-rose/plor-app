@@ -18,6 +18,10 @@ dotenv.config({
 const oauthToken = process.env.TWITTER_API_KEY;
 const oauthTokenSecret = process.env.TWITTER_API_SECRET;
 
+const baseUrl = isDev
+  ?  `http://${process.env.HOST}:${process.env.PORT}`
+  : 'https://stage.plor.io';
+
 // Configure oauth
 const oauth = new OAuth.OAuth(
   'https://api.twitter.com/oauth/request_token',
@@ -25,7 +29,7 @@ const oauth = new OAuth.OAuth(
   oauthToken,
   oauthTokenSecret,
   '1.0A',
-  'http://localhost:3000/api/connections/twitter/callback',
+  `${baseUrl}/api/connections/twitter/callback`,
   'HMAC-SHA1'
 );
 
