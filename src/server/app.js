@@ -32,9 +32,9 @@ app.set('trust proxy', 1); // trust first proxy
 app.use(
   session({
     secret: process.env.SECRET,
-    key: process.env.KEY,
     resave: false,
     saveUninitialized: true,
+    cookie: { maxAge: 60000 },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 );

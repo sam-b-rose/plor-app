@@ -10,17 +10,18 @@ const _axios = axios.create({
   timeout: 1000
 });
 
+const isProd = (process.env.NODE_ENV === 'production');
 dotenv.config({
-  path: process.env.NODE_ENV === 'production' ? '.prod.env' : '.dev.env'
+  path: isProd ? '.prod.env' : '.dev.env'
 });
 
 // Plor Twitter info
 const oauthToken = process.env.TWITTER_API_KEY;
 const oauthTokenSecret = process.env.TWITTER_API_SECRET;
 
-const baseUrl = isDev
-  ?  `http://${process.env.HOST}:${process.env.PORT}`
-  : 'https://stage.plor.io';
+const baseUrl = isProd
+  ? 'https://stage.plor.io'
+  :  `http://${process.env.HOST}:${process.env.PORT}`;
 
 // Configure oauth
 const oauth = new OAuth.OAuth(

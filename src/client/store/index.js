@@ -1,5 +1,4 @@
 import axios from '~/plugins/axios';
-import jwtDecode from 'jwt-decode';
 
 export const state = () => {
   return {};
