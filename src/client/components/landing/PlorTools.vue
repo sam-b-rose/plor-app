@@ -4,9 +4,12 @@
       <section class="hero is-fullheight">
         <div class="hero-body">
           <div class="container">
-            <div class="title">Tools designed for you</div>
+            <div class="section-title">Tools designed for you</div>
             <div class="features">
-              <div class="feature">
+              <div
+                class="feature"
+                data-aos="fade-right"
+                data-aos-anchor-placement="bottom-bottom">
                 <IconBase
                   size="lg"
                   class="feature-icon">
@@ -17,7 +20,10 @@
                   <p>Post whatever you'd like, whenever you'd like, as many times as you'd like.</p>
                 </div>
               </div>
-              <div class="feature">
+              <div
+                class="feature"
+                data-aos="fade-right"
+                data-aos-anchor-placement="bottom-bottom">
                 <IconBase
                   size="lg"
                   class="feature-icon">
@@ -28,7 +34,10 @@
                   <p>Draft posts to store for later so you can review them with your team.</p>
                 </div>
               </div>
-              <div class="feature">
+              <div
+                class="feature"
+                data-aos="fade-right"
+                data-aos-anchor-placement="bottom-bottom">
                 <IconBase
                   size="lg"
                   class="feature-icon">
@@ -39,7 +48,10 @@
                   <p>People management can get messy. Like eatting chicken wings! Use tools to easily govern all your memebers.</p>
                 </div>
               </div>
-              <div class="feature">
+              <div
+                class="feature"
+                data-aos="fade-right"
+                data-aos-anchor-placement="bottom-bottom">
                 <IconBase
                   size="lg"
                   class="feature-icon">
@@ -108,7 +120,7 @@ export default {
 }
 
 .artwork {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 }
 </style>

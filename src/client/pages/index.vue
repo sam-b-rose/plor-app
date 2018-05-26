@@ -12,7 +12,6 @@
 
 <script>
 import PlorNavbar from '@/components/shared/PlorNavbar';
-
 import PlorBuild from '@/components/landing/PlorBuild';
 import PlorExplorers from '@/components/landing/PlorExplorers';
 import PlorTools from '@/components/landing/PlorTools';
@@ -27,6 +26,10 @@ export default {
     PlorExplorers,
     PlorTools,
     PlorEarly
+  },
+  async mounted() {
+    const AOS = await import('aos');
+    AOS.init();
   }
 };
 </script>
@@ -40,9 +43,21 @@ export default {
   }
 }
 
+.section-title {
+  margin-bottom: 2rem;
+  font-size: 2.75rem;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
 .landing {
+  .title {
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
   p {
-    margin-bottom: 1em;
+    margin-bottom: 2em;
     color: $blue-light;
     font-size: $size-5;
   }

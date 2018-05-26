@@ -19,22 +19,18 @@
         <div class="navbar-start" />
         <div class="navbar-end">
           <div class="navbar-item">
-            <div class="field is-grouped">
-              <p class="control">
-                <nuxt-link
-                  class="button is-text login"
-                  to="/app">
-                  Login
-                </nuxt-link>
-              </p>
-              <p class="control">
-                <nuxt-link
-                  class="button is-link is-outlined"
-                  to="/auth/register">
-                  Sign up
-                </nuxt-link>
-              </p>
-            </div>
+            <nuxt-link
+              class="button is-text login"
+              to="/app">
+              Login
+            </nuxt-link>
+          </div>
+          <div class="navbar-item">
+            <nuxt-link
+              class="button is-link is-outlined"
+              to="/auth/register">
+              Sign up
+            </nuxt-link>
           </div>
         </div>
       </div>
