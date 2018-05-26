@@ -1,28 +1,25 @@
 <template>
   <div class="mountains columns is-centered">
     <div class="column is-half explorers">
-      <div
+      <a
+        v-for="(explorer, i) in explorers"
+        :key="i"
         class="explorer show"
-        :style="`background-image: ${linGrad}, url('/images/mitchellbernstein.jpg');`">
-        Mitchell Bernstein
-      </div>
-      <div
-        class="explorer show"
-        :style="`background-image: ${linGrad}, url('/images/samrose.jpg');`">
-        Sam Rose
-      </div>
-      <div
-        class="explorer show"
-        :style="`background-image: ${linGrad}, url('/images/franklin.jpg');`">
-        Franklin Rose
-      </div>
+        :href="explorer.link"
+        target="_blank"
+        :style="`background-image: ${linGrad}, url('/images/${explorer.image}');`"
+        :data-aos="`fade-${explorer.direction}`"
+        data-aos-anchor-placement="bottom-bottom">
+        <div>{{ explorer.name }}</div>
+        <div>{{ explorer.role }}</div>
+      </a>
     </div>
     <main class="column is-half-desktop is-two-thirds-tablet">
       <section class="hero is-fullheight">
         <div class="hero-body">
           <div class="container">
             <div class="content">
-              <div class="title">Built by ex(plor)ers</div>
+              <div class="section-title">Built by ex(plor)ers</div>
               <p>Our team is composed of two friends (and an awesome dog) working day and night until this service is plorfect.</p>
               <p>We believe services in this space aren't quite there yet. We felt there was an opportunity to build the best tool to help small and large buisinesses share their gifts with the world.</p>
             </div>
@@ -39,7 +36,30 @@ export default {
   data() {
     return {
       linGrad:
-        'linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 50%, rgba(0, 0, 0, 0.5) 100%)'
+        'linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 50%, rgba(0, 0, 0, 0.6) 100%)',
+      explorers: [
+        {
+          name: 'Mitchell Bernstein',
+          image: 'mitchellbernstein.jpg',
+          direction: 'right',
+          role: 'Designer',
+          link: 'https://twitter.com/MitchBernstein'
+        },
+        {
+          name: 'Sam Rose',
+          image: 'samrose.jpg',
+          direction: 'left',
+          role: 'Developer',
+          link: 'https://twitter.com/_SamRose3_'
+        },
+        {
+          name: 'Franklin',
+          image: 'franklin.jpg',
+          direction: 'up',
+          role: 'Cheif Dog Officer',
+          link: 'https://instagram.com/franklindacorgi'
+        }
+      ]
     };
   }
 };
@@ -75,18 +95,14 @@ export default {
 .explorer {
   display: flex;
   position: absolute;
-  align-items: flex-end;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  justify-content: flex-end;
   width: 250px;
   height: 300px;
   padding: 1.2rem;
-  transform: translateY(0);
-  transform-origin: top;
-  transition-duration: 0.15s;
-  transition-timing-function: ease-out;
-  // transition: 0.3s;
-  // transform: perspective(1000px) rotateX(-40deg) translateY(25%);
-  border-radius: 8px;
-  opacity: 0;
+  transition: all 0.3s;
+  border-radius: 4px;
   background-color: #fff;
   background-repeat: no-repeat;
   background-position: center;
@@ -102,9 +118,9 @@ export default {
     box-shadow: 0 14px 32px 0 rgba(0, 0, 0, 0.3);
   }
 
-  &.show {
-    opacity: 1;
-    // transform: rotate(0) translateY(0);
+  div:nth-child(2) {
+    font-size: 1rem;
+    font-weight: 500;
   }
 
   &:nth-child(1) {

@@ -10,7 +10,7 @@ $gray: #a5acbb;
 $blue: #2b67f5;
 $blue-dark: #122758;
 $blue-light: #526280;
-$purple: #612df7;
+$purple: #9939bd;
 $orange: #ee7256;
 
 // Add invert colors
@@ -19,7 +19,9 @@ $blue-dark-invert: findColorInvert($blue-dark);
 /* Default properties */
 $default-radius: 6px;
 $navbar-height: 6.25rem;
+$button-padding-vertical: 0.5rem;
 $button-padding-horizontal: 1.25rem;
+$button-padding-horizontal-long: 3.75rem;
 
 // 3. Set the derived variables
 $primary: $purple;

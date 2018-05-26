@@ -13,7 +13,7 @@ module.exports = {
   },
   buildDir: 'dist/client',
   cache: true,
-  css: ['@/assets/style/main.scss'],
+  css: ['aos/dist/aos.css', '@/assets/style/main.scss'],
   env: {
     HOST: process.env.HOST,
     PORT: process.env.PORT

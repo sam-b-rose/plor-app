@@ -2,12 +2,27 @@
 @import '~bulma/bulma';
 
 // Bulma Overrides
+.container {
+  @include desktop {
+    width: $fullhd;
+    max-width: $fullhd;
+  }
+}
+
 .button {
+  height: auto;
+  padding-top: $button-padding-vertical;
   padding-right: $button-padding-horizontal;
+  padding-bottom: $button-padding-vertical;
   padding-left: $button-padding-horizontal;
   border-width: 2px;
   border-radius: $default-radius;
   font-weight: 700;
+
+  &--long {
+    padding-right: $button-padding-horizontal-long;
+    padding-left: $button-padding-horizontal-long;
+  }
 }
 
 .card {
