@@ -1,6 +1,6 @@
 <template>
   <div class="mountains columns is-centered">
-    <div class="column is-half explorers">
+    <div class="column is-half is-one-third-tablet explorers">
       <a
         v-for="(explorer, i) in explorers"
         :key="i"
@@ -136,6 +136,26 @@ export default {
   &:nth-child(3) {
     top: calc(40% + 150px);
     left: 12%;
+  }
+
+  @include touch() {
+    width: 25%;
+    height: 250px;
+
+    &:nth-child(1) {
+      top: 18%;
+      left: 8%;
+    }
+
+    &:nth-child(2) {
+      top: 47%;
+      left: calc(12% + 250px);
+    }
+
+    &:nth-child(3) {
+      top: calc(40% + 150px);
+      left: 8%;
+    }
   }
 
   @include mobile() {
