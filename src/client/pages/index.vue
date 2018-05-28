@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="landing"
-    :style="{ transform: scrollOffset}">
+  <div class="landing">
     <div class="container">
       <PlorNavbar />
       <PlorBuild @open="modalActive = true" />
@@ -19,8 +17,6 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
-
 import PlorNavbar from '@/components/shared/PlorNavbar';
 import PlorFooter from '@/components/shared/PlorFooter';
 
@@ -47,10 +43,6 @@ export default {
     return {
       modalActive: false
     };
-  },
-  computed: {
-    ...mapState(['clip', 'position']),
-    ...mapGetters(['scrollOffset'])
   },
   async mounted() {
     const AOS = await import('aos');
