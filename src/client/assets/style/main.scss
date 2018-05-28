@@ -2,13 +2,6 @@
 @import '~bulma/bulma';
 
 // Bulma Overrides
-.container {
-  @include desktop {
-    width: $fullhd;
-    max-width: $fullhd;
-  }
-}
-
 .button {
   height: auto;
   padding-top: $button-padding-vertical;

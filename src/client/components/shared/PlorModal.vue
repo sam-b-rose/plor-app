@@ -42,7 +42,16 @@ export default {
       default: false
     }
   },
+  mounted() {
+    window.addEventListener('scroll', this.onScroll);
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.onScroll);
+  },
   methods: {
+    onScroll() {
+      this.close();
+    },
     close(data) {
       this.$emit('close', data);
     }
