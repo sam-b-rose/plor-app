@@ -23,9 +23,34 @@
     padding-right: $button-padding-horizontal-long;
     padding-left: $button-padding-horizontal-long;
   }
+
+  &.is-text {
+    text-decoration: none;
+  }
 }
 
 .card {
   border-radius: $default-radius;
   border-color: $light;
+}
+
+.label {
+  color: $blue-dark;
+}
+
+.field:not(:last-child) {
+  margin-bottom: 1.75rem;
+}
+
+.navbar-item,
+.navbar-item:hover,
+.navbar-item > .button,
+.navbar-item > .button:hover {
+  color: $primary;
+}
+
+.navbar,
+.navbar-brand > .navbar-item,
+.navbar-brand > .navbar-item:hover {
+  background-color: transparent;
 }

@@ -13,7 +13,7 @@ module.exports = {
   },
   buildDir: 'dist/client',
   cache: true,
-  css: ['aos/dist/aos.css', '@/assets/style/main.scss'],
+  css: ['aos/dist/aos.css', 'animate.css', '@/assets/style/main.scss'],
   env: {
     HOST: process.env.HOST,
     PORT: process.env.PORT
@@ -33,7 +33,7 @@ module.exports = {
   manifest: {
     name: 'plor',
     description: 'A social media post scheduler',
-    theme_color: '#2b67f5'
+    theme_color: '#9939bd'
   },
   modules: [
     '@nuxtjs/pwa',
@@ -47,7 +47,7 @@ module.exports = {
     '~/plugins/portal-vue'
   ],
   loading: {
-    color: '#2b67f5'
+    color: '#9939bd'
   },
   render: {
     static: {
