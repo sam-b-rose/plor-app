@@ -42,17 +42,7 @@ export default {
       default: false
     }
   },
-  watch: {
-    active: 'setClip'
-  },
-  mount() {
-    setClip();
-  },
   methods: {
-    setClip() {
-      const isClipped = this.active;
-      this.$store.commit('SET_CLIP', isClipped);
-    },
     close(data) {
       this.$emit('close', data);
     }
