@@ -16,10 +16,21 @@
       <section class="hero is-halfheight">
         <div class="hero-body">
           <div class="container">
-            <button class="button button--long is-link is-outlined">Get early access</button>
+            <button
+              class="button button--long is-link is-outlined"
+              @click="$emit('open')">
+              Get early access
+            </button>
           </div>
         </div>
       </section>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'PlorEarly'
+};
+</script>
+

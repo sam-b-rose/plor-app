@@ -20,7 +20,7 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <nuxt-link
-              class="button is-text login"
+              class="button is-text"
               to="/app">
               Login
             </nuxt-link>
@@ -55,14 +55,9 @@ export default {
   background-color: transparent;
 }
 
-.navbar-brand > .navbar-item,
-.navbar-brand > .navbar-item:hover {
-  background-color: transparent;
-  color: $blue-dark;
-}
-
 .logo {
   position: relative;
+  color: $blue-dark;
 }
 
 .beta {
@@ -77,10 +72,5 @@ export default {
   font-size: $size-7;
   font-style: italic;
   font-weight: 700;
-}
-
-.button.login {
-  color: $link;
-  text-decoration: none;
 }
 </style>

@@ -1,21 +1,35 @@
 <template>
-  <div class="landing">
+  <div
+    class="landing"
+    :style="{ transform: scrollOffset}">
     <div class="container">
       <PlorNavbar />
-      <PlorBuild />
+      <PlorBuild @open="modalActive = true" />
       <PlorTools />
       <PlorExplorers />
-      <PlorEarly />
+      <PlorEarly @open="modalActive = true" />
+      <PlorFooter />
     </div>
+    <portal to="plor-modal">
+      <PlorEarlyAccessModal
+        :active="modalActive"
+        @close="modalActive = false" />
+    </portal>
   </div>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
+
 import PlorNavbar from '@/components/shared/PlorNavbar';
+import PlorFooter from '@/components/shared/PlorFooter';
+
 import PlorBuild from '@/components/landing/PlorBuild';
 import PlorExplorers from '@/components/landing/PlorExplorers';
 import PlorTools from '@/components/landing/PlorTools';
 import PlorEarly from '@/components/landing/PlorEarly';
+
+import PlorEarlyAccessModal from '@/components/landing/PlorEarlyAccessModal';
 
 export default {
   name: 'Home',
@@ -25,7 +39,18 @@ export default {
     PlorBuild,
     PlorExplorers,
     PlorTools,
-    PlorEarly
+    PlorEarly,
+    PlorFooter,
+    PlorEarlyAccessModal
+  },
+  data() {
+    return {
+      modalActive: false
+    };
+  },
+  computed: {
+    ...mapState(['clip', 'position']),
+    ...mapGetters(['scrollOffset'])
   },
   async mounted() {
     const AOS = await import('aos');
