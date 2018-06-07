@@ -24,7 +24,7 @@
               @click="close" />
           </header>
           <section class="modal-card-body">
-            <slot name="conent" />
+            <slot name="content" />
           </section>
           <footer class="modal-card-foot" />
         </div>
@@ -67,15 +67,21 @@ $close-size: 30px;
 }
 
 .modal-background {
-  background-color: rgba($primary, 0.3);
+  background-color: rgba($dark-purple, 0.5);
 }
 
 .modal-card {
   width: $desktop;
+  transition: all 0.25s;
   animation-duration: 0.5s;
   animation-delay: 0.5s;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(25, 5, 32, 0.32);
+}
+
+.modal--500 {
+  width: 500px;
+  height: 500px;
 }
 
 .delete {
