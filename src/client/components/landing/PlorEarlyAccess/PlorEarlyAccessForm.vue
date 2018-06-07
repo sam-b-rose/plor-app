@@ -62,8 +62,10 @@ export default {
     };
   },
   methods: {
-    submit() {
-      console.log('submitted');
+    async submit() {
+      const { name, email, title, org } = this;
+      await this.$store.dispatch('joingMailing', { name, email, title, org });
+      if (this.$store.state.notification.success) this.$emit('submitted');
     }
   }
 };

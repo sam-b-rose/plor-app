@@ -25,7 +25,7 @@ import PlorExplorers from '@/components/landing/PlorExplorers';
 import PlorTools from '@/components/landing/PlorTools';
 import PlorEarly from '@/components/landing/PlorEarly';
 
-import PlorEarlyAccessModal from '@/components/landing/PlorEarlyAccessModal';
+import PlorEarlyAccessModal from '@/components/landing/PlorEarlyAccess/PlorEarlyAccessModal';
 
 export default {
   name: 'Home',

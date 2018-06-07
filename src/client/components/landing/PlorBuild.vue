@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import PlorEarlyAccessModal from '@/components/landing/PlorEarlyAccessModal';
+import PlorEarlyAccessModal from '@/components/landing/PlorEarlyAccess/PlorEarlyAccessModal';
 
 export default {
   name: 'PlorBuild',
