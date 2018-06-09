@@ -10,7 +10,7 @@ const _axios = axios.create({
   timeout: 1000
 });
 
-const isProd = (process.env.NODE_ENV === 'production');
+const isProd = process.env.NODE_ENV === 'production';
 dotenv.config({
   path: isProd ? '.prod.env' : '.dev.env'
 });
@@ -21,7 +21,7 @@ const oauthTokenSecret = process.env.TWITTER_API_SECRET;
 
 const baseUrl = isProd
   ? 'https://stage.plor.io'
-  :  `http://${process.env.HOST}:${process.env.PORT}`;
+  : `http://${process.env.HOST}:${process.env.PORT}`;
 
 // Configure oauth
 const oauth = new OAuth.OAuth(

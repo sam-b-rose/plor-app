@@ -13,11 +13,17 @@
           <div class="navbar-menu">
             <div class="navbar-start">
               <div class="navbar-item">
-                <nuxt-link
+                <!-- Redirect to EA for now -->
+                <a
+                  class="button is-text"
+                  @click.prevent="$emit('open')">
+                  Sign up
+                </a>
+                <!-- <nuxt-link
                   class="button is-text"
                   to="/auth/register">
                   Sign up
-                </nuxt-link>
+                </nuxt-link> -->
               </div>
               <div class="navbar-item">
                 <nuxt-link

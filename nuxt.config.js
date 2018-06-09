@@ -8,7 +8,7 @@ require('dotenv').config({
 module.exports = {
   build: {
     extractCSS: true,
-    vendor: ['axios'],
+    vendor: ['axios', 'css-doodle'],
     postcss: [require('autoprefixer')()]
   },
   buildDir: 'dist/client',

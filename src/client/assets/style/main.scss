@@ -1,6 +1,11 @@
 @import './variables';
 @import '~bulma/bulma';
 
+html,
+body {
+  height: 100%;
+}
+
 // Bulma Overrides
 .button {
   height: auto;
@@ -11,6 +16,7 @@
   border-width: 2px;
   border-radius: $default-radius;
   font-weight: 700;
+  cursor: pionter;
 
   &--long {
     padding-right: $button-padding-horizontal-long;

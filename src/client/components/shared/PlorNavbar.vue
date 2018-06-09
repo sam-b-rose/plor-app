@@ -19,18 +19,30 @@
         <div class="navbar-start" />
         <div class="navbar-end">
           <div class="navbar-item">
-            <nuxt-link
+            <!-- Redirect to EA for now -->
+            <a
+              class="button is-text"
+              @click.prevent="$emit('open')">
+              Login
+            </a>
+            <!-- <nuxt-link
               class="button is-text"
               to="/app">
               Login
-            </nuxt-link>
+            </nuxt-link> -->
           </div>
           <div class="navbar-item">
-            <nuxt-link
+            <!-- Redirect to EA for now -->
+            <a
+              class="button is-link is-outlined"
+              @click.prevent="$emit('open')">
+              Sign up
+            </a>
+            <!-- <nuxt-link
               class="button is-link is-outlined"
               to="/auth/register">
               Sign up
-            </nuxt-link>
+            </nuxt-link> -->
           </div>
         </div>
       </div>
