@@ -13,9 +13,9 @@
       <transition
         appear
         name="fadeDown"
-        enter-active-class="animated fadeInUp">
+        enter-active-class="animated fadeInUp"
+        @after-enter="$emit('appear')">
         <div
-          v-if="active"
           class="modal-card">
           <header class="modal-card-head">
             <button
