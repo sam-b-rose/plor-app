@@ -4,13 +4,17 @@
     @close="close">
     <div
       slot="content"
-      class="columns is-variable is-8">
-      <transition
+      ref="modalContent">
+      <transition-group
         name="fadeInUp"
+        tag="div"
+        mode="out-in"
+        class="columns is-variable is-8"
         enter-active-class="animated fadeIn">
         <div
           v-if="submitted"
-          class="submitted">
+          key="access-submitted"
+          class="column has-text-centered">
           <img
             class="submitted-image"
             src="/images/check.gif"
@@ -19,26 +23,32 @@
             Successfully submitted
           </h3>
         </div>
-      </transition>
-      <div class="column">
-        <img
-          src="/images/bucket.jpg"
-          alt="paint bucket">
-        <h1 class="title">Get early access</h1>
-        <p>
-          We’re currently building Plor to be totally
-          <a
-            href="https://youtu.be/Pubd-spHN-0"
-            taget="_blank"
-            rel="noopener">
-          fetch</a>.
-          Signup and we’ll let you know when we’re ready for you.
-          We promise absolutely no spam.
-        </p>
-      </div>
-      <div class="column">
-        <PlorEarlyAccessForm @submitted="submitted = true"/>
-      </div>
+        <template v-else>
+          <div
+            key="access-info"
+            class="column">
+            <img
+              src="/images/bucket.jpg"
+              alt="paint bucket">
+            <h1 class="title">Get early access</h1>
+            <p>
+              We’re currently building Plor to be totally
+              <a
+                href="https://youtu.be/Pubd-spHN-0"
+                taget="_blank"
+                rel="noopener">
+              fetch</a>.
+              Signup and we’ll let you know when we’re ready for you.
+              We promise absolutely no spam.
+            </p>
+          </div>
+          <div
+            key="access-form"
+            class="column">
+            <PlorEarlyAccessForm @submitted="onSubmit"/>
+          </div>
+        </template>
+      </transition-group>
     </div>
   </PlorModal>
 </template>
@@ -66,25 +76,31 @@ export default {
   },
   methods: {
     close(data) {
-      this.submitted = false;
+      setTimeout(() => (this.submitted = false), 1000);
       this.$emit('close', data);
+    },
+    onSubmit() {
+      this.submitted = true;
+      setTimeout(this.close, 3500);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+$top-height: 25px;
+
 .submitted {
   display: flex;
-  position: absolute;
+  // position: absolute;
   z-index: 1;
-  top: 0;
-  left: 0;
+  // top: $top-height;
+  // left: 0;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  // width: 100%;
+  // height: calc(100% - $top-height);
   animation-duration: 0.25s;
   animation-delay: 0.25s;
   background-color: $white;
