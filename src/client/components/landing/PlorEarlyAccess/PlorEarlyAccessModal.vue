@@ -4,51 +4,40 @@
     @close="close">
     <div
       slot="content"
-      ref="modalContent">
-      <transition-group
-        name="fadeInUp"
-        tag="div"
-        mode="out-in"
-        class="columns is-variable is-8"
-        enter-active-class="animated fadeIn">
-        <div
-          v-if="submitted"
-          key="access-submitted"
-          class="column has-text-centered">
+      :class="{ submitted }">
+      <div
+        class="submitted-success">
+        <img
+          class="submitted-image"
+          src="/images/check.gif"
+          alt="success">
+        <h3 class="submitted-text title is-3">
+          Successfully submitted
+        </h3>
+      </div>
+      <div class="signup columns is-variable is-8">
+        <div class="column">
           <img
-            class="submitted-image"
-            src="/images/check.gif"
-            alt="success">
-          <h3 class="submitted-text title is-3">
-            Successfully submitted
-          </h3>
+            src="/images/bucket.jpg"
+            alt="paint bucket">
+          <h1 class="title">Get early access</h1>
+          <p>
+            We’re currently building Plor to be totally
+            <a
+              href="https://youtu.be/Pubd-spHN-0"
+              taget="_blank"
+              rel="noopener">
+            fetch</a>.
+            Signup and we’ll let you know when we’re ready for you.
+            We promise absolutely no spam.
+          </p>
         </div>
-        <template v-else>
-          <div
-            key="access-info"
-            class="column">
-            <img
-              src="/images/bucket.jpg"
-              alt="paint bucket">
-            <h1 class="title">Get early access</h1>
-            <p>
-              We’re currently building Plor to be totally
-              <a
-                href="https://youtu.be/Pubd-spHN-0"
-                taget="_blank"
-                rel="noopener">
-              fetch</a>.
-              Signup and we’ll let you know when we’re ready for you.
-              We promise absolutely no spam.
-            </p>
-          </div>
-          <div
-            key="access-form"
-            class="column">
-            <PlorEarlyAccessForm @submitted="onSubmit"/>
-          </div>
-        </template>
-      </transition-group>
+        <div
+          key="access-form"
+          class="column">
+          <PlorEarlyAccessForm @submitted="onSubmit"/>
+        </div>
+      </div>
     </div>
   </PlorModal>
 </template>
@@ -88,21 +77,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$top-height: 25px;
+.signup {
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
 
-.submitted {
+.submitted-success {
   display: flex;
-  // position: absolute;
-  z-index: 1;
-  // top: $top-height;
-  // left: 0;
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
-  // width: 100%;
-  // height: calc(100% - $top-height);
-  animation-duration: 0.25s;
-  animation-delay: 0.25s;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.5s ease 0.5s;
+  opacity: 0;
   background-color: $white;
 }
 
@@ -113,5 +104,15 @@ $top-height: 25px;
 
 .submitted-text {
   color: $green;
+}
+
+.submitted {
+  & .submitted-success {
+    opacity: 1;
+  }
+
+  & .signup {
+    opacity: 0;
+  }
 }
 </style>

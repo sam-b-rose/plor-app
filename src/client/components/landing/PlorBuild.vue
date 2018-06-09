@@ -46,7 +46,11 @@ export default {
 </script>
 
 
-<style scoped>
+<style lang="scss" scoped>
+.hero-body {
+  padding: 3rem;
+}
+
 .v-center {
   display: flex;
   align-items: center;

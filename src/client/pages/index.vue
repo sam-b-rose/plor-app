@@ -1,12 +1,12 @@
 <template>
   <div class="landing">
     <div class="container">
-      <PlorNavbar />
+      <PlorNavbar @open="modalActive = true" />
       <PlorBuild @open="modalActive = true" />
       <PlorTools />
       <PlorExplorers />
       <PlorEarly @open="modalActive = true" />
-      <PlorFooter />
+      <PlorFooter @open="modalActive = true" />
     </div>
     <portal to="plor-modal">
       <PlorEarlyAccessModal
