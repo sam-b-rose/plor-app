@@ -54,20 +54,10 @@ export default {
 <style lang="scss">
 @import '~bulma/sass/utilities/mixins';
 
-.hero-body {
-  @include desktop() {
-    padding: 3rem 6rem;
-  }
-}
-
-.section-title {
-  margin-bottom: 2rem;
-  font-size: 2.75rem;
-  font-weight: 400;
-  line-height: 1.15;
-}
-
 .landing {
+  width: 100%;
+  overflow-x: hidden;
+
   .title {
     margin-bottom: 1rem;
     font-weight: 500;
@@ -78,5 +68,26 @@ export default {
     color: $blue-light;
     font-size: $size-5;
   }
+}
+
+.hero {
+  &.is-fullheight {
+    @include fullhd() {
+      min-height: 800px;
+    }
+  }
+}
+
+.hero-body {
+  @include desktop() {
+    padding: 3rem 6rem;
+  }
+}
+
+.section-title {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.15;
 }
 </style>

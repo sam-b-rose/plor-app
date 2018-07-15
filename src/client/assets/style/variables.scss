@@ -10,12 +10,14 @@ $gray: #a5acbb;
 $blue: #2b67f5;
 $blue-dark: #122758;
 $blue-light: #526280;
-$purple: #9939bd;
-$dark-purple: #742292;
+$purple-1: #9939bd;
+$purple-2: #724dbe;
+$purple-3: #432387;
 $orange: #ee7256;
 
 // Add invert colors
 $blue-dark-invert: findColorInvert($blue-dark);
+$purple-invert: findColorInvert($purple-3);
 
 /* Default properties */
 $default-radius: 6px;
@@ -25,9 +27,9 @@ $button-padding-horizontal: 1.25rem;
 $button-padding-horizontal-long: 4rem;
 
 // 3. Set the derived variables
-$primary: $purple;
-$primary-invert: $purple;
-$link: $purple;
+$primary: $purple-3;
+$primary-invert: $purple-invert;
+$link: $purple-3;
 $danger: $orange;
 
 // Use the new serif family

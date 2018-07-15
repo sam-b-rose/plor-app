@@ -102,7 +102,7 @@ export default {
 
 .feature {
   display: flex;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .feature-icon {
@@ -112,6 +112,10 @@ export default {
 
 .feature-content {
   flex: 1 1 auto;
+
+  p {
+    margin-bottom: 2.75rem;
+  }
 }
 
 .v-center {

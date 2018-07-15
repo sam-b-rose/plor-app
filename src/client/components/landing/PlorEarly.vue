@@ -37,6 +37,11 @@
             <div class="content">
               <div class="section-title">Get early access</div>
               <p>We are currently building Plor to be totally rad. Sign up and we'll let you know when we are ready for your greatness. We promise absolutely no spam.</p>
+              <button
+                class="button button--long is-link is-outlined is-hidden-desktop"
+                @click="$emit('open')">
+                Get early access
+              </button>
             </div>
           </div>
         </div>

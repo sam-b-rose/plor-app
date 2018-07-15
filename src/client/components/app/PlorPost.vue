@@ -19,12 +19,17 @@
     <footer class="card-footer">
       <div class="field is-grouped">
         <div class="control">
-          <button class="button">
+          <!-- <button class="button">
             <span class="icon">
               <font-awesome-icon :icon="['far', 'image']" />
             </span>
             <span>Image / Video</span>
-          </button>
+          </button> -->
+          <flat-pickr
+            class="input"
+            v-model="scheduled"
+            :config="config"
+            name="scheduled" />
         </div>
       </div>
       <div class="field is-grouped is-grouped-right">
@@ -41,32 +46,54 @@
 </template>
 
 <script>
+import addHours from 'date-fns/add_hours'
+import startOfTomorrow from 'date-fns/start_of_tomorrow'
+
+import FlatPickr from 'vue-flatpickr-component'
+
 export default {
+  components: {
+    FlatPickr
+  },
   data() {
     return {
       message: '',
+      scheduled: addHours(startOfTomorrow(), 12),
       hasMedia: false,
       hasGIF: false,
-      hasPoll: false
-    };
+      hasPoll: false,
+      config: {
+        enableTime: true,
+        altInput: true,
+        altFormat: 'F j, Y h:i K',
+        minDate: Date.now()
+      }
+    }
   },
   methods: {
     submit() {
-      const { connections } = this.$store.state.connections;
+      const { connections } = this.$store.state.connections
       this.$store
-        .dispatch('posts/addPost', { text: this.message, connections })
+        .dispatch('posts/addPost', {
+          connections,
+          text: this.message,
+          scheduled: new Date(this.scheduled)
+        })
         .then(() => {
           if (this.$store.state.notification.success) {
-            console.log('Post added!');
-            this.message = '';
+            console.log('Post added!')
+            this.message = ''
+            this.scheduled = new Date()
           }
-        });
+        })
     }
   }
-};
+}
 </script>
 
 <style lang="scss">
+@import '~flatpickr/dist/flatpickr.css';
+
 .card {
   overflow: hidden;
 }
@@ -79,6 +106,7 @@ export default {
 .field {
   &.is-grouped {
     flex: 1 1 auto;
+    align-items: center;
   }
 
   &:not(:last-child) {

@@ -1,6 +1,6 @@
 <template>
-  <div class="mountains columns is-centered">
-    <div class="column is-half is-one-third-tablet explorers">
+  <div class="mountains columns is-centered  is-fullheight">
+    <div class="explorers column is-one-third">
       <a
         v-for="(explorer, i) in explorers"
         :key="i"
@@ -14,15 +14,13 @@
         <div>{{ explorer.role }}</div>
       </a>
     </div>
-    <main class="column is-half-desktop is-two-thirds-tablet">
-      <section class="hero is-fullheight">
+    <main class="column is-two-thirds">
+      <section class="hero">
         <div class="hero-body">
-          <div class="container">
-            <div class="content">
-              <div class="section-title">Built by ex(plor)ers</div>
-              <p>Our team is composed of two friends (and an awesome dog) working day and night until this service is plorfect.</p>
-              <p>We believe services in this space aren't quite there yet. We felt there was an opportunity to build the best tool to help small and large buisinesses share their gifts with the world.</p>
-            </div>
+          <div class="content">
+            <div class="section-title">Built by ex(plor)ers</div>
+            <p>Our team is composed of two friends (and an awesome dog) working day and night until this service is plorfect.</p>
+            <p>We believe services in this space aren't quite there yet. We felt there was an opportunity to build the best tool to help small and large buisinesses share their gifts with the world.</p>
           </div>
         </div>
       </section>
@@ -56,7 +54,7 @@ export default {
           name: 'Franklin',
           image: 'franklin.jpg',
           direction: 'up',
-          role: 'Cheif Dog Officer',
+          role: 'Chief Dog Officer',
           link: 'https://instagram.com/franklindacorgi'
         }
       ]
@@ -75,8 +73,11 @@ export default {
   background-size: contain;
 
   @include desktop() {
-    min-height: 800px;
-    margin: 0 -6rem;
+    min-height: 1000px;
+  }
+
+  @include mobile() {
+    background-image: none;
   }
 
   .hero-body {
@@ -88,7 +89,7 @@ export default {
   height: 100vh;
 
   @include mobile() {
-    height: calc(400px + 2rem);
+    height: 600px;
   }
 }
 
@@ -98,8 +99,8 @@ export default {
   flex-flow: column nowrap;
   align-items: flex-start;
   justify-content: flex-end;
-  width: 250px;
-  height: 300px;
+  width: 300px;
+  height: 400px;
   padding: 1.2rem;
   transition: all 0.3s;
   border-radius: 4px;
@@ -124,57 +125,54 @@ export default {
   }
 
   &:nth-child(1) {
-    top: 18%;
-    left: 12%;
+    top: 100px;
+    left: 2rem;
   }
 
   &:nth-child(2) {
-    top: 47%;
-    left: calc(18% + 250px);
+    top: calc(100px + 250px + 50px);
+    left: calc(2rem + 300px + 50px);
   }
 
   &:nth-child(3) {
-    top: calc(40% + 150px);
-    left: 12%;
+    top: calc(100px + 400px + 50px);
+    left: 2rem;
   }
 
   @include touch() {
-    width: 25%;
-    height: 250px;
+    width: 250px;
+    height: 350px;
 
     &:nth-child(1) {
-      top: 18%;
-      left: 8%;
+      top: 0;
     }
 
     &:nth-child(2) {
-      top: 47%;
-      left: calc(12% + 250px);
+      top: calc(350px + 25px);
+      left: calc(2rem + 250px + 50px);
     }
 
     &:nth-child(3) {
-      top: calc(40% + 150px);
-      left: 8%;
+      top: calc(350px + 50px);
     }
   }
 
   @include mobile() {
-    width: 40%;
-    height: 200px;
+    width: 30%;
+    height: 250px;
 
     &:nth-child(1) {
-      top: 0;
       left: 10%;
     }
 
     &:nth-child(2) {
-      top: 100px;
-      left: calc(50% + 15px);
+      top: calc(150px + 25px);
+      left: 50%;
     }
 
     &:nth-child(3) {
-      top: 215px;
-      left: 10%;
+      top: calc(250px + 25px);
+      left: 15%;
     }
   }
 }

@@ -1,49 +1,49 @@
 <template>
   <nav class="navbar has-text-weight-bold is-spaced">
-    <div class="container">
-      <div class="navbar-brand">
-        <nuxt-link
-          class="logo navbar-item is-bold is-size-4"
-          to="/">
-          Plor
-          <span class="beta">beta</span>
-        </nuxt-link>
-        <div class="navbar-burger burger">
-          <span />
-          <span />
-          <span />
-        </div>
+    <div class="navbar-brand">
+      <nuxt-link
+        class="logo navbar-item is-bold is-size-4"
+        to="/">
+        Plor
+        <span class="beta">beta</span>
+      </nuxt-link>
+      <div
+        class="navbar-burger burger"
+        @click="menuActive = !menuActive">
+        <span />
+        <span />
+        <span />
       </div>
+    </div>
 
-      <div class="navbar-menu">
-        <div class="navbar-start" />
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <!-- Redirect to EA for now -->
-            <a
-              class="button is-text"
-              @click.prevent="$emit('open')">
-              Login
-            </a>
-            <!-- <nuxt-link
-              class="button is-text"
-              to="/app">
-              Login
-            </nuxt-link> -->
-          </div>
-          <div class="navbar-item">
-            <!-- Redirect to EA for now -->
-            <a
-              class="button is-link is-outlined"
-              @click.prevent="$emit('open')">
-              Sign up
-            </a>
-            <!-- <nuxt-link
-              class="button is-link is-outlined"
-              to="/auth/register">
-              Sign up
-            </nuxt-link> -->
-          </div>
+    <div :class="['navbar-menu', menuActive && 'is-active']">
+      <div class="navbar-start" />
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <!-- Redirect to EA for now -->
+          <a
+            class="button is-text"
+            @click.prevent="$emit('open')">
+            Login
+          </a>
+          <!-- <nuxt-link
+            class="button is-text"
+            to="/app">
+            Login
+          </nuxt-link> -->
+        </div>
+        <div class="navbar-item">
+          <!-- Redirect to EA for now -->
+          <a
+            class="button is-link is-outlined"
+            @click.prevent="$emit('open')">
+            Sign up
+          </a>
+          <!-- <nuxt-link
+            class="button is-link is-outlined"
+            to="/auth/register">
+            Sign up
+          </nuxt-link> -->
         </div>
       </div>
     </div>
@@ -52,7 +52,12 @@
 
 <script>
 export default {
-  name: 'PlorNavbar'
+  name: 'PlorNavbar',
+  data() {
+    return {
+      menuActive: false
+    };
+  }
 };
 </script>
 

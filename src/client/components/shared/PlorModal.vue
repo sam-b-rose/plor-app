@@ -58,7 +58,7 @@ $close-size: 30px;
 }
 
 .modal-background {
-  background-color: rgba($dark-purple, 0.5);
+  background-color: rgba($purple-2, 0.5);
 }
 
 .modal-card {

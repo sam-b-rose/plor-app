@@ -53,7 +53,7 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   height: 100vh;
-  background-color: $light;
+  background-color: $primary;
 }
 
 .menu-list {
@@ -73,11 +73,21 @@ a {
   margin: 0.5rem;
   padding: 0.75rem 1rem;
   border-radius: 4px;
+  color: white;
+  font-weight: 500;
+
+  &:hover {
+    color: $blue-dark;
+  }
 }
 
 a.nuxt-link-active {
-  background-color: $blue-dark;
-  color: white;
+  background-color: $purple-2;
+
+  &:hover {
+    background-color: white;
+    color: $blue-dark;
+  }
 }
 
 .profile {

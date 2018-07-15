@@ -14,7 +14,7 @@
       <div class="hero is-fullheight">
         <div class="hero-body">
           <div class="container">
-            <h3 class="section-title">Build your audience by socializing smarter</h3>
+            <h1 class="title">Build your audience by socializing smarter</h1>
             <p>Spread the word without a hassle so you and your team can get back to business.</p>
             <p>Plor takes the stress of managing all those social media accounts off your shoulders. Less time posting or tweeting and more time relaxing.</p>
             <button
@@ -59,6 +59,11 @@ export default {
 .artwork {
   width: 100%;
   margin: 0 auto;
+}
+
+.title {
+  font-size: 2.75rem;
+  font-weight: 400;
 }
 </style>
 

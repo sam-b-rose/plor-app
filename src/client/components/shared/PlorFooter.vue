@@ -9,36 +9,32 @@
               to="/">
               Plor
             </nuxt-link>
-          </div>
-          <div class="navbar-menu">
-            <div class="navbar-start">
-              <div class="navbar-item">
-                <!-- Redirect to EA for now -->
-                <a
-                  class="button is-text"
-                  @click.prevent="$emit('open')">
-                  Sign up
-                </a>
-                <!-- <nuxt-link
-                  class="button is-text"
-                  to="/auth/register">
-                  Sign up
-                </nuxt-link> -->
-              </div>
-              <div class="navbar-item">
-                <nuxt-link
-                  class="button is-text"
-                  to="/about">
-                  About
-                </nuxt-link>
-              </div>
-              <div class="navbar-item">
-                <nuxt-link
-                  class="button is-text"
-                  to="/contact">
-                  Contact
-                </nuxt-link>
-              </div>
+            <div class="navbar-item">
+              <!-- Redirect to EA for now -->
+              <a
+                class="button is-text"
+                @click.prevent="$emit('open')">
+                Sign up
+              </a>
+              <!-- <nuxt-link
+                class="button is-text"
+                to="/auth/register">
+                Sign up
+              </nuxt-link> -->
+            </div>
+            <div class="navbar-item">
+              <nuxt-link
+                class="button is-text"
+                to="/about">
+                About
+              </nuxt-link>
+            </div>
+            <div class="navbar-item">
+              <nuxt-link
+                class="button is-text"
+                to="/contact">
+                Contact
+              </nuxt-link>
             </div>
           </div>
         </div>

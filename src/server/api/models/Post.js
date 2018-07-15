@@ -7,6 +7,9 @@ const postSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  scheduled: {
+    type: Date
+  },
   sent: {
     type: Boolean,
     default: false
