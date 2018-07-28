@@ -3,7 +3,8 @@
 .vscode
 dist
 node_modules
-secrets.json
+stage.secrets.json
+prod.secrets.json
 db
 
 static/manifest*.json
