@@ -10,7 +10,6 @@ router.get(
   authController.isLoggedIn,
   catchErrors(postController.getPosts)
 );
-
 router.get('/scheduled', catchErrors(postController.getScheduled));
 router.get('/send', catchErrors(postController.sendPost));
 
