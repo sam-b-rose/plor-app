@@ -1,43 +1,47 @@
 <template>
-  <div class="plor-table">
-    <div class="header columns">
-      <div
-        class="column"
-        v-for="(key, i) in order"
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <th
+          v-for="(key, i) in order"
+          :key="i"
+          :title="key | upperCase">
+          {{ key | upperCase }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="(row, i) in flatRows"
         :key="i">
-        {{ key | upperCase }}
-      </div>
-    </div>
-    <div
-      class="columns"
-      v-for="(row, i) in flatRows"
-      :key="i">
-      <div
-        class="column"
-        v-for="([key, value], j) in row"
-        :key="j">
-        <!-- HANDLE -->
-        <img
-          v-if="key === 'handle'"
-          class="handle"
-          :src="rows[i].profileImageUrl || 'https://gravatar.com/avatar/s=200'">
-        <!-- TYPE -->
-        <font-awesome-layers
-          v-if="key === 'type'"
-          class="type">
-          <font-awesome-icon
-            :class="value"
-            transform="grow-6"
-            :icon="['fas', 'circle']" />
-          <font-awesome-icon
-            class="icon"
-            transform="shrink-4"
-            :icon="['fab', iconMap[value]]" />
-        </font-awesome-layers>
-        <span v-html="value" />
-      </div>
-    </div>
-  </div>
+        <td
+          v-for="([key, value], j) in row"
+          :key="j">
+          <div class="flex-center">
+            <!-- HANDLE -->
+            <img
+              v-if="key === 'handle'"
+              class="handle"
+              :src="rows[i].profileImageUrl || 'https://gravatar.com/avatar/s=200'">
+            <!-- TYPE -->
+            <font-awesome-layers
+              v-if="key === 'type'"
+              class="type">
+              <font-awesome-icon
+                :class="value"
+                transform="grow-6"
+                :icon="['fas', 'circle']" />
+              <font-awesome-icon
+                class="icon"
+                transform="shrink-4"
+                :icon="['fab', iconMap[value]]" />
+            </font-awesome-layers>
+            <span v-html="value" />
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
@@ -81,6 +85,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* DEPRICATED
 .header {
   background-color: #edf0f6;
   color: $blue-dark;
@@ -96,6 +101,13 @@ export default {
 .column {
   display: flex;
   align-items: center;
+}
+*/
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  height: 40px;
 }
 
 .handle {

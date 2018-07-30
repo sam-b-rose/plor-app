@@ -19,12 +19,6 @@
     <footer class="card-footer">
       <div class="field is-grouped">
         <div class="control">
-          <!-- <button class="button">
-            <span class="icon">
-              <font-awesome-icon :icon="['far', 'image']" />
-            </span>
-            <span>Image / Video</span>
-          </button> -->
           <flat-pickr
             class="input"
             v-model="scheduled"
@@ -46,10 +40,10 @@
 </template>
 
 <script>
-import addHours from 'date-fns/add_hours'
-import startOfTomorrow from 'date-fns/start_of_tomorrow'
+import addHours from 'date-fns/add_hours';
+import startOfTomorrow from 'date-fns/start_of_tomorrow';
 
-import FlatPickr from 'vue-flatpickr-component'
+import FlatPickr from 'vue-flatpickr-component';
 
 export default {
   components: {
@@ -68,11 +62,11 @@ export default {
         altFormat: 'F j, Y h:i K',
         minDate: Date.now()
       }
-    }
+    };
   },
   methods: {
     submit() {
-      const { connections } = this.$store.state.connections
+      const { connections } = this.$store.state.connections;
       this.$store
         .dispatch('posts/addPost', {
           connections,
@@ -81,14 +75,14 @@ export default {
         })
         .then(() => {
           if (this.$store.state.notification.success) {
-            console.log('Post added!')
-            this.message = ''
-            this.scheduled = new Date()
+            console.log('Post added!');
+            this.message = '';
+            this.scheduled = new Date();
           }
-        })
+        });
     }
   }
-}
+};
 </script>
 
 <style lang="scss">

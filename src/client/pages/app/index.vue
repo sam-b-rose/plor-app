@@ -1,49 +1,9 @@
 <template>
   <section class="section">
-    <nav
-      class="navbar"
-      role="navigation"
-      ria-label="secondary navigation">
-      <div class="navbar-start">
-        <h3 class="navbar-item title is-4">Posts</h3>
-      </div>
-      <div class="navbar-end">
-        <nuxt-link
-          class="navbar-item is-tab is-active"
-          to="/">
-          Queue
-        </nuxt-link>
-        <nuxt-link
-          class="navbar-item is-tab"
-          to="/">
-          Drafts
-        </nuxt-link>
-        <nuxt-link
-          class="navbar-item is-tab"
-          to="/">
-          History
-        </nuxt-link>
-      </div>
-    </nav>
-    <div class="tile is-ancestor">
-      <div class="tile is-parent is-vertical is-3">
-        <PlorList
-          class="tile is-child"
-          :items="filterItems" />
-      </div>
-      <div class="tile is-parent is-vertical is-6">
-        <PlorPost class="tile is-child" />
-        <PlorDeck class="tile is-child" />
-      </div>
-      <div class="tile is-parent is-vertical is-3">
-        <div class="tile is-child notification">
-          <button class="delete" />
-          <small>Try <strong class="has-text-info">adding networks</strong> to help spread the word about your awesome sock business!</small>
-        </div>
-        <PlorList
-          class="tile is-child"
-          :items="connectionItems" />
-      </div>
+    <div class="container is-fluid">
+      <h3 class="subtitle is-3">Queue</h3>
+      <PlorPost />
+      <PlorDeck />
     </div>
   </section>
 </template>
@@ -68,24 +28,10 @@ export default {
     return {
       posts: [],
       filterItems: [
-        { text: 'Tags', icon: ['fas', 'tag'] },
-        { text: 'Social Accounts', icon: ['far', 'comment'] },
-        { text: 'Members', icon: ['fas', 'users'] },
-        { text: 'Media', icon: ['far', 'images'] }
-      ],
-      connectionItems: [
-        {
-          text: 'Connect to Facebook',
-          icon: ['fab', 'facebook'],
-          color: '#3B5998',
-          url: '/manage'
-        },
-        {
-          text: 'Connect to Twitter',
-          icon: ['fab', 'twitter'],
-          color: '#1DA1F2',
-          url: '/manage'
-        }
+        { text: 'Tags' },
+        { text: 'Social Accounts' },
+        { text: 'Members' },
+        { text: 'Media' }
       ]
     };
   }
@@ -94,10 +40,6 @@ export default {
 
 <style lang="scss" scoped>
 $navbar-min-height: 3rem;
-
-.section {
-  padding: 3rem;
-}
 
 .navbar {
   min-height: $navbar-min-height;

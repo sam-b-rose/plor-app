@@ -17,6 +17,7 @@ import {
 import faCircle from '@fortawesome/fontawesome-free-solid/faCircle';
 import faTag from '@fortawesome/fontawesome-free-solid/faTag';
 import faUsers from '@fortawesome/fontawesome-free-solid/faUsers';
+import faSearch from '@fortawesome/fontawesome-free-solid/faSearch';
 
 // Regular
 import faComment from '@fortawesome/fontawesome-free-regular/faComment';
@@ -33,6 +34,7 @@ fontawesome.library.add(
   faTwitter,
   // Solid
   faCircle,
+  faSearch,
   // Regular
   faImage,
   faImages,

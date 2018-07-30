@@ -1,33 +1,56 @@
 <template>
   <aside class="menu">
-    <div
-      class="profile"
-      :style="{ backgroundImage: `url('${gravatar}')` }"/>
+    <div class="plor-brand" />
     <ul class="menu-list">
+      <p class="menu-label">
+        Posts
+      </p>
       <li>
         <nuxt-link to="/app">
-          <i class="far fa-square-full" /> Posts
+          Queue
+        </nuxt-link>
+        <nuxt-link
+          class="strike"
+          to="/app/drafts">
+          Drafts
+        </nuxt-link>
+        <nuxt-link
+          class="strike"
+          to="/app/history">
+          History
         </nuxt-link>
       </li>
-      <!-- <li>
-        <nuxt-link to="/analytics">
-          <i class="far fa-square-full" /> Analytics
-        </nuxt-link>
-      </li> -->
+      <p class="menu-label">
+        Manage
+      </p>
       <li>
         <nuxt-link to="/manage">
-          <i class="far fa-square-full" /> Manage
+          Accounts
         </nuxt-link>
       </li>
-      <!-- <li>
-        <nuxt-link to="/settings">
-          <i class="far fa-square-full" /> Settings
+      <li>
+        <nuxt-link
+          class="strike"
+          to="/manage/members">
+          Members
         </nuxt-link>
-      </li> -->
+      </li>
+      <li>
+        <nuxt-link
+          class="strike"
+          to="/manage/schedule">
+          Schedule
+        </nuxt-link>
+      </li>
     </ul>
     <ul class="menu-list bottom">
       <li>
-        <nuxt-link :to="`/users/account`">
+        <nuxt-link
+          class="profile-link"
+          :to="`/users/account`">
+          <div
+            class="profile"
+            :style="{ backgroundImage: `url('${gravatar}')` }"/>
           {{ name }}
         </nuxt-link>
       </li>
@@ -49,16 +72,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.strike {
+  &:hover {
+    color: $gray;
+    text-decoration: line-through;
+    cursor: not-allowed;
+  }
+}
+
+.plor-brand {
+  width: 35px;
+  height: 35px;
+  margin: 3rem 2rem 2rem;
+  background-color: $border;
+}
+
 .menu {
   display: flex;
   flex-flow: column nowrap;
   height: 100vh;
-  background-color: $primary;
+  overflow: auto;
+  background-color: $light-gray;
 }
 
 .menu-list {
   flex: 1 1 auto;
-  margin: 1rem;
 
   svg {
     margin-right: 10px;
@@ -66,15 +104,21 @@ export default {
 
   &.bottom {
     flex: 0 0 auto;
+    margin-bottom: 2rem;
   }
 }
 
+.menu-label {
+  margin: 1.75rem 2rem 0.75rem;
+  color: $text-light;
+  font-weight: bold;
+}
+
 a {
-  margin: 0.5rem;
-  padding: 0.75rem 1rem;
-  border-radius: 4px;
-  color: white;
-  font-weight: 500;
+  margin: 0;
+  padding: 0.75rem 2rem;
+  border-left: 3px solid transparent;
+  font-weight: 400;
 
   &:hover {
     color: $blue-dark;
@@ -82,19 +126,20 @@ a {
 }
 
 a.nuxt-link-active {
-  background-color: $purple-2;
+  border-left-color: $purple-2;
+  color: $purple-2;
+}
 
-  &:hover {
-    background-color: white;
-    color: $blue-dark;
-  }
+.profile-link {
+  display: flex;
+  align-items: center;
 }
 
 .profile {
-  flex: 0 0 auto;
-  width: 65px;
-  height: 65px;
-  margin: 6rem auto;
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  margin-right: 1rem;
   border-radius: 50%;
   background-color: $gray;
   background-size: cover;

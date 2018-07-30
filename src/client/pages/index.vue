@@ -83,11 +83,4 @@ export default {
     padding: 3rem 6rem;
   }
 }
-
-.section-title {
-  margin-bottom: 2rem;
-  font-size: 2rem;
-  font-weight: 400;
-  line-height: 1.15;
-}
 </style>

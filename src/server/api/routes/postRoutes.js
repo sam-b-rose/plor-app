@@ -10,6 +10,11 @@ router.get(
   authController.isLoggedIn,
   catchErrors(postController.getPosts)
 );
+router.get(
+  '/history',
+  authController.isLoggedIn,
+  catchErrors(postController.getHistory)
+);
 router.get('/scheduled', catchErrors(postController.getScheduled));
 router.get('/send', catchErrors(postController.sendPost));
 
