@@ -1,14 +1,19 @@
 <template>
   <form
-    class="card"
+    class="card new-post"
+    :class="{'active': addingPost}"
     @submit.prevent
     @key.enter="submit">
+
+    <div class="card-focus" />
+
     <div class="card-content">
       <div class="field">
         <div class="control">
           <textarea
             rows="1"
             class="textarea"
+            @focus="addingPost = true"
             @keydown.enter.prevent="submit"
             placeholder="Type it loud and clear!"
             v-model="message"/>
@@ -16,26 +21,98 @@
       </div>
     </div>
 
-    <footer class="card-footer">
+    <footer class="card-footer media-options">
+      <div class="field is-grouped">
+        <button
+          class="button is-text"
+          @click="addMedia">
+          <span class="icon">
+            <font-awesome-icon :icon="['far', 'square']" />
+          </span>
+          <span>Photo / Video</span>
+        </button>
+      </div>
+    </footer>
+
+    <footer
+      v-if="addingPost"
+      class="card-footer">
       <div class="field is-grouped">
         <div class="control">
+          <button
+            class="button"
+            @click="cancel">
+            Cancel
+          </button>
+        </div>
+      </div>
+      <div class="field is-grouped is-grouped-right">
+        <div
+          v-if="selectedAction === 'Schedule'"
+          class="control">
           <flat-pickr
             class="input"
             v-model="scheduled"
             :config="config"
             name="scheduled" />
         </div>
-      </div>
-      <div class="field is-grouped is-grouped-right">
         <div class="control">
-          <button
-            class="button is-link"
-            @click="submit">
-            Schedule
-          </button>
+          <div class="buttons has-addons is-right">
+            <div
+              class="button"
+              @click="submit">
+              {{ selectedAction }}
+            </div>
+            <PlorDropdown
+              v-model="selectedAction"
+              right
+              class="button has-text-left"
+              trigger-class="icon">
+              <span slot="trigger">
+                <font-awesome-icon icon="chevron-down" />
+              </span>
+
+              <PlorDropdownItem
+                v-for="(action, i) in actionItems"
+                :key="i"
+                :value="action">
+                {{ action }}
+              </PlorDropdownItem>
+            </PlorDropdown>
+          </div>
         </div>
       </div>
     </footer>
+
+    <transition
+      name="fade"
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut">
+      <div
+        v-if="confirmDiscard"
+        class="discard">
+        <div class="discard-container">
+          <div class="title discard-message">Discard this post?</div>
+          <div class="field is-grouped is-grouped-centered">
+            <div class="control">
+              <button
+                class="button"
+                @click="confirmDiscard = false">
+                Nevermind
+              </button>
+            </div>
+            <div class="control">
+              <button
+                class="button is-primary"
+                @click="discard">
+                Discard
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+
   </form>
 </template>
 
@@ -44,10 +121,14 @@ import addHours from 'date-fns/add_hours';
 import startOfTomorrow from 'date-fns/start_of_tomorrow';
 
 import FlatPickr from 'vue-flatpickr-component';
+import PlorDropdown from '@/components/shared/PlorDropdown';
+import PlorDropdownItem from '@/components/shared/PlorDropdownItem';
 
 export default {
   components: {
-    FlatPickr
+    FlatPickr,
+    PlorDropdown,
+    PlorDropdownItem
   },
   data() {
     return {
@@ -55,7 +136,15 @@ export default {
       scheduled: addHours(startOfTomorrow(), 12),
       hasMedia: false,
       hasGIF: false,
-      hasPoll: false,
+      addingPost: false,
+      confirmDiscard: false,
+      selectedAction: null,
+      actionItems: {
+        queuePost: 'Add to queue',
+        schedulePost: 'Schedule',
+        sendPost: 'Post now',
+        savePost: 'Save to draft'
+      },
       config: {
         enableTime: true,
         altInput: true,
@@ -64,11 +153,18 @@ export default {
       }
     };
   },
+  created() {
+    this.selectedAction = this.actionItems.schedulePost;
+  },
   methods: {
+    addMedia() {},
     submit() {
       const { connections } = this.$store.state.connections;
+      const action = Object.keys(this.actionItems)
+        .filter(k => this.actionItems[k] === this.selectedAction)
+        .pop();
       this.$store
-        .dispatch('posts/addPost', {
+        .dispatch(`posts/${action}`, {
           connections,
           text: this.message,
           scheduled: new Date(this.scheduled)
@@ -80,6 +176,15 @@ export default {
             this.scheduled = new Date();
           }
         });
+    },
+    cancel() {
+      if (!this.message) return (this.addingPost = false);
+      this.confirmDiscard = true;
+    },
+    discard() {
+      this.confirmDiscard = false;
+      this.message = '';
+      this.cancel();
     }
   }
 };
@@ -88,13 +193,46 @@ export default {
 <style lang="scss">
 @import '~flatpickr/dist/flatpickr.css';
 
-.card {
-  overflow: hidden;
+.new-post {
+  z-index: 1;
 }
 
-.card-footer {
+.card-focus {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.card-content {
+  min-height: 0;
+  transition: min-height 0.3s ease;
+}
+
+.media-options {
   padding: 0.5rem;
-  background: $light;
+  background-color: $light;
+}
+
+.card {
+  &.active {
+    .card-content {
+      min-height: 200px;
+    }
+
+    .card-footer:not(:last-child) {
+      border-radius: 0;
+    }
+
+    .card-focus {
+      opacity: 1;
+    }
+  }
 }
 
 .field {
@@ -118,5 +256,24 @@ export default {
     box-shadow: none;
     resize: none;
   }
+}
+
+.discard {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  animation-duration: 0.3s;
+  background-color: rgba($black, 0.9);
+  text-align: center;
+}
+
+.discard-message {
+  color: $white;
 }
 </style>

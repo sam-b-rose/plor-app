@@ -14,6 +14,7 @@ import {
 } from '@fortawesome/fontawesome-free-brands';
 
 // Solid
+import faChevronDown from '@fortawesome/fontawesome-free-solid/faChevronDown';
 import faCircle from '@fortawesome/fontawesome-free-solid/faCircle';
 import faTag from '@fortawesome/fontawesome-free-solid/faTag';
 import faUsers from '@fortawesome/fontawesome-free-solid/faUsers';
@@ -33,6 +34,7 @@ fontawesome.library.add(
   faFacebookF,
   faTwitter,
   // Solid
+  faChevronDown,
   faCircle,
   faSearch,
   // Regular

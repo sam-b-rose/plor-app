@@ -64,7 +64,61 @@ export const actions = {
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
       commit('ADD_POST_FAILURE', error);
-      commit('notification/FAILURE', error.response.data, { root: true });
+      commit('notification/FAILURE', error.response.data, {
+        root: true
+      });
+    }
+  },
+  async sendPost({ commit }, payload) {
+    try {
+      commit('ADD_POST_REQUEST');
+      let { data } = await axios.post('/posts', payload);
+      commit('ADD_POST_SUCCESS', data);
+      commit('notification/SUCCESS', data, { root: true });
+    } catch (error) {
+      commit('ADD_POST_FAILURE', error);
+      commit('notification/FAILURE', error.response.data, {
+        root: true
+      });
+    }
+  },
+  async queuePost({ commit }, payload) {
+    try {
+      commit('ADD_POST_REQUEST');
+      let { data } = await axios.post('/posts', payload);
+      commit('ADD_POST_SUCCESS', data);
+      commit('notification/SUCCESS', data, { root: true });
+    } catch (error) {
+      commit('ADD_POST_FAILURE', error);
+      commit('notification/FAILURE', error.response.data, {
+        root: true
+      });
+    }
+  },
+  async schedulePost({ commit }, payload) {
+    try {
+      commit('ADD_POST_REQUEST');
+      let { data } = await axios.post('/posts', payload);
+      commit('ADD_POST_SUCCESS', data);
+      commit('notification/SUCCESS', data, { root: true });
+    } catch (error) {
+      commit('ADD_POST_FAILURE', error);
+      commit('notification/FAILURE', error.response.data, {
+        root: true
+      });
+    }
+  },
+  async savePost({ commit }, payload) {
+    try {
+      commit('ADD_POST_REQUEST');
+      let { data } = await axios.post('/posts', payload);
+      commit('ADD_POST_SUCCESS', data);
+      commit('notification/SUCCESS', data, { root: true });
+    } catch (error) {
+      commit('ADD_POST_FAILURE', error);
+      commit('notification/FAILURE', error.response.data, {
+        root: true
+      });
     }
   },
   async deletePost({ state, commit }) {
@@ -75,7 +129,9 @@ export const actions = {
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
       commit('DELETE_POST_FAILURE', error);
-      commit('notification/FAILURE', error.response.data, { root: true });
+      commit('notification/FAILURE', error.response.data, {
+        root: true
+      });
     }
   },
   async fetchPosts({ commit }) {
@@ -86,7 +142,9 @@ export const actions = {
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
       commit('FETCH_POSTS_FAILURE', error);
-      commit('notification/FAILURE', error.response.data, { root: true });
+      commit('notification/FAILURE', error.response.data, {
+        root: true
+      });
     }
   },
   async fetchHistory({ commit }) {
@@ -97,7 +155,9 @@ export const actions = {
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
       commit('FETCH_HISTORY_FAILURE', error);
-      commit('notification/FAILURE', error.response.data, { root: true });
+      commit('notification/FAILURE', error.response.data, {
+        root: true
+      });
     }
   }
 };

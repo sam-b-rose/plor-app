@@ -8,7 +8,8 @@ body {
 }
 
 // Bulma Overrides
-.button {
+.button,
+.input {
   height: auto;
   padding-top: $button-padding-vertical;
   padding-right: $button-padding-horizontal;
@@ -16,8 +17,8 @@ body {
   padding-left: $button-padding-horizontal;
   border-width: 2px;
   border-radius: $default-radius;
-  font-weight: 700;
-  cursor: pionter;
+  font-weight: 500;
+  cursor: pointer;
 
   &--long {
     padding-right: $button-padding-horizontal-long;
@@ -30,8 +31,22 @@ body {
 }
 
 .card {
+  position: relative;
   border-radius: $default-radius;
   border-color: $light;
+}
+
+.card-content {
+  border-top-left-radius: $default-radius;
+  border-top-right-radius: $default-radius;
+  background: $white;
+}
+
+.card-footer {
+  padding: 1rem;
+  border-bottom-right-radius: $default-radius;
+  border-bottom-left-radius: $default-radius;
+  background: $white;
 }
 
 .label {
