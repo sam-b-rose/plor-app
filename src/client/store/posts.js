@@ -1,23 +1,26 @@
 import axios from '~/plugins/axios';
 
 export const state = () => {
-  return {
-    deck: []
-  };
+  return { queue: [], drafts: [], history: [] };
 };
 
 export const mutations = {
+  // Add
   ADD_POST_REQUEST(state) {
     console.log('Add post pending...');
   },
   ADD_POST_SUCCESS(state, data) {
-    state.deck = [...state.deck, data.post];
+    const list = data.post.draft ? 'drafts' : 'queue';
+    console.log(list);
+    state[list] = [...state[list], data.post];
     console.log('Add post success!');
   },
   ADD_POST_FAILURE(state, error) {
     console.log('Add post failure.');
     console.error(error);
   },
+
+  // Delete
   DELETE_POST_REQUEST(state) {
     console.log('Delete post pending...');
   },
@@ -31,22 +34,39 @@ export const mutations = {
     console.log('Delete post failure.');
     console.error(error);
   },
+
+  // Posts
   FETCH_POSTS_REQUEST(state) {
     console.log('Fetch posts pending...');
   },
   FETCH_POSTS_SUCCESS(state, data) {
-    state.deck = data.posts;
+    state.queue = data.posts;
     console.log('Fetch posts success!');
   },
   FETCH_POSTS_FAILURE(state, error) {
     console.log('Fetch posts failure.');
     console.error(error);
   },
+
+  // Draftss
+  FETCH_DRAFTS_REQUEST(state) {
+    console.log('Fetch drafts pending...');
+  },
+  FETCH_DRAFTS_SUCCESS(state, data) {
+    state.drafts = data.posts;
+    console.log('Fetch drafts success!');
+  },
+  FETCH_DRAFTS_FAILURE(state, error) {
+    console.log('Fetch drafts failure.');
+    console.error(error);
+  },
+
+  // History
   FETCH_HISTORY_REQUEST(state) {
     console.log('Fetch history pending...');
   },
   FETCH_HISTORY_SUCCESS(state, data) {
-    state.deck = data.history;
+    state.history = data.posts;
     console.log('Fetch history success!');
   },
   FETCH_HISTORY_FAILURE(state, error) {
@@ -69,57 +89,21 @@ export const actions = {
       });
     }
   },
-  async sendPost({ commit }, payload) {
-    try {
-      commit('ADD_POST_REQUEST');
-      let { data } = await axios.post('/posts', payload);
-      commit('ADD_POST_SUCCESS', data);
-      commit('notification/SUCCESS', data, { root: true });
-    } catch (error) {
-      commit('ADD_POST_FAILURE', error);
-      commit('notification/FAILURE', error.response.data, {
-        root: true
-      });
-    }
+  async sendPost({ dispatch }, payload) {
+    payload.scheduled = new Date();
+    dispatch('addPost', payload);
   },
-  async queuePost({ commit }, payload) {
-    try {
-      commit('ADD_POST_REQUEST');
-      let { data } = await axios.post('/posts', payload);
-      commit('ADD_POST_SUCCESS', data);
-      commit('notification/SUCCESS', data, { root: true });
-    } catch (error) {
-      commit('ADD_POST_FAILURE', error);
-      commit('notification/FAILURE', error.response.data, {
-        root: true
-      });
-    }
+  // TODO: Figure out queue logic here
+  async queuePost({ dispatch }, payload) {
+    payload.scheduled = new Date();
+    dispatch('addPost', payload);
   },
-  async schedulePost({ commit }, payload) {
-    try {
-      commit('ADD_POST_REQUEST');
-      let { data } = await axios.post('/posts', payload);
-      commit('ADD_POST_SUCCESS', data);
-      commit('notification/SUCCESS', data, { root: true });
-    } catch (error) {
-      commit('ADD_POST_FAILURE', error);
-      commit('notification/FAILURE', error.response.data, {
-        root: true
-      });
-    }
+  async schedulePost({ dispatch }, payload) {
+    dispatch('addPost', payload);
   },
-  async savePost({ commit }, payload) {
-    try {
-      commit('ADD_POST_REQUEST');
-      let { data } = await axios.post('/posts', payload);
-      commit('ADD_POST_SUCCESS', data);
-      commit('notification/SUCCESS', data, { root: true });
-    } catch (error) {
-      commit('ADD_POST_FAILURE', error);
-      commit('notification/FAILURE', error.response.data, {
-        root: true
-      });
-    }
+  async savePost({ dispatch }, payload) {
+    payload.draft = true;
+    dispatch('addPost', payload);
   },
   async deletePost({ state, commit }) {
     try {
@@ -142,6 +126,19 @@ export const actions = {
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
       commit('FETCH_POSTS_FAILURE', error);
+      commit('notification/FAILURE', error.response.data, {
+        root: true
+      });
+    }
+  },
+  async fetchDrafts({ commit }) {
+    try {
+      commit('FETCH_DRAFTS_REQUEST');
+      let { data } = await axios.get('/posts/drafts');
+      commit('FETCH_DRAFTS_SUCCESS', data);
+      commit('notification/SUCCESS', data, { root: true });
+    } catch (error) {
+      commit('FETCH_DRAFTS_FAILURE', error);
       commit('notification/FAILURE', error.response.data, {
         root: true
       });

@@ -1,39 +1,28 @@
 <template>
   <section class="section">
     <div class="container is-fluid">
-      <h3 class="subtitle is-3">Queue</h3>
-      <PlorPost />
-      <PlorDeck />
+      <h3 class="subtitle is-3">Drafts</h3>
+      <PlorDeck :deck="drafts"/>
     </div>
   </section>
 </template>
 
 <script>
-import PlorPost from '@/components/app/PlorPost';
+import { mapState } from 'vuex';
+
 import PlorDeck from '@/components/app/PlorDeck';
-import PlorList from '@/components/shared/PlorList';
 
 export default {
   layout: 'app',
   middleware: 'authenticated',
   components: {
-    PlorPost,
-    PlorDeck,
-    PlorList
+    PlorDeck
   },
   async fetch({ store }) {
-    await store.dispatch('posts/fetchPosts');
+    await store.dispatch('posts/fetchDrafts');
   },
-  data() {
-    return {
-      posts: [],
-      filterItems: [
-        { text: 'Tags' },
-        { text: 'Social Accounts' },
-        { text: 'Members' },
-        { text: 'Media' }
-      ]
-    };
+  computed: {
+    ...mapState('posts', ['drafts'])
   }
 };
 </script>

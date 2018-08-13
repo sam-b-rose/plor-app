@@ -1,3 +1,3 @@
 export default ({ redirect }) => {
-  return redirect('/app');
+  return redirect('/app/queue');
 };

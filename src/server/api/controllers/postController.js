@@ -34,8 +34,13 @@ const oauthPost = (url, oauthAccessToken, oauthAccessTokenSecret, postBody) => {
 export default {
   async getPosts(req, res) {
     const author = req.user._id;
-    const posts = await Post.find({ author, sent: false });
+    const posts = await Post.find({ author, sent: false, draft: false });
     res.json({ message: `Posts by ${req.user.email}`, posts });
+  },
+  async getDrafts(req, res) {
+    const author = req.user._id;
+    const posts = await Post.find({ author, sent: false, draft: true });
+    res.json({ message: `Drafts by ${req.user.email}`, posts });
   },
   async getHistory(req, res) {
     const author = req.user._id;

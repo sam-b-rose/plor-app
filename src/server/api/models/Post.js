@@ -10,6 +10,10 @@ const postSchema = new mongoose.Schema({
   scheduled: {
     type: Date
   },
+  draft: {
+    type: Boolean,
+    default: true
+  },
   sent: {
     type: Boolean,
     default: false

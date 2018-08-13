@@ -1,7 +1,7 @@
 <template>
   <div class="columns is-gapless">
     <PlorSidenav class="sidebar column is-one-fifth" />
-    <main class="column">
+    <main class="main column">
       <nuxt />
     </main>
     <div class="modal">
@@ -32,5 +32,11 @@ export default {
 <style>
 .sidebar {
   max-width: 300px;
+  max-height: 100vh;
+}
+
+.main {
+  max-height: 100vh;
+  overflow: auto;
 }
 </style>

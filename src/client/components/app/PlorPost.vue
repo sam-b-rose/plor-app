@@ -5,7 +5,14 @@
     @submit.prevent
     @key.enter="submit">
 
-    <div class="card-focus" />
+    <transition
+      name="fade"
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut">
+      <div
+        v-if="addingPost"
+        class="card-focus" />
+    </transition>
 
     <div class="card-content">
       <div class="field">
@@ -166,6 +173,7 @@ export default {
       this.$store
         .dispatch(`posts/${action}`, {
           connections,
+          draft: false,
           text: this.message,
           scheduled: new Date(this.scheduled)
         })
@@ -173,7 +181,7 @@ export default {
           if (this.$store.state.notification.success) {
             console.log('Post added!');
             this.message = '';
-            this.scheduled = new Date();
+            this.addingPost = false;
           }
         });
     },
@@ -204,8 +212,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  transition: opacity 0.3s ease;
-  opacity: 0;
+  animation-duration: 0.3s;
   background-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -227,10 +234,6 @@ export default {
 
     .card-footer:not(:last-child) {
       border-radius: 0;
-    }
-
-    .card-focus {
-      opacity: 1;
     }
   }
 }

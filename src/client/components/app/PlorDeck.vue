@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import format from 'date-fns/format';
 import getDate from 'date-fns/get_date';
 import isAfter from 'date-fns/is_after';
@@ -32,8 +31,13 @@ export default {
       return format(date, 'dddd');
     }
   },
+  props: {
+    deck: {
+      type: Array,
+      default: () => []
+    }
+  },
   computed: {
-    ...mapState('posts', ['deck']),
     localDeck() {
       const deck = [...this.deck];
       const sorted = deck.sort((p1, p2) => isAfter(p1.scheduled, p2.scheduled));

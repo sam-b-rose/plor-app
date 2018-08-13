@@ -6,17 +6,13 @@
         Posts
       </p>
       <li>
-        <nuxt-link to="/app">
+        <nuxt-link to="/app/queue">
           Queue
         </nuxt-link>
-        <nuxt-link
-          class="strike"
-          to="/app/drafts">
+        <nuxt-link to="/app/drafts">
           Drafts
         </nuxt-link>
-        <nuxt-link
-          class="strike"
-          to="/app/history">
+        <nuxt-link to="/app/history">
           History
         </nuxt-link>
       </li>

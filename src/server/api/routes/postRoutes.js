@@ -11,6 +11,11 @@ router.get(
   catchErrors(postController.getPosts)
 );
 router.get(
+  '/drafts',
+  authController.isLoggedIn,
+  catchErrors(postController.getDrafts)
+);
+router.get(
   '/history',
   authController.isLoggedIn,
   catchErrors(postController.getHistory)
