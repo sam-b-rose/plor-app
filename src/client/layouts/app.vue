@@ -1,6 +1,6 @@
 <template>
   <div class="columns is-gapless">
-    <PlorSidenav class="sidebar column is-one-fifth" />
+    <PlorSidenav class="sidebar column" />
     <main class="main column">
       <nuxt />
     </main>
@@ -31,12 +31,23 @@ export default {
 
 <style>
 .sidebar {
-  max-width: 300px;
+  flex: 0 0 auto;
+  width: 224px;
   max-height: 100vh;
 }
 
 .main {
   max-height: 100vh;
   overflow: auto;
+}
+
+.container.is-fluid {
+  max-width: 864px;
+  margin: 0 auto;
+}
+
+.column--fixed {
+  flex: 0 0 auto;
+  width: 264px;
 }
 </style>

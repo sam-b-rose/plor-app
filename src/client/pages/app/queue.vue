@@ -2,8 +2,15 @@
   <section class="section">
     <div class="container is-fluid">
       <h3 class="subtitle is-3">Queue</h3>
-      <PlorPost />
-      <PlorDeck :deck="queue"/>
+      <div class="columns">
+        <div class="column">
+          <PlorPost />
+          <PlorDeck :deck="queue"/>
+        </div>
+        <div class="column column--fixed">
+          <PlorFilter :items="filterItems"/>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -13,7 +20,7 @@ import { mapState } from 'vuex';
 
 import PlorPost from '@/components/app/PlorPost';
 import PlorDeck from '@/components/app/PlorDeck';
-import PlorList from '@/components/shared/PlorList';
+import PlorFilter from '@/components/shared/PlorFilter';
 
 export default {
   layout: 'app',
@@ -21,7 +28,7 @@ export default {
   components: {
     PlorPost,
     PlorDeck,
-    PlorList
+    PlorFilter
   },
   async fetch({ store }) {
     await store.dispatch('posts/fetchPosts');
