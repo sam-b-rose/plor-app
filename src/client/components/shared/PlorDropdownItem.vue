@@ -94,3 +94,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.dropdown-item {
+  z-index: 1;
+  padding: 0.825rem 2.75rem;
+}
+</style>

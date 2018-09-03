@@ -124,6 +124,7 @@ a {
 a.nuxt-link-active {
   border-left-color: $purple-2;
   color: $purple-2;
+  background-color: $purple-0;
 }
 
 .profile-link {

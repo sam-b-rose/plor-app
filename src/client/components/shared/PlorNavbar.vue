@@ -23,7 +23,7 @@
           <!-- Redirect to EA for now -->
           <a
             class="button is-text"
-            @click.prevent="$emit('open')">
+            @click="goTo('app/queue')">
             Login
           </a>
           <!-- <nuxt-link
@@ -36,7 +36,7 @@
           <!-- Redirect to EA for now -->
           <a
             class="button is-link is-outlined"
-            @click.prevent="$emit('open')">
+            @click="goTo('auth/register')">
             Sign up
           </a>
           <!-- <nuxt-link
@@ -57,6 +57,15 @@ export default {
     return {
       menuActive: false
     };
+  },
+  methods: {
+    goTo(path) {
+      if (this.$store.state.isDev) {
+        this.$router.push(path);
+      } else {
+        this.$emit('open');
+      }
+    }
   }
 };
 </script>

@@ -1,7 +1,11 @@
 import axios from '~/plugins/axios';
 
 export const state = () => {
-  return {};
+  return {
+    user: null,
+    isDev: true,
+    isProd: true
+  };
 };
 export const mutations = {
   SET_USER(state, data) {
@@ -10,12 +14,18 @@ export const mutations = {
     state.user.email = data.email;
     state.user.gravatar = data.gravatar;
     state.connections.connections = data.connections;
+  },
+  SET_ENV(state, isProd) {
+    state.isDev = !isProd;
+    state.isProd = isProd;
   }
 };
 export const actions = {
   nuxtServerInit({ commit }, { req }) {
     const { user } = req;
     if (user) commit('SET_USER', user);
+    const isProd = process.env.NODE_ENV === 'production';
+    commit('SET_ENV', isProd);
   },
   async joingMailing({ commit }, payload) {
     try {

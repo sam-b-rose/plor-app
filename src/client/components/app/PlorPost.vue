@@ -213,7 +213,7 @@ export default {
   width: 100%;
   height: 100%;
   animation-duration: 0.3s;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba($purple-4, 0.7);
 }
 
 .card-content {
@@ -272,7 +272,7 @@ export default {
   width: 100%;
   height: 100%;
   animation-duration: 0.3s;
-  background-color: rgba($black, 0.9);
+  background-color: rgba($purple-4, 0.9);
   text-align: center;
 }
 

@@ -63,6 +63,12 @@ export default {
     font-weight: 500;
   }
 
+  .section-title {
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    font-weight: 500;
+  }
+
   p {
     margin-bottom: 2em;
     color: $blue-light;

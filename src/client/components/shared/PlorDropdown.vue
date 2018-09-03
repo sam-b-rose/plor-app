@@ -145,4 +145,33 @@ export default {
 .button > .dropdown-trigger.icon {
   margin: 0 -1rem;
 }
+
+.dropdown-menu {
+  z-index: 0;
+  top: calc(100% + 17px);
+  right: -18px;
+  box-shadow: 0 2px 12px rgba($black, 0.4);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    right: 24px;
+    width: 16px;
+    height: 16px;
+    transform: rotate(45deg);
+    border-top-left-radius: 2px;
+  }
+
+  &::before {
+    z-index: -1;
+    box-shadow: 0 2px 12px rgba($black, 0.4);
+  }
+
+  &::after {
+    z-index: 0;
+    background-color: $white;
+  }
+}
 </style>
