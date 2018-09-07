@@ -25,18 +25,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.filter {
-}
-
 .filter-item {
+  @include button;
+
   display: flex;
   align-items: center;
   margin: 0.5rem 0;
-  padding: 0.5rem 0.625rem;
-  border: 1px solid $border-blue;
-  border-radius: $default-radius;
-  background-color: $light-gray-2;
-  color: $purple-3;
+
   font: {
     size: 0.875rem;
     weight: 500;

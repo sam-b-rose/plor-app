@@ -1,5 +1,6 @@
 @import './variables';
 @import '~bulma/bulma';
+@import '~flatpickr/dist/flatpickr.css';
 
 html,
 body {
@@ -10,15 +11,7 @@ body {
 // Bulma Overrides
 .button,
 .input {
-  height: auto;
-  padding-top: $button-padding-vertical;
-  padding-right: $button-padding-horizontal;
-  padding-bottom: $button-padding-vertical;
-  padding-left: $button-padding-horizontal;
-  border-width: 2px;
-  border-radius: $default-radius;
-  font-weight: 500;
-  cursor: pointer;
+  @include button;
 
   &--long {
     padding-right: $button-padding-horizontal-long;
@@ -27,6 +20,15 @@ body {
 
   &.is-text {
     text-decoration: none;
+  }
+
+  &.is-flat {
+    padding-top: $button-padding-vertical;
+    padding-right: $button-padding-horizontal;
+    padding-bottom: $button-padding-vertical;
+    padding-left: $button-padding-horizontal;
+    border-width: 2px;
+    border-radius: $default-radius;
   }
 }
 
@@ -68,4 +70,60 @@ body {
 .navbar-brand > .navbar-item,
 .navbar-brand > .navbar-item:hover {
   background-color: transparent;
+}
+
+// Flatpickr Overrides
+.flatpickr-calendar {
+  top: calc(100% + 20px);
+  border-radius: $default-radius;
+  box-shadow: 0 2px 12px rgba($black, 0.4);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: auto;
+    left: 24px;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    transform: rotate(45deg);
+    border: none;
+    border-top-left-radius: 2px;
+  }
+
+  &::before {
+    z-index: -1;
+    box-shadow: 0 2px 12px rgba($black, 0.4);
+  }
+
+  &::after {
+    z-index: 0;
+    background-color: $white;
+  }
+
+  &.animate.open {
+    animation: none;
+  }
+
+  &.static {
+    position: absolute;
+    z-index: 1;
+    top: calc(100% + 20px);
+  }
+}
+
+.flatpickr-current-month {
+  span.cur-month {
+    font-weight: 400;
+  }
+}
+
+.flatpickr-day {
+  &.selected,
+  &.selected:hover {
+    border-color: $purple-3;
+    background: $purple-3;
+  }
 }

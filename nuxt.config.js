@@ -1,9 +1,9 @@
-const path = require('path')
+const path = require('path');
 
 require('dotenv').config({
   silent: true,
   path: process.env.NODE_ENV === 'production' ? '.prod.env' : '.dev.env'
-})
+});
 
 module.exports = {
   build: {
@@ -40,7 +40,10 @@ module.exports = {
     '@nuxtjs/component-cache',
     'nuxt-sass-resources-loader'
   ],
-  sassResources: ['@/assets/style/variables.scss'],
+  sassResources: [
+    '@/assets/style/variables.scss',
+    '@/assets/style/mixins.scss'
+  ],
   plugins: [
     '~/plugins/axios',
     '~/plugins/font-awesome',
@@ -54,7 +57,7 @@ module.exports = {
       maxAge: '1y',
       setHeaders(res, path) {
         if (path.includes('sw.js')) {
-          res.setHeader('Cache-Control', 'public, max-age=0')
+          res.setHeader('Cache-Control', 'public, max-age=0');
         }
       }
     }
@@ -63,4 +66,4 @@ module.exports = {
     middleware: ['https', 'ssr-cookie']
   },
   srcDir: path.resolve(__dirname, 'src', 'client')
-}
+};

@@ -53,7 +53,9 @@
           </button>
         </div>
       </div>
-      <div class="field is-grouped is-grouped-right">
+      <div
+        ref="scheduledInput"
+        class="field is-grouped is-grouped-right">
         <div
           v-if="selectedAction === 'Schedule'"
           class="control">
@@ -153,9 +155,11 @@ export default {
         savePost: 'Save to draft'
       },
       config: {
+        inline: false,
+        static: true,
         enableTime: true,
         altInput: true,
-        altFormat: 'F j, Y h:i K',
+        altFormat: 'M j, Y | h:i | K',
         minDate: Date.now()
       }
     };
@@ -199,8 +203,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~flatpickr/dist/flatpickr.css';
-
 .new-post {
   z-index: 1;
 }

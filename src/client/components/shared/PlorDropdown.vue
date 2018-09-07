@@ -149,7 +149,7 @@ export default {
 .dropdown-menu {
   z-index: 0;
   top: calc(100% + 17px);
-  right: -18px;
+  right: -16px;
   box-shadow: 0 2px 12px rgba($black, 0.4);
 
   &::before,
@@ -172,6 +172,20 @@ export default {
   &::after {
     z-index: 0;
     background-color: $white;
+  }
+}
+
+.dropdown-content {
+  border-radius: $default-radius;
+}
+
+.dropdown {
+  &.is-right .dropdown-menu {
+    right: -16px;
+  }
+
+  &.is-left .dropdown-menu {
+    left: -16px;
   }
 }
 </style>
