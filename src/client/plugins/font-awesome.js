@@ -16,9 +16,10 @@ import {
 // Solid
 import faChevronDown from '@fortawesome/fontawesome-free-solid/faChevronDown';
 import faCircle from '@fortawesome/fontawesome-free-solid/faCircle';
+import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
 import faTag from '@fortawesome/fontawesome-free-solid/faTag';
-import faUsers from '@fortawesome/fontawesome-free-solid/faUsers';
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch';
+import faUsers from '@fortawesome/fontawesome-free-solid/faUsers';
 
 // Regular
 import faComment from '@fortawesome/fontawesome-free-regular/faComment';
@@ -36,14 +37,15 @@ fontawesome.library.add(
   // Solid
   faChevronDown,
   faCircle,
+  faPlus,
   faSearch,
+  faTag,
+  faUsers,
   // Regular
+  faComment,
   faImage,
   faImages,
-  faSquare,
-  faComment,
-  faTag,
-  faUsers
+  faSquare
 );
 Vue.component(FontAwesomeIcon.name, FontAwesomeIcon);
 Vue.component(FontAwesomeLayers.name, FontAwesomeLayers);

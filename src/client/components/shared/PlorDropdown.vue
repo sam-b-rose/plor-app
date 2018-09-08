@@ -147,9 +147,11 @@ export default {
 }
 
 .dropdown-menu {
-  z-index: 0;
+  z-index: 1;
   top: calc(100% + 17px);
   right: -16px;
+  padding: 0;
+  border-radius: $default-radius;
   box-shadow: 0 2px 12px rgba($black, 0.4);
 
   &::before,

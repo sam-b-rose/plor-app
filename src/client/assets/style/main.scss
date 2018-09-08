@@ -9,8 +9,7 @@ body {
 }
 
 // Bulma Overrides
-.button,
-.input {
+.button {
   @include button;
 
   &--long {
@@ -29,6 +28,35 @@ body {
     padding-left: $button-padding-horizontal;
     border-width: 2px;
     border-radius: $default-radius;
+  }
+
+  &.is-fancy {
+    background: linear-gradient($purple-1, $purple-2);
+    color: $white;
+
+    &:active,
+    &.is-active {
+      border-color: $white;
+    }
+
+    &:focus:not(:active),
+    &.is-focused:not(:active) {
+      border-color: $gray;
+      box-shadow: 0 0 0 0.125em rgba($white, 0.25);
+    }
+  }
+
+  .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+
+    &:first-child:not(:last-child) {
+      margin-right: 0.25rem;
+    }
+
+    &:last-child:not(:first-child) {
+      margin-left: 0.25rem;
+    }
   }
 }
 
@@ -112,6 +140,10 @@ body {
     z-index: 1;
     top: calc(100% + 20px);
   }
+}
+
+.flatpickr-input {
+  @include button;
 }
 
 .flatpickr-current-month {

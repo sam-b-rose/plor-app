@@ -19,8 +19,13 @@
         </div>
         <div class="level-right">
           <button
-            class="button is-link is-small"
-            @click="addAccount">Add Account</button>
+            class="button"
+            @click="addAccount">
+            <span class="icon">
+              <font-awesome-icon icon="plus" />
+            </span>
+            <span>Add Account</span>
+          </button>
           <portal to="plor-modal">
             Twitter or Facebook
           </portal>

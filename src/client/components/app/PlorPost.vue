@@ -28,7 +28,9 @@
       </div>
     </div>
 
-    <footer class="card-footer media-options">
+    <component
+      :is="addingPost ? 'div' : 'footer'"
+      class="card-footer media-options">
       <div class="field is-grouped">
         <button
           class="button is-text"
@@ -39,7 +41,7 @@
           <span>Photo / Video</span>
         </button>
       </div>
-    </footer>
+    </component>
 
     <footer
       v-if="addingPost"
@@ -53,9 +55,7 @@
           </button>
         </div>
       </div>
-      <div
-        ref="scheduledInput"
-        class="field is-grouped is-grouped-right">
+      <div class="field is-grouped is-grouped-right">
         <div
           v-if="selectedAction === 'Schedule'"
           class="control">
@@ -68,14 +68,14 @@
         <div class="control">
           <div class="buttons has-addons is-right">
             <div
-              class="button"
+              class="button is-fancy"
               @click="submit">
               {{ selectedAction }}
             </div>
             <PlorDropdown
               v-model="selectedAction"
               right
-              class="button has-text-left"
+              class="button has-text-left is-fancy"
               trigger-class="icon">
               <span slot="trigger">
                 <font-awesome-icon icon="chevron-down" />
@@ -155,7 +155,6 @@ export default {
         savePost: 'Save to draft'
       },
       config: {
-        inline: false,
         static: true,
         enableTime: true,
         altInput: true,
@@ -225,7 +224,7 @@ export default {
 
 .media-options {
   padding: 0.5rem;
-  background-color: $light;
+  background-color: $light-gray-2;
 }
 
 .card {
@@ -233,10 +232,12 @@ export default {
     .card-content {
       min-height: 200px;
     }
+  }
+}
 
-    .card-footer:not(:last-child) {
-      border-radius: 0;
-    }
+.card-footer {
+  &:not(:last-child) {
+    border-radius: 0;
   }
 }
 
@@ -252,6 +253,8 @@ export default {
 }
 
 .textarea {
+  transition: color 0.3s ease;
+
   &,
   &:focus,
   &:active {
@@ -260,6 +263,10 @@ export default {
     outline: none;
     box-shadow: none;
     resize: none;
+  }
+
+  &[readonly] {
+    color: $grey;
   }
 }
 

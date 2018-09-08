@@ -99,5 +99,16 @@ export default {
 .dropdown-item {
   z-index: 1;
   padding: 0.825rem 2.75rem;
+
+  &.is-active,
+  &:hover.is-active {
+    background-color: $purple-0;
+    color: $purple-2;
+  }
+
+  &:hover {
+    background-color: $light;
+    color: $blue-dark;
+  }
 }
 </style>

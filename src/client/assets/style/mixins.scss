@@ -4,9 +4,27 @@
   padding-left: calc(1rem - 1px);
   border: 1px solid $border-blue;
   border-radius: $default-radius;
-  background-color: $light-gray-2;
+  background: linear-gradient($light-gray-2, $light);
   color: $purple-3;
   font-size: 0.825rem;
   font-weight: 500;
   cursor: pointer;
+
+  &.is-primary {
+    border-color: $purple-2;
+    background: linear-gradient($purple-1, $purple-2);
+    color: $white;
+
+    &:hover {
+      border-color: $purple-3;
+    }
+  }
+
+  &.is-link {
+    background: $link;
+  }
+
+  &.is-text {
+    background: transparent;
+  }
 }
