@@ -44,7 +44,14 @@
 }
 
 .flatpickr-input {
-  @include app-button;
+  &,
+  &[disabled] {
+    @include app-button;
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
 }
 
 .flatpickr-current-month {
@@ -81,6 +88,9 @@
 }
 
 .flatpickr-months {
+  border-radius: $default-radius;
+  background: $white;
+
   .flatpickr-prev-month:hover svg,
   .flatpickr-next-month:hover svg {
     fill: $purple-2;

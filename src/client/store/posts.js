@@ -26,8 +26,9 @@ export const mutations = {
   },
   UPDATE_POST_SUCCESS(state, data) {
     const list = data.post.draft ? 'drafts' : 'queue';
-    const index = findIndex(list, { _id: data.post._id });
+    const index = findIndex(state[list], { _id: data.post._id });
     state[list][index] = data.post;
+    state[list] = [...state[list]];
     console.log('Update post success!');
   },
   UPDATE_POST_FAILURE(state, error) {

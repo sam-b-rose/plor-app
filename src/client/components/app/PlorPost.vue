@@ -62,7 +62,7 @@
           <flat-pickr
             class="input"
             v-model="scheduled"
-            :config="config"
+            :config="flatpickrConfig"
             name="scheduled" />
         </div>
         <div class="control">
@@ -133,6 +133,8 @@ import FlatPickr from 'vue-flatpickr-component';
 import PlorDropdown from '@/components/shared/PlorDropdown';
 import PlorDropdownItem from '@/components/shared/PlorDropdownItem';
 
+import flatpickrConfig from '@/config/flatpickr';
+
 export default {
   components: {
     FlatPickr,
@@ -141,6 +143,7 @@ export default {
   },
   data() {
     return {
+      flatpickrConfig,
       message: '',
       scheduled: addHours(startOfTomorrow(), 12),
       hasMedia: false,
@@ -153,13 +156,6 @@ export default {
         schedulePost: 'Schedule',
         sendPost: 'Post now',
         savePost: 'Save to draft'
-      },
-      config: {
-        static: true,
-        enableTime: true,
-        altInput: true,
-        altFormat: 'M j, Y | h:i | K',
-        minDate: Date.now()
       }
     };
   },

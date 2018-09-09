@@ -10,7 +10,7 @@
       </h2>
       <div
         class="post card"
-        :class="{'is-editing': editingId === `${day}_${j}`}"
+        :class="{'is-editing': editingId === post.postId}"
         v-for="(post, j) in posts"
         :key="j">
 
@@ -19,7 +19,7 @@
             <div class="control">
               <textarea
                 rows="1"
-                :readonly="editingId !== `${day}_${j}`"
+                :readonly="editingId !== post.postId"
                 :class="[
                   'textarea is-borderless',
                   `post_${day}_${j}`,
@@ -63,24 +63,32 @@
           <div class="level-right">
             <div class="field is-grouped is-grouped-right">
               <div class="control">
+                <flat-pickr
+                  class="input"
+                  v-model="post.newScheduled"
+                  :config="flatpickrConfig"
+                  @on-close="onScheduleClose(post)"
+                  name="scheduled" />
+              </div>
+              <div class="control">
                 <button
-                  v-if="editingId === `${day}_${j}`"
+                  v-if="editingId === post.postId"
                   class="button"
-                  @click="resetPost(day, j)">
+                  @click="resetPost(post)">
                   Cancel
                 </button>
               </div>
               <div class="control">
                 <button
-                  v-if="editingId != `${day}_${j}`"
+                  v-if="editingId != post.postId"
                   class="button"
-                  @click="editPost(day, j)">
+                  @click="editPost(post)">
                   Edit
                 </button>
                 <button
                   v-else
                   class="button is-primary"
-                  @click="savePost(post, day, j)">
+                  @click="savePost(post)">
                   Save
                 </button>
               </div>
@@ -97,9 +105,13 @@
 import find from 'lodash/find';
 import format from 'date-fns/format';
 import isAfter from 'date-fns/is_after';
+import isEqual from 'date-fns/is_equal';
 
+import FlatPickr from 'vue-flatpickr-component';
 import PlorDropdown from '@/components/shared/PlorDropdown';
 import PlorDropdownItem from '@/components/shared/PlorDropdownItem';
+
+import flatpickrConfig from '@/config/flatpickr';
 
 export default {
   name: 'PlorDeck',
@@ -113,7 +125,8 @@ export default {
   },
   components: {
     PlorDropdown,
-    PlorDropdownItem
+    PlorDropdownItem,
+    FlatPickr
   },
   props: {
     deck: {
@@ -123,6 +136,7 @@ export default {
   },
   data() {
     return {
+      flatpickrConfig,
       editingId: null,
       draft: null
     };
@@ -134,6 +148,10 @@ export default {
       const groupedByDay = sorted.reduce((grouped, post) => {
         const day = format(post.scheduled, 'YYYY-MM-DD');
         if (!grouped[day]) grouped[day] = [];
+        post.day = day;
+        post.index = grouped[day].length;
+        post.postId = `${post.day}_${post.index}`;
+        post.newScheduled = post.scheduled;
         grouped[day].push(post);
         return grouped;
       }, {});
@@ -141,29 +159,34 @@ export default {
     }
   },
   methods: {
-    editPost(day, j) {
-      const newId = `${day}_${j}`;
-      this.editingId = newId !== this.editingId ? newId : null;
-      this.draft = this.editingId ? this.localDeck[day][j].text : null;
+    onScheduleClose(post) {
+      if (isEqual(post.scheduled, post.newScheduled)) return;
+      this.editPost(post);
+    },
+    editPost(post) {
+      this.editingId = post.postId;
+      this.draft = this.editingId ? post.text : null;
       if (this.editingId) {
-        setTimeout(() => document.querySelector(`.post_${newId}`).focus());
+        setTimeout(() =>
+          document.querySelector(`.post_${post.postId}`).focus()
+        );
       }
     },
-    savePost(post, day, j) {
-      const { _id } = post;
-      this.draft = this.localDeck[day][j].text;
-      console.log('saving ', _id, this.draft);
-      this.editingId = null;
-
+    savePost(post) {
+      post.scheduled = post.newScheduled;
       this.$store.dispatch(`posts/updatePost`, post).then(() => {
         if (this.$store.state.notification.success) {
+          this.editingId = null;
+          this.draft = null;
           console.log('Post updated!');
         }
       });
     },
-    resetPost(day, j) {
-      this.localDeck[day][j].text = this.draft;
+    resetPost(post) {
+      post.text = this.draft;
+      post.newScheduled = post.scheduled;
       this.editingId = null;
+      this.draft = null;
     }
   }
 };
