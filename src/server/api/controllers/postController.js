@@ -87,5 +87,20 @@ export default {
     const newPost = new Post(req.body);
     const post = await newPost.save();
     res.json({ message: 'Post Saved!', post });
+  },
+  async updatePost(req, res) {
+    const updates = {
+      scheduled: req.body.scheduled,
+      draft: req.body.draft,
+      text: req.body.text,
+      connections: req.body.connections,
+      author: req.user._id
+    };
+    const post = await Post.findOneAndUpdate(
+      { _id: req.body._id },
+      { $set: updates },
+      { new: true, runValidators: true, context: 'query' }
+    );
+    res.json({ message: 'Updated post!', post });
   }
 };

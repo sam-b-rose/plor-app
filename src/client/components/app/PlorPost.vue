@@ -19,7 +19,7 @@
         <div class="control">
           <textarea
             rows="1"
-            class="textarea"
+            class="textarea is-borderless"
             @focus="addingPost = true"
             @keydown.enter.prevent="submit"
             placeholder="Type it loud and clear!"
@@ -36,7 +36,7 @@
           class="button is-text"
           @click="addMedia">
           <span class="icon">
-            <font-awesome-icon :icon="['far', 'square']" />
+            <font-awesome-icon icon="camera" />
           </span>
           <span>Photo / Video</span>
         </button>
@@ -249,24 +249,6 @@ export default {
 
   &:not(:last-child) {
     margin-bottom: 0;
-  }
-}
-
-.textarea {
-  transition: color 0.3s ease;
-
-  &,
-  &:focus,
-  &:active {
-    overflow: auto;
-    border: none;
-    outline: none;
-    box-shadow: none;
-    resize: none;
-  }
-
-  &[readonly] {
-    color: $grey;
   }
 }
 

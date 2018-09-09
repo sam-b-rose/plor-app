@@ -36,7 +36,7 @@
                 transform="shrink-4"
                 :icon="['fab', iconMap[value]]" />
             </font-awesome-layers>
-            <span v-html="value" />
+            <span>{{ value | startCase }}</span>
           </div>
         </td>
       </tr>
@@ -46,10 +46,11 @@
 
 <script>
 import upperCase from 'lodash/upperCase';
+import startCase from 'lodash/startCase';
 
 export default {
   name: 'PlorTable',
-  filters: { upperCase },
+  filters: { upperCase, startCase },
   props: {
     title: {
       type: String,
@@ -85,25 +86,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* DEPRICATED
-.header {
-  background-color: #edf0f6;
-  color: $blue-dark;
-  font-size: 0.75rem;
-}
-
-.columns {
-  &:not(:last-child) {
-    border-bottom: 1px solid $light;
-  }
-}
-
-.column {
-  display: flex;
-  align-items: center;
-}
-*/
-
 .flex-center {
   display: flex;
   align-items: center;
@@ -115,8 +97,8 @@ export default {
   width: 40px;
   height: 40px;
   margin-right: 0.75rem;
-  border-radius: 50%;
-  background-color: $white-ter;
+  border-radius: $default-radius;
+  background-color: $purple-text;
 }
 
 .type {

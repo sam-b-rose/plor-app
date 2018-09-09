@@ -8,7 +8,7 @@ module.exports = {
     'at-rule-no-unknown': [
       true,
       {
-        ignoreAtRules: ['extends', 'ignores', 'include']
+        ignoreAtRules: ['extends', 'ignores', 'include', 'mixin']
       }
     ],
     'function-name-case': [

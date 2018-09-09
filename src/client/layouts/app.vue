@@ -29,7 +29,11 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+.button {
+  @include app-button;
+}
+
 .sidebar {
   flex: 0 0 auto;
   width: 224px;

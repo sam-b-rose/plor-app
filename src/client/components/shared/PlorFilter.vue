@@ -26,7 +26,7 @@ export default {
 
 <style lang="scss" scoped>
 .filter-item {
-  @include button;
+  @include app-button;
 
   display: flex;
   align-items: center;

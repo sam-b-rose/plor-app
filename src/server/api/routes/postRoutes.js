@@ -29,4 +29,10 @@ router.post(
   catchErrors(postController.addPost)
 );
 
+router.put(
+  '/',
+  authController.isLoggedIn,
+  catchErrors(postController.updatePost)
+);
+
 export default router;

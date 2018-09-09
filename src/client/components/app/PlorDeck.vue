@@ -10,6 +10,7 @@
       </h2>
       <div
         class="post card"
+        :class="{'is-editing': editingId === `${day}_${j}`}"
         v-for="(post, j) in posts"
         :key="j">
 
@@ -20,7 +21,7 @@
                 rows="1"
                 :readonly="editingId !== `${day}_${j}`"
                 :class="[
-                  'textarea',
+                  'textarea is-borderless',
                   `post_${day}_${j}`,
                 ]"
                 @keydown.enter.prevent="savePost(post, day, j)"
@@ -30,54 +31,59 @@
         </div>
 
         <div class="level">
-          <div class="level-left field is-grouped">
-            <div class="control">
-              <PlorDropdown
-                right
-                trigger-class="button has-text-left"
-                v-model="post.connections">
-                <template slot="trigger">
-                  <span class="icon tag is-primary is-rounded">
-                    {{ post.connections.length }}
-                  </span>
-                  <span>Account{{ post.connections.length > 1 ? 's' : '' }}</span>
-                  <span class="icon">
-                    <font-awesome-icon icon="chevron-down" />
-                  </span>
-                </template>
 
-                <PlorDropdownItem
-                  v-for="(account, i) in post.connections"
-                  :key="i"
-                  :value="account.handle">
-                  {{ account.handle }}
-                </PlorDropdownItem>
-              </PlorDropdown>
+          <div class="level-left">
+            <div class="field is-grouped">
+              <div class="control">
+                <PlorDropdown
+                  right
+                  trigger-class="button has-text-left"
+                  v-model="post.connections">
+                  <template slot="trigger">
+                    <span class="icon tag is-primary is-rounded">
+                      {{ post.connections.length }}
+                    </span>
+                    <span>Account{{ post.connections.length > 1 ? 's' : '' }}</span>
+                    <span class="icon">
+                      <font-awesome-icon icon="chevron-down" />
+                    </span>
+                  </template>
+
+                  <PlorDropdownItem
+                    v-for="(account, i) in post.connections"
+                    :key="i"
+                    :value="account.handle">
+                    {{ account.handle }}
+                  </PlorDropdownItem>
+                </PlorDropdown>
+              </div>
             </div>
           </div>
 
-          <div class="level-left field is-grouped is-grouped-right">
-            <div class="control">
-              <button
-                v-if="editingId === `${day}_${j}`"
-                class="button"
-                @click="resetPost(day, j)">
-                Cancel
-              </button>
-            </div>
-            <div class="control">
-              <button
-                v-if="editingId != `${day}_${j}`"
-                class="button"
-                @click="editPost(day, j)">
-                Edit
-              </button>
-              <button
-                v-else
-                class="button is-primary"
-                @click="savePost(post, day, j)">
-                Save
-              </button>
+          <div class="level-right">
+            <div class="field is-grouped is-grouped-right">
+              <div class="control">
+                <button
+                  v-if="editingId === `${day}_${j}`"
+                  class="button"
+                  @click="resetPost(day, j)">
+                  Cancel
+                </button>
+              </div>
+              <div class="control">
+                <button
+                  v-if="editingId != `${day}_${j}`"
+                  class="button"
+                  @click="editPost(day, j)">
+                  Edit
+                </button>
+                <button
+                  v-else
+                  class="button is-primary"
+                  @click="savePost(post, day, j)">
+                  Save
+                </button>
+              </div>
             </div>
           </div>
 
@@ -148,6 +154,12 @@ export default {
       this.draft = this.localDeck[day][j].text;
       console.log('saving ', _id, this.draft);
       this.editingId = null;
+
+      this.$store.dispatch(`posts/updatePost`, post).then(() => {
+        if (this.$store.state.notification.success) {
+          console.log('Post updated!');
+        }
+      });
     },
     resetPost(day, j) {
       this.localDeck[day][j].text = this.draft;
@@ -189,5 +201,10 @@ export default {
 .post {
   margin: 0.5rem 0 1rem 2rem;
   padding: 1rem;
+  transition: box-shadow 0.3s ease;
+
+  &.is-editing {
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.3), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  }
 }
 </style>

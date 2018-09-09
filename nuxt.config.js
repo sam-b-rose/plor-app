@@ -9,7 +9,10 @@ module.exports = {
   build: {
     extractCSS: true,
     vendor: ['axios', 'css-doodle'],
-    postcss: [require('autoprefixer')()]
+    postcss: {
+      ident: 'postcss',
+      plugins: [require('autoprefixer')()]
+    }
   },
   buildDir: 'dist/client',
   cache: true,
@@ -41,8 +44,8 @@ module.exports = {
     'nuxt-sass-resources-loader'
   ],
   sassResources: [
-    '@/assets/style/variables.scss',
-    '@/assets/style/mixins.scss'
+    '@/assets/style/resources/_variables.scss',
+    '@/assets/style/resources/_mixins.scss'
   ],
   plugins: [
     '~/plugins/axios',

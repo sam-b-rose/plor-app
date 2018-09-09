@@ -1,0 +1,150 @@
+@import '~bulma/bulma';
+
+// Bulma Overrides
+.button {
+  height: 2.25rem;
+  padding-right: calc(1rem - 1px);
+  padding-left: calc(1rem - 1px);
+  border: 1px solid $border-blue;
+  border-radius: $default-radius;
+  font-weight: 500;
+
+  &--long {
+    padding-right: $button-padding-horizontal-long;
+    padding-left: $button-padding-horizontal-long;
+  }
+
+  &.is-text {
+    text-decoration: none;
+  }
+
+  &.is-flat {
+    padding-top: $button-padding-vertical;
+    padding-right: $button-padding-horizontal;
+    padding-bottom: $button-padding-vertical;
+    padding-left: $button-padding-horizontal;
+    border-width: 2px;
+    border-radius: $default-radius;
+  }
+
+  &.is-fancy {
+    background: linear-gradient($purple-1, $purple-2);
+    color: $white;
+
+    &:active,
+    &.is-active {
+      border-color: $white;
+    }
+
+    &:focus:not(:active),
+    &.is-focused:not(:active) {
+      border-color: $gray;
+      box-shadow: 0 0 0 0.125em rgba($white, 0.25);
+    }
+  }
+
+  .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+
+    &:first-child:not(:last-child) {
+      margin-right: 0.25rem;
+    }
+
+    &:last-child:not(:first-child) {
+      margin-left: 0.25rem;
+    }
+  }
+}
+
+.input {
+  border-radius: $default-radius;
+}
+
+.textarea {
+  transition: color 0.3s ease;
+
+  &.is-borderless {
+    &,
+    &:focus,
+    &:active {
+      overflow: auto;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      resize: none;
+    }
+  }
+
+  &[readonly] {
+    color: $grey;
+  }
+}
+
+.card {
+  position: relative;
+  border-radius: $default-radius;
+  border-color: $light;
+}
+
+.card-content {
+  border-top-left-radius: $default-radius;
+  border-top-right-radius: $default-radius;
+  background: $white;
+}
+
+.card-footer {
+  padding: 1rem;
+  border-bottom-right-radius: $default-radius;
+  border-bottom-left-radius: $default-radius;
+  background: $white;
+}
+
+.label {
+  color: $blue-dark;
+}
+
+.field:not(:last-child) {
+  margin-bottom: 1.75rem;
+}
+
+.navbar-item,
+.navbar-item:hover,
+.navbar-item > .button,
+.navbar-item > .button:hover {
+  color: $primary;
+}
+
+.navbar,
+.navbar-brand > .navbar-item,
+.navbar-brand > .navbar-item:hover {
+  background-color: transparent;
+}
+
+.table {
+  th,
+  td {
+    border-color: $border-blue;
+  }
+
+  thead {
+    th {
+      padding: 0.75rem 0;
+      color: rgba($purple-text, 0.6);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06rem;
+    }
+  }
+
+  tbody {
+    td {
+      padding: 0.75rem 0;
+    }
+
+    tr:last-child td,
+    tr:last-child th {
+      border-bottom-width: 1px;
+    }
+  }
+}

@@ -1,0 +1,88 @@
+@import '~flatpickr/dist/flatpickr.css';
+
+// Flatpickr Overrides
+.flatpickr-calendar {
+  top: calc(100% + 20px);
+  border-radius: $default-radius;
+  box-shadow: 0 2px 12px rgba($black, 0.4);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: auto;
+    left: 24px;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    transform: rotate(45deg);
+    border: none;
+    border-top-left-radius: 2px;
+  }
+
+  &::before {
+    z-index: -1;
+    box-shadow: 0 2px 12px rgba($black, 0.4);
+  }
+
+  &::after {
+    z-index: 0;
+    background-color: $white;
+  }
+
+  &.animate.open {
+    animation: none;
+  }
+
+  &.static,
+  &.static.open {
+    position: absolute;
+    z-index: 1;
+    top: calc(100% + 20px);
+  }
+}
+
+.flatpickr-input {
+  @include app-button;
+}
+
+.flatpickr-current-month {
+  span.cur-month,
+  input.cur-year,
+  .numInputWrapper {
+    font-weight: 400;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+}
+
+.flatpickr-day {
+  &.selected,
+  &.selected:hover {
+    border-color: $purple-3;
+    background: $purple-3;
+  }
+}
+
+.flatpickr-time {
+  input.flatpickr-hour {
+    font-weight: 400;
+  }
+
+  .flatpickr-am-pm:focus,
+  .flatpickr-am-pm:hover,
+  input:focus,
+  input:hover {
+    background-color: transparent;
+  }
+}
+
+.flatpickr-months {
+  .flatpickr-prev-month:hover svg,
+  .flatpickr-next-month:hover svg {
+    fill: $purple-2;
+  }
+}

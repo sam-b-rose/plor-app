@@ -1,4 +1,5 @@
 import axios from '~/plugins/axios';
+import findIndex from 'lodash/findIndex';
 
 export const state = () => {
   return { queue: [], drafts: [], history: [] };
@@ -11,12 +12,26 @@ export const mutations = {
   },
   ADD_POST_SUCCESS(state, data) {
     const list = data.post.draft ? 'drafts' : 'queue';
-    console.log(list);
     state[list] = [...state[list], data.post];
     console.log('Add post success!');
   },
   ADD_POST_FAILURE(state, error) {
     console.log('Add post failure.');
+    console.error(error);
+  },
+
+  // Update
+  UPDATE_POST_REQUEST(state) {
+    console.log('Update post pending...');
+  },
+  UPDATE_POST_SUCCESS(state, data) {
+    const list = data.post.draft ? 'drafts' : 'queue';
+    const index = findIndex(list, { _id: data.post._id });
+    state[list][index] = data.post;
+    console.log('Update post success!');
+  },
+  UPDATE_POST_FAILURE(state, error) {
+    console.log('Update post failure.');
     console.error(error);
   },
 
@@ -48,7 +63,7 @@ export const mutations = {
     console.error(error);
   },
 
-  // Draftss
+  // Drafts
   FETCH_DRAFTS_REQUEST(state) {
     console.log('Fetch drafts pending...');
   },
@@ -89,26 +104,23 @@ export const actions = {
       });
     }
   },
-  async sendPost({ dispatch }, payload) {
-    payload.scheduled = new Date();
-    dispatch('addPost', payload);
+  async updatePost({ commit }, payload) {
+    try {
+      commit('UPDATE_POST_REQUEST');
+      let { data } = await axios.put(`/posts`, payload);
+      commit('UPDATE_POST_SUCCESS', data);
+      commit('notification/SUCCESS', data, { root: true });
+    } catch (error) {
+      commit('UPDATE_POST_FAILURE', error);
+      commit('notification/FAILURE', error.response.data, {
+        root: true
+      });
+    }
   },
-  // TODO: Figure out queue logic here
-  async queuePost({ dispatch }, payload) {
-    payload.scheduled = new Date();
-    dispatch('addPost', payload);
-  },
-  async schedulePost({ dispatch }, payload) {
-    dispatch('addPost', payload);
-  },
-  async savePost({ dispatch }, payload) {
-    payload.draft = true;
-    dispatch('addPost', payload);
-  },
-  async deletePost({ state, commit }) {
+  async deletePost({ commit }, payload) {
     try {
       commit('DELETE_POST_REQUEST');
-      let { data } = await axios.delete(`/users/${state.email}`);
+      let { data } = await axios.delete(`/posts/${payload._id}`);
       commit('DELETE_POST_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
@@ -156,5 +168,22 @@ export const actions = {
         root: true
       });
     }
+  },
+  async sendPost({ dispatch }, payload) {
+    payload.scheduled = new Date();
+    dispatch('addPost', payload);
+  },
+  // TODO: Figure out queue logic here
+  //       currently the same as sendPost
+  async queuePost({ dispatch }, payload) {
+    payload.scheduled = new Date();
+    dispatch('addPost', payload);
+  },
+  async schedulePost({ dispatch }, payload) {
+    dispatch('addPost', payload);
+  },
+  async savePost({ dispatch }, payload) {
+    payload.draft = true;
+    dispatch('addPost', payload);
   }
 };
