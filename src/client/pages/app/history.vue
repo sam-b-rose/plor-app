@@ -2,7 +2,14 @@
   <section class="section">
     <div class="container is-fluid">
       <h3 class="subtitle is-3">History</h3>
-      <PlorDeck :deck="history"/>
+      <div class="columns">
+        <div class="column">
+          <PlorDeck :deck="history"/>
+        </div>
+        <div class="column column--fixed">
+          <PlorFilter :items="filterItems"/>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -11,17 +18,20 @@
 import { mapState } from 'vuex';
 
 import PlorDeck from '@/components/app/PlorDeck';
+import PlorFilter from '@/components/shared/PlorFilter';
 
 export default {
   layout: 'app',
   middleware: 'authenticated',
   components: {
-    PlorDeck
+    PlorDeck,
+    PlorFilter
   },
   async fetch({ store }) {
     await store.dispatch('posts/fetchHistory');
   },
   computed: {
+    ...mapState(['filterItems']),
     ...mapState('posts', ['history'])
   }
 };

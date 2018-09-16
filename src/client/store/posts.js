@@ -185,6 +185,7 @@ export const actions = {
   },
   async savePost({ dispatch }, payload) {
     payload.draft = true;
+    payload.scheduled = null;
     dispatch('addPost', payload);
   }
 };

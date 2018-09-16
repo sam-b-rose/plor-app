@@ -4,7 +4,13 @@ export const state = () => {
   return {
     user: null,
     isDev: true,
-    isProd: true
+    isProd: true,
+    filterItems: [
+      { text: 'Tags' },
+      { text: 'Social Accounts' },
+      { text: 'Members' },
+      { text: 'Media' }
+    ]
   };
 };
 export const mutations = {

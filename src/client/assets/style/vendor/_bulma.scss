@@ -148,3 +148,18 @@
     }
   }
 }
+
+// Tag
+.tag:not(body) {
+  height: 1.125rem;
+  padding: 0 0.5rem;
+  font-size: 0.75rem;
+
+  &:not(:last-child) {
+    margin-right: 0.25rem;
+  }
+
+  &.is-rounded {
+    border-radius: 100px;
+  }
+}

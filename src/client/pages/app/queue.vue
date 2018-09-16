@@ -33,17 +33,8 @@ export default {
   async fetch({ store }) {
     await store.dispatch('posts/fetchPosts');
   },
-  data() {
-    return {
-      filterItems: [
-        { text: 'Tags' },
-        { text: 'Social Accounts' },
-        { text: 'Members' },
-        { text: 'Media' }
-      ]
-    };
-  },
   computed: {
+    ...mapState(['filterItems']),
     ...mapState('posts', ['queue'])
   }
 };

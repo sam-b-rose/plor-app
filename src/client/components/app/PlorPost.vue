@@ -1,14 +1,20 @@
 <template>
   <form
-    class="card new-post"
-    :class="{'active': addingPost}"
+    class="card post"
+    :class="{
+      'active': addingPost,
+      'z-to-top': inTransition,
+      'on-deck': onDeck
+    }"
     @submit.prevent
     @key.enter="submit">
 
     <transition
       name="fade"
       enter-active-class="animated fadeIn"
-      leave-active-class="animated fadeOut">
+      leave-active-class="animated fadeOut"
+      @before-enter="inTransition = true"
+      @after-leave="inTransition = false">
       <div
         v-if="addingPost"
         class="card-focus" />
@@ -18,18 +24,22 @@
       <div class="field">
         <div class="control">
           <textarea
-            rows="1"
+            ref="textarea"
             class="textarea is-borderless"
-            @focus="addingPost = true"
-            @keydown.enter.prevent="submit"
             placeholder="Type it loud and clear!"
-            v-model="message"/>
+            rows="1"
+            :readonly="isSent"
+            @focus="onFocus"
+            @input="autoExpand"
+            @keydown.enter.prevent="submit"
+            v-model="localPost.text"/>
         </div>
       </div>
     </div>
 
-    <component
-      :is="addingPost ? 'div' : 'footer'"
+    <!-- FOOTER: Media -->
+    <footer
+      v-if="!onDeck || addingPost"
       class="card-footer media-options">
       <div class="field is-grouped">
         <button
@@ -41,8 +51,9 @@
           <span>Photo / Video</span>
         </button>
       </div>
-    </component>
+    </footer>
 
+    <!-- FOOTER: Adding post -->
     <footer
       v-if="addingPost"
       class="card-footer">
@@ -55,13 +66,16 @@
           </button>
         </div>
       </div>
-      <div class="field is-grouped is-grouped-right">
+      <div
+        key="submit-post"
+        class="field is-grouped is-grouped-right">
         <div
           v-if="selectedAction === 'Schedule'"
           class="control">
           <flat-pickr
             class="input"
-            v-model="scheduled"
+            key="schedule-post"
+            v-model="localPost.scheduled"
             :config="flatpickrConfig"
             name="scheduled" />
         </div>
@@ -93,45 +107,72 @@
       </div>
     </footer>
 
-    <transition
-      name="fade"
-      enter-active-class="animated fadeIn"
-      leave-active-class="animated fadeOut">
-      <div
-        v-if="confirmDiscard"
-        class="discard">
-        <div class="discard-container">
-          <div class="title discard-message">Discard this post?</div>
-          <div class="field is-grouped is-grouped-centered">
-            <div class="control">
-              <button
-                class="button"
-                @click="confirmDiscard = false">
-                Nevermind
-              </button>
-            </div>
-            <div class="control">
-              <button
-                class="button is-primary"
-                @click="discard">
-                Discard
-              </button>
-            </div>
-          </div>
+    <footer
+      v-else-if="onDeck"
+      class="card-footer">
+      <div class="field is-grouped">
+        <div class="control">
+          <PlorDropdown
+            right
+            trigger-class="button has-text-left"
+            v-model="post.connections">
+            <template slot="trigger">
+              <span class="tag is-primary is-rounded">
+                {{ post.connections.length }}
+              </span>
+              <span>Account{{ post.connections.length > 1 ? 's' : '' }}</span>
+              <span class="icon">
+                <font-awesome-icon icon="chevron-down" />
+              </span>
+            </template>
+
+            <PlorDropdownItem
+              class="dropdown-account"
+              v-for="(account, i) in post.connections"
+              :key="i"
+              :value="account.handle">
+              <figure class="image is-32x32">
+                <img
+                  class="is-rounded"
+                  :src="account.profileImageUrl"
+                  :alt="account.handle">
+              </figure>
+              {{ account.handle }}
+            </PlorDropdownItem>
+          </PlorDropdown>
         </div>
       </div>
-    </transition>
+      <div
+        key="edit-post"
+        v-if="!isSent"
+        class="field is-grouped is-grouped-right">
+        <div class="control">
+          <button
+            class="button"
+            @click="edit">
+            Edit
+          </button>
+        </div>
+      </div>
+    </footer>
+
+    <PlorPrompt
+      :active="confirmDiscard"
+      @cancel="confirmDiscard = false"
+      @confirm="discard" />
 
   </form>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import addHours from 'date-fns/add_hours';
 import startOfTomorrow from 'date-fns/start_of_tomorrow';
 
 import FlatPickr from 'vue-flatpickr-component';
 import PlorDropdown from '@/components/shared/PlorDropdown';
 import PlorDropdownItem from '@/components/shared/PlorDropdownItem';
+import PlorPrompt from '@/components/shared/PlorPrompt';
 
 import flatpickrConfig from '@/config/flatpickr';
 
@@ -139,15 +180,19 @@ export default {
   components: {
     FlatPickr,
     PlorDropdown,
-    PlorDropdownItem
+    PlorDropdownItem,
+    PlorPrompt
+  },
+  props: {
+    post: {
+      type: Object,
+      default: null
+    }
   },
   data() {
     return {
       flatpickrConfig,
-      message: '',
-      scheduled: addHours(startOfTomorrow(), 12),
-      hasMedia: false,
-      hasGIF: false,
+      inTransition: false,
       addingPost: false,
       confirmDiscard: false,
       selectedAction: null,
@@ -156,16 +201,59 @@ export default {
         schedulePost: 'Schedule',
         sendPost: 'Post now',
         savePost: 'Save to draft'
+      },
+      localPost: {
+        text: '',
+        scheduled: addHours(startOfTomorrow(), 12),
+        connections: []
       }
     };
   },
+  computed: {
+    ...mapState(['connections']),
+    onDeck() {
+      return this.post !== null;
+    },
+    isSent() {
+      return this.post && this.post.sent;
+    }
+  },
   created() {
     this.selectedAction = this.actionItems.schedulePost;
+    if (this.post) this.localPost = Object.assign({}, this.post);
+  },
+  mounted() {
+    const textarea = this.$refs.textarea;
+    textarea.baseScrollHeight = textarea.scrollHeight;
   },
   methods: {
+    // TODO: Improve to shrink as well
+    autoExpand() {
+      const textarea = this.$refs.textarea;
+      if (!textarea) return 1;
+      const rows = Math.ceil(
+        (textarea.scrollHeight - textarea.baseScrollHeight) / 24
+      );
+      console.log(textarea.scrollHeight, textarea.baseScrollHeight);
+      textarea.rows = 1 + rows;
+    },
+    onFocus() {
+      if (this.isSent) return;
+      this.addingPost = true;
+    },
     addMedia() {},
+    edit() {
+      setTimeout(() => this.$refs.textarea.focus());
+    },
+    update() {
+      this.post.scheduled = this.post.newScheduled;
+      this.$store.dispatch(`posts/updatePost`, post).then(() => {
+        if (this.$store.state.notification.success) {
+          console.log('Post updated!');
+        }
+      });
+    },
     submit() {
-      const { connections } = this.$store.state.connections;
       const action = Object.keys(this.actionItems)
         .filter(k => this.actionItems[k] === this.selectedAction)
         .pop();
@@ -173,33 +261,46 @@ export default {
         .dispatch(`posts/${action}`, {
           connections,
           draft: false,
-          text: this.message,
+          text: this.localPost.text,
           scheduled: new Date(this.scheduled)
         })
         .then(() => {
           if (this.$store.state.notification.success) {
             console.log('Post added!');
-            this.message = '';
+            this.localPost.text = '';
             this.addingPost = false;
           }
         });
     },
     cancel() {
-      if (!this.message) return (this.addingPost = false);
+      if (
+        (!this.post && this.localPost.text === '') ||
+        (this.post && this.localPost.text === this.post.text)
+      )
+        return (this.addingPost = false);
       this.confirmDiscard = true;
     },
     discard() {
       this.confirmDiscard = false;
-      this.message = '';
+      this.localPost.text = this.post ? this.post.text : '';
+      this.localPost.scheduled = this.post
+        ? this.post.scheduled
+        : this.localPost.schedulePost;
       this.cancel();
     }
   }
 };
 </script>
 
-<style lang="scss">
-.new-post {
-  z-index: 1;
+<style lang="scss" scoped>
+.post {
+  &.z-to-top {
+    z-index: 1;
+  }
+
+  &.on-deck {
+    margin: 0.5rem 0 1rem 2rem;
+  }
 }
 
 .card-focus {
@@ -215,7 +316,12 @@ export default {
 
 .card-content {
   min-height: 0;
+  padding: 0.5rem 1rem;
   transition: min-height 0.3s ease;
+
+  &:last-child {
+    border-radius: $default-radius;
+  }
 }
 
 .media-options {
@@ -232,8 +338,15 @@ export default {
 }
 
 .card-footer {
-  &:not(:last-child) {
+  &:not(:last-of-type) {
     border-radius: 0;
+  }
+}
+
+.on-deck:not(.active) {
+  .card-footer {
+    padding: 0.5rem 1.5rem 1.5rem;
+    border-top: none;
   }
 }
 
@@ -248,22 +361,15 @@ export default {
   }
 }
 
-.discard {
-  display: flex;
-  position: fixed;
-  top: 0;
-  left: 0;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  animation-duration: 0.3s;
-  background-color: rgba($purple-4, 0.9);
-  text-align: center;
-}
+.dropdown-item {
+  &.dropdown-account {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+  }
 
-.discard-message {
-  color: $white;
+  .image {
+    margin-right: 0.5rem;
+  }
 }
 </style>

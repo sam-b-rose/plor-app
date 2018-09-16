@@ -8,95 +8,101 @@
         {{ day | getMonthDay }}
         <span class="day">{{ day | getDayOfWeek }}</span>
       </h2>
-      <div
-        class="post card"
-        :class="{'is-editing': editingId === post.postId}"
+
+      <PlorPost
         v-for="(post, j) in posts"
-        :key="j">
+        :key="j"
+        :post="post" />
 
-        <div class="content">
-          <div class="field">
-            <div class="control">
-              <textarea
-                rows="1"
-                :readonly="editingId !== post.postId"
-                :class="[
-                  'textarea is-borderless',
-                  `post_${day}_${j}`,
-                ]"
-                @keydown.enter.prevent="savePost(post, day, j)"
-                v-model="post.text"/>
-            </div>
+    <!-- <div
+      class="post card"
+      :class="{'is-editing': editingId === post.postId}"
+      v-for="(post, j) in posts"
+      :key="j">
+
+      <div class="content">
+        <div class="field">
+          <div class="control">
+            <textarea
+              rows="1"
+              :readonly="editingId !== post.postId"
+              :class="[
+                'textarea is-borderless',
+                `post_${day}_${j}`,
+              ]"
+              @keydown.enter.prevent="savePost(post, day, j)"
+              v-model="post.text"/>
           </div>
-        </div>
-
-        <div class="level">
-
-          <div class="level-left">
-            <div class="field is-grouped">
-              <div class="control">
-                <PlorDropdown
-                  right
-                  trigger-class="button has-text-left"
-                  v-model="post.connections">
-                  <template slot="trigger">
-                    <span class="icon tag is-primary is-rounded">
-                      {{ post.connections.length }}
-                    </span>
-                    <span>Account{{ post.connections.length > 1 ? 's' : '' }}</span>
-                    <span class="icon">
-                      <font-awesome-icon icon="chevron-down" />
-                    </span>
-                  </template>
-
-                  <PlorDropdownItem
-                    v-for="(account, i) in post.connections"
-                    :key="i"
-                    :value="account.handle">
-                    {{ account.handle }}
-                  </PlorDropdownItem>
-                </PlorDropdown>
-              </div>
-            </div>
-          </div>
-
-          <div class="level-right">
-            <div class="field is-grouped is-grouped-right">
-              <div class="control">
-                <flat-pickr
-                  class="input"
-                  v-model="post.newScheduled"
-                  :config="flatpickrConfig"
-                  @on-close="onScheduleClose(post)"
-                  name="scheduled" />
-              </div>
-              <div class="control">
-                <button
-                  v-if="editingId === post.postId"
-                  class="button"
-                  @click="resetPost(post)">
-                  Cancel
-                </button>
-              </div>
-              <div class="control">
-                <button
-                  v-if="editingId != post.postId"
-                  class="button"
-                  @click="editPost(post)">
-                  Edit
-                </button>
-                <button
-                  v-else
-                  class="button is-primary"
-                  @click="savePost(post)">
-                  Save
-                </button>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
+
+      <div class="level">
+
+        <div class="level-left">
+          <div class="field is-grouped">
+            <div class="control">
+              <PlorDropdown
+                right
+                trigger-class="button has-text-left"
+                v-model="post.connections">
+                <template slot="trigger">
+                  <span class="icon tag is-primary is-rounded">
+                    {{ post.connections.length }}
+                  </span>
+                  <span>Account{{ post.connections.length > 1 ? 's' : '' }}</span>
+                  <span class="icon">
+                    <font-awesome-icon icon="chevron-down" />
+                  </span>
+                </template>
+
+                <PlorDropdownItem
+                  v-for="(account, i) in post.connections"
+                  :key="i"
+                  :value="account.handle">
+                  {{ account.handle }}
+                </PlorDropdownItem>
+              </PlorDropdown>
+            </div>
+          </div>
+        </div>
+
+        <div class="level-right">
+          <div class="field is-grouped is-grouped-right">
+            <div class="control">
+              <flat-pickr
+                class="input"
+                v-model="post.newScheduled"
+                :config="flatpickrConfig"
+                @on-close="onScheduleClose(post)"
+                name="scheduled" />
+            </div>
+            <div class="control">
+              <button
+                v-if="editingId === post.postId"
+                class="button"
+                @click="resetPost(post)">
+                Cancel
+              </button>
+            </div>
+            <div class="control">
+              <button
+                v-if="editingId != post.postId"
+                class="button"
+                @click="editPost(post)">
+                Edit
+              </button>
+              <button
+                v-else
+                class="button is-primary"
+                @click="savePost(post)">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div> -->
     </div>
   </div>
 </template>
@@ -110,6 +116,7 @@ import isEqual from 'date-fns/is_equal';
 import FlatPickr from 'vue-flatpickr-component';
 import PlorDropdown from '@/components/shared/PlorDropdown';
 import PlorDropdownItem from '@/components/shared/PlorDropdownItem';
+import PlorPost from '@/components/app/PlorPost';
 
 import flatpickrConfig from '@/config/flatpickr';
 
@@ -126,6 +133,7 @@ export default {
   components: {
     PlorDropdown,
     PlorDropdownItem,
+    PlorPost,
     FlatPickr
   },
   props: {
@@ -218,16 +226,6 @@ export default {
   font: {
     size: 1rem;
     weight: 600;
-  }
-}
-
-.post {
-  margin: 0.5rem 0 1rem 2rem;
-  padding: 1rem;
-  transition: box-shadow 0.3s ease;
-
-  &.is-editing {
-    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.3), 0 0 0 1px rgba(10, 10, 10, 0.1);
   }
 }
 </style>
