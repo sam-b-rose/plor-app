@@ -104,6 +104,8 @@ export const actions = {
       commit('notification/PENDING', null, { root: true });
       let { data } = await axios.post('/users/login', payload);
       commit('LOGIN_SUCCESS', data);
+      commit('LOGIN_SUCCESS', data);
+      commit('connections/FETCH_CONNECTIONS_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
       commit('LOGIN_FAILURE', error);

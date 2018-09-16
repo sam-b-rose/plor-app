@@ -112,34 +112,7 @@
       class="card-footer">
       <div class="field is-grouped">
         <div class="control">
-          <PlorDropdown
-            right
-            trigger-class="button has-text-left"
-            v-model="post.connections">
-            <template slot="trigger">
-              <span class="tag is-primary is-rounded">
-                {{ post.connections.length }}
-              </span>
-              <span>Account{{ post.connections.length > 1 ? 's' : '' }}</span>
-              <span class="icon">
-                <font-awesome-icon icon="chevron-down" />
-              </span>
-            </template>
-
-            <PlorDropdownItem
-              class="dropdown-account"
-              v-for="(account, i) in post.connections"
-              :key="i"
-              :value="account.handle">
-              <figure class="image is-32x32">
-                <img
-                  class="is-rounded"
-                  :src="account.profileImageUrl"
-                  :alt="account.handle">
-              </figure>
-              {{ account.handle }}
-            </PlorDropdownItem>
-          </PlorDropdown>
+          <PlorAccounts :selected="localPost.connections"/>
         </div>
       </div>
       <div
@@ -170,6 +143,7 @@ import addHours from 'date-fns/add_hours';
 import startOfTomorrow from 'date-fns/start_of_tomorrow';
 
 import FlatPickr from 'vue-flatpickr-component';
+import PlorAccounts from '@/components/shared/PlorAccounts';
 import PlorDropdown from '@/components/shared/PlorDropdown';
 import PlorDropdownItem from '@/components/shared/PlorDropdownItem';
 import PlorPrompt from '@/components/shared/PlorPrompt';
@@ -179,6 +153,7 @@ import flatpickrConfig from '@/config/flatpickr';
 export default {
   components: {
     FlatPickr,
+    PlorAccounts,
     PlorDropdown,
     PlorDropdownItem,
     PlorPrompt
@@ -205,12 +180,11 @@ export default {
       localPost: {
         text: '',
         scheduled: addHours(startOfTomorrow(), 12),
-        connections: []
+        connections: this.$store.state.connections.connections
       }
     };
   },
   computed: {
-    ...mapState(['connections']),
     onDeck() {
       return this.post !== null;
     },
@@ -254,15 +228,16 @@ export default {
       });
     },
     submit() {
+      const { connections } = this;
       const action = Object.keys(this.actionItems)
         .filter(k => this.actionItems[k] === this.selectedAction)
         .pop();
       this.$store
         .dispatch(`posts/${action}`, {
-          connections,
           draft: false,
           text: this.localPost.text,
-          scheduled: new Date(this.scheduled)
+          scheduled: new Date(this.scheduled),
+          connections: this.localPost.connections
         })
         .then(() => {
           if (this.$store.state.notification.success) {
@@ -358,18 +333,6 @@ export default {
 
   &:not(:last-child) {
     margin-bottom: 0;
-  }
-}
-
-.dropdown-item {
-  &.dropdown-account {
-    display: flex;
-    align-items: center;
-    padding: 0.25rem 0.5rem;
-  }
-
-  .image {
-    margin-right: 0.5rem;
   }
 }
 </style>

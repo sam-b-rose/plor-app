@@ -42,7 +42,10 @@ userSchema.virtual('gravatar').get(function() {
   return `https://gravatar.com/avatar/${hash}?s=200`;
 });
 
-userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
+userSchema.plugin(passportLocalMongoose, {
+  usernameField: 'email',
+  populateFields: ['connections']
+});
 userSchema.plugin(mongodbErrorHandler);
 
 export default mongoose.model('User', userSchema);

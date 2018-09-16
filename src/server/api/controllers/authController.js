@@ -7,7 +7,7 @@ import { ServerError } from 'express-server-error';
 
 export default {
   async login(req, res, next) {
-    passport.authenticate('local', (err, user, info) => {
+    passport.authenticate('local', (err, user) => {
       if (err) return next(err);
       if (!user) throw new ServerError('Failed to find user.');
       req.logIn(user, err => {
