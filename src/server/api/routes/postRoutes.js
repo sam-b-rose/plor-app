@@ -35,4 +35,10 @@ router.put(
   catchErrors(postController.updatePost)
 );
 
+router.delete(
+  '/:id',
+  authController.isLoggedIn,
+  catchErrors(postController.deletePost)
+);
+
 export default router;

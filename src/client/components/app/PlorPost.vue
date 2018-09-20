@@ -171,12 +171,6 @@ export default {
       addingPost: false,
       confirmDiscard: false,
       selectedAction: null,
-      actionItems: {
-        queuePost: 'Add to queue',
-        schedulePost: 'Schedule',
-        sendPost: 'Post now',
-        savePost: 'Save to draft'
-      },
       localPost: {
         text: '',
         scheduled: addHours(startOfTomorrow(), 12),
@@ -190,10 +184,31 @@ export default {
     },
     isSent() {
       return this.post && this.post.sent;
+    },
+    actionItems() {
+      const actions = {
+        schedulePost: 'Schedule',
+        sendPost: 'Post now'
+      };
+
+      if (!this.onDeck) {
+        actions.queuePost = 'Add to queue';
+        actions.savePost = 'Save to draft';
+      } else {
+        actions.updatePost = 'Update post';
+      }
+
+      if (this.onDeck && !this.isSent) {
+        actions.deletePost = 'Delete post';
+      }
+
+      return actions;
     }
   },
   created() {
-    this.selectedAction = this.actionItems.schedulePost;
+    this.selectedAction = this.onDeck
+      ? this.actionItems.updatePost
+      : this.actionItems.schedulePost;
     if (this.post) this.localPost = Object.assign({}, this.post);
   },
   mounted() {
@@ -232,20 +247,13 @@ export default {
       const action = Object.keys(this.actionItems)
         .filter(k => this.actionItems[k] === this.selectedAction)
         .pop();
-      this.$store
-        .dispatch(`posts/${action}`, {
-          draft: false,
-          text: this.localPost.text,
-          scheduled: new Date(this.scheduled),
-          connections: this.localPost.connections
-        })
-        .then(() => {
-          if (this.$store.state.notification.success) {
-            console.log('Post added!');
-            this.localPost.text = '';
-            this.addingPost = false;
-          }
-        });
+      this.$store.dispatch(`posts/${action}`, this.localPost).then(() => {
+        if (this.$store.state.notification.success) {
+          console.log('Post added!');
+          if (!this.onDeck) this.localPost.text = '';
+          this.addingPost = false;
+        }
+      });
     },
     cancel() {
       if (

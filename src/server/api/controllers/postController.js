@@ -101,6 +101,10 @@ export default {
       { $set: updates },
       { new: true, runValidators: true, context: 'query' }
     );
-    res.json({ message: 'Updated post!', post });
+    res.json({ message: 'Updated post 👍', post });
+  },
+  async deletePost(req, res) {
+    const post = await Post.findByIdAndRemove(req.params.id);
+    res.json({ message: 'Deleted post 💣', post });
   }
 };

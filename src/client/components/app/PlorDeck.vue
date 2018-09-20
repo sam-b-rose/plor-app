@@ -2,107 +2,18 @@
   <div class="deck">
     <div
       class="group"
-      v-for="(posts, day, i) in localDeck"
-      :key="i">
+      v-for="(posts, day) in localDeck"
+      :key="day">
       <h2 class="date">
         {{ day | getMonthDay }}
         <span class="day">{{ day | getDayOfWeek }}</span>
       </h2>
 
       <PlorPost
-        v-for="(post, j) in posts"
-        :key="j"
+        v-for="post in posts"
+        :key="post._id"
         :post="post" />
 
-    <!-- <div
-      class="post card"
-      :class="{'is-editing': editingId === post.postId}"
-      v-for="(post, j) in posts"
-      :key="j">
-
-      <div class="content">
-        <div class="field">
-          <div class="control">
-            <textarea
-              rows="1"
-              :readonly="editingId !== post.postId"
-              :class="[
-                'textarea is-borderless',
-                `post_${day}_${j}`,
-              ]"
-              @keydown.enter.prevent="savePost(post, day, j)"
-              v-model="post.text"/>
-          </div>
-        </div>
-      </div>
-
-      <div class="level">
-
-        <div class="level-left">
-          <div class="field is-grouped">
-            <div class="control">
-              <PlorDropdown
-                right
-                trigger-class="button has-text-left"
-                v-model="post.connections">
-                <template slot="trigger">
-                  <span class="icon tag is-primary is-rounded">
-                    {{ post.connections.length }}
-                  </span>
-                  <span>Account{{ post.connections.length > 1 ? 's' : '' }}</span>
-                  <span class="icon">
-                    <font-awesome-icon icon="chevron-down" />
-                  </span>
-                </template>
-
-                <PlorDropdownItem
-                  v-for="(account, i) in post.connections"
-                  :key="i"
-                  :value="account.handle">
-                  {{ account.handle }}
-                </PlorDropdownItem>
-              </PlorDropdown>
-            </div>
-          </div>
-        </div>
-
-        <div class="level-right">
-          <div class="field is-grouped is-grouped-right">
-            <div class="control">
-              <flat-pickr
-                class="input"
-                v-model="post.newScheduled"
-                :config="flatpickrConfig"
-                @on-close="onScheduleClose(post)"
-                name="scheduled" />
-            </div>
-            <div class="control">
-              <button
-                v-if="editingId === post.postId"
-                class="button"
-                @click="resetPost(post)">
-                Cancel
-              </button>
-            </div>
-            <div class="control">
-              <button
-                v-if="editingId != post.postId"
-                class="button"
-                @click="editPost(post)">
-                Edit
-              </button>
-              <button
-                v-else
-                class="button is-primary"
-                @click="savePost(post)">
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div> -->
     </div>
   </div>
 </template>

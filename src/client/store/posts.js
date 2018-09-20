@@ -1,5 +1,12 @@
 import axios from '~/plugins/axios';
+
 import findIndex from 'lodash/findIndex';
+import random from 'lodash/random';
+
+import isAfter from 'date-fns/is_after';
+import addDays from 'date-fns/add_days';
+import setHours from 'date-fns/set_hours';
+import setMinutes from 'date-fns/set_minutes';
 
 export const state = () => {
   return { queue: [], drafts: [], history: [] };
@@ -40,10 +47,9 @@ export const mutations = {
   DELETE_POST_REQUEST(state) {
     console.log('Delete post pending...');
   },
-  DELETE_POST_SUCCESS(state, message) {
-    Object.keys(state).forEach(key => {
-      if (typeof key === 'string') state[key] = '';
-    });
+  DELETE_POST_SUCCESS(state, data) {
+    const list = data.post.draft ? 'drafts' : 'queue';
+    state[list] = state[list].filter(p => p._id !== data.post._id);
     console.log('Delete post success!');
   },
   DELETE_POST_FAILURE(error) {
@@ -174,10 +180,17 @@ export const actions = {
     payload.scheduled = new Date();
     dispatch('addPost', payload);
   },
-  // TODO: Figure out queue logic here
-  //       currently the same as sendPost
-  async queuePost({ dispatch }, payload) {
-    payload.scheduled = new Date();
+  async queuePost({ state, dispatch }, payload) {
+    const oldestPost = state.queue.reduce(
+      (p1, p2) => (isAfter(p1.scheduled, p2.scheduled) ? p1 : p2)
+    );
+    const randomHour = random(8, 20); // between 8 am and 8 pm
+    const randomMinute = random(0, 59);
+    const nextDay = setMinutes(
+      setHours(addDays(oldestPost.scheduled, 1), randomHour),
+      randomMinute
+    );
+    payload.scheduled = nextDay;
     dispatch('addPost', payload);
   },
   async schedulePost({ dispatch }, payload) {
