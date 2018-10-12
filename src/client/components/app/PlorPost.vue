@@ -46,7 +46,7 @@
           class="button is-text"
           @click="addMedia">
           <span class="icon">
-            <font-awesome-icon icon="camera" />
+            <FontAwesomeIcon icon="camera" />
           </span>
           <span>Photo / Video</span>
         </button>
@@ -226,27 +226,33 @@ export default {
       console.log(textarea.scrollHeight, textarea.baseScrollHeight);
       textarea.rows = 1 + rows;
     },
+
     onFocus() {
       if (this.isSent) return;
       this.addingPost = true;
     },
+
     addMedia() {},
+
     edit() {
       setTimeout(() => this.$refs.textarea.focus());
     },
+
     update() {
       this.post.scheduled = this.post.newScheduled;
       this.$store.dispatch(`posts/updatePost`, post).then(() => {
         if (this.$store.state.notification.success) {
-          console.log('Post updated!');
+          console.log('Post updated! ✨');
         }
       });
     },
+
     submit() {
       const { connections } = this;
-      const action = Object.keys(this.actionItems)
-        .filter(k => this.actionItems[k] === this.selectedAction)
-        .pop();
+      const [action] = Object.keys(this.actionItems).filter(
+        k => this.actionItems[k] === this.selectedAction
+      );
+
       this.$store.dispatch(`posts/${action}`, this.localPost).then(() => {
         if (this.$store.state.notification.success) {
           console.log('Post added!');
@@ -255,6 +261,7 @@ export default {
         }
       });
     },
+
     cancel() {
       if (
         (!this.post && this.localPost.text === '') ||
@@ -263,6 +270,7 @@ export default {
         return (this.addingPost = false);
       this.confirmDiscard = true;
     },
+
     discard() {
       this.confirmDiscard = false;
       this.localPost.text = this.post ? this.post.text : '';

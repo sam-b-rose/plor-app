@@ -3,6 +3,7 @@ import md5 from 'md5';
 import validator from 'validator';
 import mongodbErrorHandler from 'mongoose-mongodb-errors';
 import passportLocalMongoose from 'passport-local-mongoose';
+import { PassportLocalSchema } from 'mongoose';
 
 const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
@@ -27,9 +28,12 @@ const userSchema = new Schema(
       required: 'Please supply a name',
       trim: true
     },
+    connections: {
+      type: [{ type: mongoose.Schema.ObjectId, ref: 'Connection' }],
+      default: []
+    },
     resetPasswordToken: String,
-    resetPasswordExpires: Date,
-    connections: [{ type: mongoose.Schema.ObjectId, ref: 'Connection' }]
+    resetPasswordExpires: Date
   },
   {
     toObject: { virtuals: true },

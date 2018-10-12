@@ -104,9 +104,13 @@ export const actions = {
       let { data } = await axios.post('/posts', payload);
       commit('ADD_POST_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
+      commit('notification/ADD_TOAST', data, { root: true });
     } catch (error) {
       commit('ADD_POST_FAILURE', error);
       commit('notification/FAILURE', error.response.data, {
+        root: true
+      });
+      commit('notification/ADD_TOAST', error.response.data, {
         root: true
       });
     }
@@ -117,9 +121,13 @@ export const actions = {
       let { data } = await axios.put(`/posts`, payload);
       commit('UPDATE_POST_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
+      commit('notification/ADD_TOAST', data, { root: true });
     } catch (error) {
       commit('UPDATE_POST_FAILURE', error);
       commit('notification/FAILURE', error.response.data, {
+        root: true
+      });
+      commit('notification/ADD_TOAST', error.response.data, {
         root: true
       });
     }
@@ -130,9 +138,13 @@ export const actions = {
       let { data } = await axios.delete(`/posts/${payload._id}`);
       commit('DELETE_POST_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
+      commit('notification/ADD_TOAST', data, { root: true });
     } catch (error) {
       commit('DELETE_POST_FAILURE', error);
       commit('notification/FAILURE', error.response.data, {
+        root: true
+      });
+      commit('notification/ADD_TOAST', error.response.data, {
         root: true
       });
     }
@@ -177,8 +189,9 @@ export const actions = {
     }
   },
   async sendPost({ dispatch }, payload) {
+    const mutation = payload.created ? 'updatePost' : 'addPost';
     payload.scheduled = new Date();
-    dispatch('addPost', payload);
+    dispatch(mutation, payload);
   },
   async queuePost({ state, dispatch }, payload) {
     const oldestPost = state.queue.reduce(
@@ -194,11 +207,14 @@ export const actions = {
     dispatch('addPost', payload);
   },
   async schedulePost({ dispatch }, payload) {
-    dispatch('addPost', payload);
+    const mutation = payload.created ? 'updatePost' : 'addPost';
+    payload.draft = false;
+    dispatch(mutation, payload);
   },
   async savePost({ dispatch }, payload) {
+    const mutation = payload.created ? 'updatePost' : 'addPost';
     payload.draft = true;
     payload.scheduled = null;
-    dispatch('addPost', payload);
+    dispatch(mutation, payload);
   }
 };

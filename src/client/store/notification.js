@@ -1,36 +1,37 @@
+import { actions } from './posts';
+
 export const state = () => {
   return {
+    uid: 0,
     pending: false,
     success: false,
     failure: false,
-
-    context: 'info',
-    text: '',
-    snackbar: false
+    toaster: []
   };
 };
 export const mutations = {
+  ADD_TOAST(state, data) {
+    const toast = { id: state.uid++, status: 'success', text: data.message };
+    state.toaster = [toast, ...state.toaster];
+  },
+  DELETE_TOAST(state, data) {
+    const toast = { id: state.uid++, status: 'error', text: data.message };
+    state.toaster = [toast, ...state.toaster];
+  },
   PENDING(state) {
-    state.mode = 'info';
     state.pending = true;
   },
-  SUCCESS(state, data) {
+  SUCCESS(state) {
     state.failure = false;
-    state.context = 'success';
     state.success = true;
-    state.text = data.message;
-    state.snackbar = true;
     state.pending = false;
   },
-  FAILURE(state, data) {
+  FAILURE(state) {
     state.success = false;
-    state.context = 'error';
     state.failure = true;
-    state.text = data.message;
-    state.snackbar = true;
     state.pending = false;
   },
-  UPDATE_SNACKBAR(state, value) {
-    state.snackbar = value;
+  UPDATE_TOASTER(state, id) {
+    state.toaster = state.toaster.filter(t => t.id !== id);
   }
 };

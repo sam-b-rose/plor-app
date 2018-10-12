@@ -23,6 +23,10 @@ $purple-3: #432387;
 $purple-4: #180037;
 $orange: #ee7256;
 
+// Status
+$success: #29fd97;
+$error: #ff5c49;
+
 // Add invert colors
 $blue-dark-invert: findColorInvert($blue-dark);
 $purple-invert: findColorInvert($purple-3);

@@ -17,8 +17,11 @@ import {
 import faCamera from '@fortawesome/fontawesome-free-solid/faCamera';
 import faChevronDown from '@fortawesome/fontawesome-free-solid/faChevronDown';
 import faCircle from '@fortawesome/fontawesome-free-solid/faCircle';
+import faCheckCircle from '@fortawesome/fontawesome-free-solid/faCheckCircle';
+import faExclamationCircle from '@fortawesome/fontawesome-free-solid/faExclamationCircle';
 import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
 import faTag from '@fortawesome/fontawesome-free-solid/faTag';
+import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch';
 import faUsers from '@fortawesome/fontawesome-free-solid/faUsers';
 
@@ -27,8 +30,6 @@ import faComment from '@fortawesome/fontawesome-free-regular/faComment';
 import faImage from '@fortawesome/fontawesome-free-regular/faImage';
 import faImages from '@fortawesome/fontawesome-free-regular/faImages';
 import faSquare from '@fortawesome/fontawesome-free-regular/faSquare';
-// import faTag from '@fortawesome/fontawesome-pro-regular/faTag';
-// import faUsers from '@fortawesome/fontawesome-pro-regular/faUsers';
 
 fontawesome.library.add(
   // Brands
@@ -39,9 +40,12 @@ fontawesome.library.add(
   faCamera,
   faChevronDown,
   faCircle,
+  faCheckCircle,
+  faExclamationCircle,
   faPlus,
   faSearch,
   faTag,
+  faTimes,
   faUsers,
   // Regular
   faComment,
@@ -49,5 +53,10 @@ fontawesome.library.add(
   faImages,
   faSquare
 );
+
+fontawesome.config = {
+  // autoAddCss: false
+};
+
 Vue.component(FontAwesomeIcon.name, FontAwesomeIcon);
 Vue.component(FontAwesomeLayers.name, FontAwesomeLayers);

@@ -13,10 +13,12 @@
         class="modal-close is-large"
         aria-label="close" />
     </div>
+    <PlorToaster />
   </div>
 </template>
 
 <script>
+import PlorToaster from '~/components/shared/PlorToaster';
 import PlorSidenav from '~/components/shared/PlorSidenav';
 
 export default {
@@ -24,7 +26,8 @@ export default {
     return {};
   },
   components: {
-    PlorSidenav
+    PlorSidenav,
+    PlorToaster
   }
 };
 </script>
