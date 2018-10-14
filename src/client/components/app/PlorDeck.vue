@@ -22,6 +22,7 @@
 import find from 'lodash/find';
 import format from 'date-fns/format';
 import isAfter from 'date-fns/is_after';
+import isBefore from 'date-fns/is_before';
 import isEqual from 'date-fns/is_equal';
 
 import FlatPickr from 'vue-flatpickr-component';
@@ -51,6 +52,10 @@ export default {
     deck: {
       type: Array,
       default: () => []
+    },
+    mostRecent: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -63,7 +68,8 @@ export default {
   computed: {
     localDeck() {
       const deck = this.deck.map(o => ({ ...o }));
-      const sorted = deck.sort((p1, p2) => isAfter(p1.scheduled, p2.scheduled));
+      const sortFn = this.mostRecent ? isBefore : isAfter;
+      const sorted = deck.sort((p1, p2) => sortFn(p1.scheduled, p2.scheduled));
       const groupedByDay = sorted.reduce((grouped, post) => {
         const day = format(post.scheduled, 'YYYY-MM-DD');
         if (!grouped[day]) grouped[day] = [];

@@ -118,8 +118,14 @@ export const actions = {
   async updatePost({ commit }, payload) {
     try {
       commit('UPDATE_POST_REQUEST');
+      const { oldPost } = payload;
+      if (oldPost) {
+        delete payload.oldPost;
+        payload = payload.payload;
+      }
       let { data } = await axios.put(`/posts`, payload);
       commit('UPDATE_POST_SUCCESS', data);
+      if (oldPost) commit('DELETE_POST_SUCCESS', { post: oldPost });
       commit('notification/SUCCESS', data, { root: true });
       commit('notification/ADD_TOAST', data, { root: true });
     } catch (error) {
@@ -208,7 +214,10 @@ export const actions = {
   },
   async schedulePost({ dispatch }, payload) {
     const mutation = payload.created ? 'updatePost' : 'addPost';
+    const changeList = payload.created && payload.draft;
+    const oldPost = changeList ? { ...payload } : null;
     payload.draft = false;
+    payload = oldPost ? { payload, oldPost } : payload;
     dispatch(mutation, payload);
   },
   async savePost({ dispatch }, payload) {

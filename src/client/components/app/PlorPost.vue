@@ -173,7 +173,7 @@ export default {
       selectedAction: null,
       localPost: {
         text: '',
-        scheduled: addHours(startOfTomorrow(), 12),
+        scheduled: this.defaultScheduleStart(),
         connections: this.$store.state.connections.connections
       }
     };
@@ -210,6 +210,8 @@ export default {
       ? this.actionItems.updatePost
       : this.actionItems.schedulePost;
     if (this.post) this.localPost = Object.assign({}, this.post);
+    this.localPost.scheduled =
+      this.localPost.scheduled || this.defaultScheduleStart();
   },
   mounted() {
     const textarea = this.$refs.textarea;
@@ -238,21 +240,11 @@ export default {
       setTimeout(() => this.$refs.textarea.focus());
     },
 
-    update() {
-      this.post.scheduled = this.post.newScheduled;
-      this.$store.dispatch(`posts/updatePost`, post).then(() => {
-        if (this.$store.state.notification.success) {
-          console.log('Post updated! ✨');
-        }
-      });
-    },
-
     submit() {
       const { connections } = this;
       const [action] = Object.keys(this.actionItems).filter(
         k => this.actionItems[k] === this.selectedAction
       );
-
       this.$store.dispatch(`posts/${action}`, this.localPost).then(() => {
         if (this.$store.state.notification.success) {
           console.log('Post added!');
@@ -278,6 +270,10 @@ export default {
         ? this.post.scheduled
         : this.localPost.schedulePost;
       this.cancel();
+    },
+
+    defaultScheduleStart() {
+      return addHours(startOfTomorrow(), 12);
     }
   }
 };

@@ -4,7 +4,9 @@
       <h3 class="subtitle is-3">History</h3>
       <div class="columns">
         <div class="column">
-          <PlorDeck :deck="history"/>
+          <PlorDeck
+            :deck="history"
+            :most-recent="true" />
         </div>
         <div class="column column--fixed">
           <PlorFilter :items="filterItems"/>
