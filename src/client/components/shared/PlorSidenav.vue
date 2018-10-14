@@ -7,13 +7,28 @@
       </p>
       <li>
         <nuxt-link to="/app/queue">
-          Queue
+          <IconBase
+            :width="20"
+            :height="20"
+            class="sidenav-icon">
+            <IconPosts />
+          </IconBase> Queue
         </nuxt-link>
         <nuxt-link to="/app/drafts">
-          Drafts
+          <IconBase
+            :width="20"
+            :height="20"
+            class="sidenav-icon">
+            <IconDrafts />
+          </IconBase> Drafts
         </nuxt-link>
         <nuxt-link to="/app/history">
-          History
+          <IconBase
+            :width="20"
+            :height="20"
+            class="sidenav-icon">
+            <IconHistory />
+          </IconBase> History
         </nuxt-link>
       </li>
       <p class="menu-label">
@@ -21,10 +36,15 @@
       </p>
       <li>
         <nuxt-link to="/manage">
-          Accounts
+          <IconBase
+            :width="20"
+            :height="20"
+            class="sidenav-icon">
+            <IconAccounts />
+          </IconBase> Accounts
         </nuxt-link>
       </li>
-      <li>
+      <!-- <li>
         <nuxt-link
           class="strike"
           to="/manage/members">
@@ -37,7 +57,7 @@
           to="/manage/schedule">
           Schedule
         </nuxt-link>
-      </li>
+      </li> -->
     </ul>
     <ul class="menu-list bottom">
       <li>
@@ -55,8 +75,21 @@
 </template>
 
 <script>
+import IconBase from '@/components/svg/IconBase';
+import IconPosts from '@/components/svg/IconPosts';
+import IconDrafts from '@/components/svg/IconDrafts';
+import IconHistory from '@/components/svg/IconHistory';
+import IconAccounts from '@/components/svg/IconAccounts';
+
 export default {
   name: 'PlorSidenav',
+  components: {
+    IconBase,
+    IconPosts,
+    IconDrafts,
+    IconHistory,
+    IconAccounts
+  },
   data() {
     return {
       name: this.$store.state.user.name,
@@ -80,7 +113,8 @@ export default {
   width: 35px;
   height: 35px;
   margin: 3rem 2rem 2rem;
-  background-color: $border;
+  border-radius: $default-radius - 2px;
+  background-color: $purple-2;
 }
 
 .menu {
@@ -88,15 +122,12 @@ export default {
   flex-flow: column nowrap;
   height: 100vh;
   overflow: auto;
+  border-right: 1px solid $border-blue;
   background-color: $light-gray;
 }
 
 .menu-list {
   flex: 1 1 auto;
-
-  svg {
-    margin-right: 10px;
-  }
 
   &.bottom {
     flex: 0 0 auto;
@@ -111,12 +142,15 @@ export default {
 }
 
 a {
+  display: flex;
+  align-items: center;
   margin: 0;
   padding: 0.75rem 2rem;
   border-left: 3px solid transparent;
   font-weight: 400;
 
   &:hover {
+    background-color: rgba($border-blue, 0.5);
     color: $blue-dark;
   }
 }
@@ -127,6 +161,10 @@ a.nuxt-link-active {
   color: $purple-2;
 }
 
+.sidenav-icon {
+  margin-right: 0.5rem;
+}
+
 .profile-link {
   display: flex;
   align-items: center;
@@ -134,8 +172,8 @@ a.nuxt-link-active {
 
 .profile {
   display: inline-block;
-  width: 35px;
-  height: 35px;
+  width: 24px;
+  height: 24px;
   margin-right: 1rem;
   border-radius: 50%;
   background-color: $gray;

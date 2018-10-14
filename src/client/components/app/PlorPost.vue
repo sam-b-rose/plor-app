@@ -48,7 +48,7 @@
           <span class="icon">
             <FontAwesomeIcon icon="camera" />
           </span>
-          <span>Photo / Video</span>
+          <span>Photo</span>
         </button>
       </div>
     </footer>

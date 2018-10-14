@@ -33,6 +33,11 @@ export default {
 </script>
 
 <style lang="scss">
+.subtitle {
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid $border-blue;
+}
+
 .button {
   @include app-button;
 }

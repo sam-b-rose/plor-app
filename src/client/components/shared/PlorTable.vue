@@ -36,7 +36,7 @@
                 transform="shrink-4"
                 :icon="['fab', iconMap[value]]" />
             </font-awesome-layers>
-            <span>{{ value | startCase }}</span>
+            <span>{{ value }}</span>
           </div>
         </td>
       </tr>

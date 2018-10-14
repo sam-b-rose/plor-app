@@ -47,6 +47,9 @@
   &,
   &[disabled] {
     @include app-button;
+
+    margin-right: calc(1rem - 1px);
+    padding-right: calc(0.625em - 1px);
   }
 
   &[disabled] {

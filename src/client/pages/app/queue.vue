@@ -5,7 +5,13 @@
       <div class="columns">
         <div class="column">
           <PlorPost />
-          <PlorDeck :deck="queue"/>
+          <PlorDeck
+            v-if="queue.length"
+            :deck="queue" />
+          <PlorEmpty
+            v-else
+            :title="emptyTitle"
+            :message="emptyMessage" />
         </div>
         <div class="column column--fixed">
           <PlorFilter :items="filterItems"/>
@@ -20,6 +26,7 @@ import { mapState } from 'vuex';
 
 import PlorPost from '@/components/app/PlorPost';
 import PlorDeck from '@/components/app/PlorDeck';
+import PlorEmpty from '@/components/app/PlorEmpty';
 import PlorFilter from '@/components/shared/PlorFilter';
 
 export default {
@@ -28,6 +35,7 @@ export default {
   components: {
     PlorPost,
     PlorDeck,
+    PlorEmpty,
     PlorFilter
   },
   async fetch({ store }) {
@@ -36,6 +44,13 @@ export default {
   computed: {
     ...mapState(['filterItems']),
     ...mapState('posts', ['queue'])
+  },
+  data() {
+    return {
+      emptyTitle: 'Ahem... your audience is awaiting!',
+      emptyMessage:
+        'Think about it for a bit, but not for too long. Then come back and draft up a post.'
+    };
   }
 };
 </script>
