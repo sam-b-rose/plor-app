@@ -1,6 +1,8 @@
 <template>
   <aside class="menu">
-    <div class="plor-brand" />
+    <nuxt-link
+      class="plor-brand"
+      to="/app/queue" />
     <ul class="menu-list">
       <p class="menu-label">
         Posts
@@ -63,7 +65,7 @@
       <li>
         <nuxt-link
           class="profile-link"
-          :to="`/users/account`">
+          :to="`/profile`">
           <div
             class="profile"
             :style="{ backgroundImage: `url('${gravatar}')` }"/>
@@ -110,6 +112,7 @@ export default {
 }
 
 .plor-brand {
+  flex: 0 0 auto;
   width: 35px;
   height: 35px;
   margin: 3rem 2rem 2rem;
@@ -141,7 +144,7 @@ export default {
   font-weight: bold;
 }
 
-a {
+a:not(.plor-brand) {
   display: flex;
   align-items: center;
   margin: 0;
@@ -155,7 +158,7 @@ a {
   }
 }
 
-a.nuxt-link-active {
+a.nuxt-link-active:not(.plor-brand) {
   border-left-color: $purple-2;
   background-color: $purple-0;
   color: $purple-2;

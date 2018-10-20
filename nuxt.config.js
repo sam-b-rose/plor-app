@@ -36,7 +36,7 @@ module.exports = {
   manifest: {
     name: 'plor',
     description: 'A social media post scheduler',
-    theme_color: '#432487'
+    theme_color: '#5300bc'
   },
   modules: [
     '@nuxtjs/pwa',
@@ -53,7 +53,8 @@ module.exports = {
     '~/plugins/portal-vue'
   ],
   loading: {
-    color: '#9939bd'
+    color: '#5300bc',
+    height: '3px'
   },
   render: {
     static: {

@@ -58,6 +58,20 @@ export default {
   width: 100%;
   overflow-x: hidden;
 
+  .hero {
+    &.is-fullheight {
+      @include fullhd() {
+        min-height: 800px;
+      }
+    }
+  }
+
+  .hero-body {
+    @include desktop() {
+      padding: 3rem 6rem;
+    }
+  }
+
   .title {
     margin-bottom: 1rem;
     font-weight: 500;
@@ -73,20 +87,6 @@ export default {
     margin-bottom: 2em;
     color: $blue-light;
     font-size: $size-5;
-  }
-}
-
-.hero {
-  &.is-fullheight {
-    @include fullhd() {
-      min-height: 800px;
-    }
-  }
-}
-
-.hero-body {
-  @include desktop() {
-    padding: 3rem 6rem;
   }
 }
 </style>

@@ -29,10 +29,6 @@ export const mutations = {
     console.log('Login pending...');
   },
   LOGIN_SUCCESS(state, data) {
-    state.name = data.user.name;
-    state.email = data.user.email;
-    state.gravatar = data.user.gravatar;
-    state.isAuthenticated = true;
     console.log('Login success!');
   },
   LOGIN_FAILURE(state, error) {
@@ -104,7 +100,7 @@ export const actions = {
       commit('notification/PENDING', null, { root: true });
       let { data } = await axios.post('/users/login', payload);
       commit('LOGIN_SUCCESS', data);
-      commit('LOGIN_SUCCESS', data);
+      commit('SET_USER', data.user, { root: true });
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
       commit('LOGIN_FAILURE', error);

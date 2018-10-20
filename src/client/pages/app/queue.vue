@@ -31,6 +31,7 @@ import PlorFilter from '@/components/shared/PlorFilter';
 
 export default {
   layout: 'app',
+  transition: 'rise-up',
   middleware: 'authenticated',
   components: {
     PlorPost,

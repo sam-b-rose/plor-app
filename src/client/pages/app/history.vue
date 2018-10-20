@@ -14,7 +14,7 @@
             :message="emptyMessage" />
         </div>
         <div class="column column--fixed">
-          <!-- <PlorFilter :items="filterItems"/> -->
+          <PlorFilter :items="filterItems"/>
         </div>
       </div>
     </div>
@@ -30,6 +30,7 @@ import PlorFilter from '@/components/shared/PlorFilter';
 
 export default {
   layout: 'app',
+  transition: 'rise-up',
   middleware: 'authenticated',
   components: {
     PlorDeck,

@@ -47,6 +47,7 @@ import PlorTable from '@/components/shared/PlorTable';
 
 export default {
   layout: 'app',
+  transition: 'rise-up',
   middleware: 'authenticated',
   components: {
     PlorList,
