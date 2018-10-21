@@ -284,10 +284,6 @@ export default {
   &.z-to-top {
     z-index: 1;
   }
-
-  &.on-deck {
-    margin: 0.5rem 0 1rem 2rem;
-  }
 }
 
 .card-focus {

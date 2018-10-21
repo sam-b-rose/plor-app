@@ -3,7 +3,7 @@
     <div class="container is-fluid">
       <h3 class="subtitle is-3">Queue</h3>
       <div class="columns">
-        <div class="column">
+        <div class="column column--stacked">
           <PlorPost />
           <PlorDeck
             v-if="queue.length"
@@ -55,19 +55,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-$navbar-min-height: 3rem;
-
-.navbar {
-  min-height: $navbar-min-height;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid $light;
-}
-
-.navbar-item {
-  &.is-tab {
-    min-height: $navbar-min-height;
-  }
-}
-</style>

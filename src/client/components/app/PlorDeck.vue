@@ -2,7 +2,7 @@
   <div class="deck">
     <div
       class="group"
-      v-for="(posts, day) in localDeck"
+      v-for="[day, posts] in localDeck"
       :key="day">
       <h2 class="date">
         {{ day | getMonthDay }}
@@ -20,6 +20,7 @@
 
 <script>
 import find from 'lodash/find';
+import toPairs from 'lodash/toPairs';
 import format from 'date-fns/format';
 import isAfter from 'date-fns/is_after';
 import isBefore from 'date-fns/is_before';
@@ -60,17 +61,13 @@ export default {
   },
   data() {
     return {
-      flatpickrConfig,
-      editingId: null,
-      draft: null
+      flatpickrConfig
     };
   },
   computed: {
     localDeck() {
       const deck = this.deck.map(o => ({ ...o }));
-      const sortFn = this.mostRecent ? isBefore : isAfter;
-      const sorted = deck.sort((p1, p2) => sortFn(p1.scheduled, p2.scheduled));
-      const groupedByDay = sorted.reduce((grouped, post) => {
+      const groupedByDay = deck.reduce((grouped, post) => {
         const day = format(post.scheduled, 'YYYY-MM-DD');
         if (!grouped[day]) grouped[day] = [];
         post.day = day;
@@ -80,38 +77,9 @@ export default {
         grouped[day].push(post);
         return grouped;
       }, {});
-      return groupedByDay;
-    }
-  },
-  methods: {
-    onScheduleClose(post) {
-      if (isEqual(post.scheduled, post.newScheduled)) return;
-      this.editPost(post);
-    },
-    editPost(post) {
-      this.editingId = post.postId;
-      this.draft = this.editingId ? post.text : null;
-      if (this.editingId) {
-        setTimeout(() =>
-          document.querySelector(`.post_${post.postId}`).focus()
-        );
-      }
-    },
-    savePost(post) {
-      post.scheduled = post.newScheduled;
-      this.$store.dispatch(`posts/updatePost`, post).then(() => {
-        if (this.$store.state.notification.success) {
-          this.editingId = null;
-          this.draft = null;
-          console.log('Post updated!');
-        }
-      });
-    },
-    resetPost(post) {
-      post.text = this.draft;
-      post.newScheduled = post.scheduled;
-      this.editingId = null;
-      this.draft = null;
+      const sortFn = this.mostRecent ? isBefore : isAfter;
+      const pairedByDay = toPairs(groupedByDay);
+      return pairedByDay.sort(([d1], [d2]) => (sortFn(d1, d2) ? 1 : -1));
     }
   }
 };
@@ -120,7 +88,7 @@ export default {
 <style lang="scss" scoped>
 .group {
   position: relative;
-  margin: 1rem 0 2rem;
+  margin: 0 0 2rem;
 
   &::after {
     content: '';
@@ -143,6 +111,12 @@ export default {
   font: {
     size: 1rem;
     weight: 600;
+  }
+}
+
+.deck {
+  .post.on-deck {
+    margin: 0.5rem 0 1rem 2rem;
   }
 }
 </style>

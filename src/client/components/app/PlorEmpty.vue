@@ -30,7 +30,6 @@ export default {
   display: grid;
   justify-items: center;
   align-items: center;
-  margin: 1.5rem 0;
   padding: 3.25rem 8rem;
   border: 1px solid $border-blue;
   border-radius: $default-radius;

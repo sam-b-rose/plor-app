@@ -3,11 +3,15 @@
     <div class="container is-fluid">
       <h3 class="subtitle is-3">Drafts</h3>
       <div class="columns">
-        <div class="column">
+        <div class="column column--stacked">
           <PlorPost />
-          <PlorDeck
+
+          <PlorPost
             v-if="drafts.length"
-            :deck="drafts"/>
+            v-for="post in drafts"
+            :key="post._id"
+            :post="post" />
+
           <PlorEmpty
             v-else
             :title="emptyTitle"
@@ -55,19 +59,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-$navbar-min-height: 3rem;
-
-.navbar {
-  min-height: $navbar-min-height;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid $light;
-}
-
-.navbar-item {
-  &.is-tab {
-    min-height: $navbar-min-height;
-  }
-}
-</style>

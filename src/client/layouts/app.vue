@@ -62,4 +62,10 @@ export default {
   flex: 0 0 auto;
   width: 264px;
 }
+
+.column--stacked {
+  & > * {
+    margin-bottom: 2rem;
+  }
+}
 </style>
