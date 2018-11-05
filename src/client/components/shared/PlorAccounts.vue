@@ -1,8 +1,10 @@
 <template>
   <PlorDropdown
     right
+    multiselect
     trigger-class="button has-text-left"
-    v-model="localSelected">
+    v-model="localSelected"
+    @active-change="passActiveChange">
     <template slot="trigger">
       <span class="tag is-primary is-rounded">
         {{ selected.length }}
@@ -14,10 +16,11 @@
     </template>
 
     <PlorDropdownItem
+      multiselect
       class="dropdown-account"
       v-for="(account, i) in connections"
       :key="i"
-      :value="account.handle">
+      :value="account">
       <figure class="image is-32x32">
         <img
           class="is-rounded"
@@ -37,15 +40,15 @@ import PlorDropdownItem from '@/components/shared/PlorDropdownItem';
 
 export default {
   name: 'PlorAccounts',
-  components: {
-    PlorDropdown,
-    PlorDropdownItem
-  },
   props: {
     selected: {
       type: Array,
       default: () => []
     }
+  },
+  components: {
+    PlorDropdown,
+    PlorDropdownItem
   },
   data() {
     return {
@@ -55,8 +58,18 @@ export default {
   computed: {
     ...mapState('connections', ['connections'])
   },
+  watch: {
+    localSelected() {
+      this.$emit('selected', this.localSelected);
+    }
+  },
   created() {
-    this.localSelected = this.selected.map(s => ({ ...s }));
+    this.localSelected = this.selected;
+  },
+  methods: {
+    passActiveChange(value) {
+      this.$emit('active-change', value);
+    }
   }
 };
 </script>

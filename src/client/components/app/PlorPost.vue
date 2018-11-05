@@ -110,9 +110,29 @@
     <footer
       v-else-if="onDeck"
       class="card-footer">
-      <div class="field is-grouped">
+      <div
+        key="draft-post"
+        v-if="localPost.draft"
+        class="field is-grouped">
+        <div class="control updated">
+          <img
+            class="profile"
+            :src="localPost.author.gravatar"
+            :alt="localPost.author.name">
+          <strong class="user">{{ localPost.author.email }}</strong>
+          <span> updated a draft </span>
+          <span class="diff-days">{{ localPost.updated | diffDays }}</span>
+        </div>
+      </div>
+      <div
+        v-else
+        key="scheduled-post"
+        class="field is-grouped">
         <div class="control">
-          <PlorAccounts :selected="localPost.connections"/>
+          <PlorAccounts
+            :selected="localPost.connections"
+            @selected="updateConnections"
+            @active-change="updateOnChange"/>
         </div>
       </div>
       <div
@@ -139,8 +159,10 @@
 
 <script>
 import { mapState } from 'vuex';
+import differenceBy from 'lodash/differenceBy';
 import addHours from 'date-fns/add_hours';
 import startOfTomorrow from 'date-fns/start_of_tomorrow';
+import differenceInDays from 'date-fns/difference_in_days';
 
 import FlatPickr from 'vue-flatpickr-component';
 import PlorAccounts from '@/components/shared/PlorAccounts';
@@ -150,7 +172,17 @@ import PlorPrompt from '@/components/shared/PlorPrompt';
 
 import flatpickrConfig from '@/config/flatpickr';
 
+const today = new Date();
+
 export default {
+  filters: {
+    diffDays(date) {
+      const days = differenceInDays(today, date);
+      if (days === 0) return 'Today';
+      if (days === 1) return 'Yesterday';
+      return `${days} days ago`;
+    }
+  },
   components: {
     FlatPickr,
     PlorAccounts,
@@ -210,8 +242,6 @@ export default {
       ? this.actionItems.updatePost
       : this.actionItems.schedulePost;
     if (this.post) this.localPost = Object.assign({}, this.post);
-    this.localPost.scheduled =
-      this.localPost.scheduled || this.defaultScheduleStart();
   },
   mounted() {
     const textarea = this.$refs.textarea;
@@ -225,7 +255,6 @@ export default {
       const rows = Math.ceil(
         (textarea.scrollHeight - textarea.baseScrollHeight) / 24
       );
-      console.log(textarea.scrollHeight, textarea.baseScrollHeight);
       textarea.rows = 1 + rows;
     },
 
@@ -240,11 +269,20 @@ export default {
       setTimeout(() => this.$refs.textarea.focus());
     },
 
+    update() {
+      this.localPost.updated = new Date();
+      this.$store.dispatch('posts/updatePost', this.localPost).then(() => {
+        if (this.$store.state.notification.success) {
+          console.log('Post updated!');
+        }
+      });
+    },
+
     submit() {
-      const { connections } = this;
       const [action] = Object.keys(this.actionItems).filter(
         k => this.actionItems[k] === this.selectedAction
       );
+      this.localPost.updated = new Date();
       this.$store.dispatch(`posts/${action}`, this.localPost).then(() => {
         if (this.$store.state.notification.success) {
           console.log('Post added!');
@@ -274,6 +312,22 @@ export default {
 
     defaultScheduleStart() {
       return addHours(startOfTomorrow(), 12);
+    },
+
+    updateConnections(selected) {
+      this.localPost.connections = selected;
+    },
+
+    updateOnChange(isActive) {
+      if (isActive) return;
+
+      const changes = differenceBy(
+        this.post.connections,
+        this.localPost.connections,
+        '_id'
+      );
+      console.log(this.localPost.connections, this.post.connections, changes);
+      if (changes.length > 0) this.update();
     }
   }
 };
@@ -342,5 +396,30 @@ export default {
   &:not(:last-child) {
     margin-bottom: 0;
   }
+}
+
+.updated {
+  display: flex;
+  align-items: center;
+}
+
+.profile {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  background-color: $gray;
+  background-size: cover;
+}
+
+.user {
+  margin-right: 0.25rem;
+  color: $purple-text;
+}
+
+.diff-days {
+  margin-left: 0.75rem;
+  font-size: 0.825rem;
 }
 </style>

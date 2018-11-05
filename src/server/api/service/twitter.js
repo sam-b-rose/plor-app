@@ -19,9 +19,7 @@ dotenv.config({
 const oauthToken = process.env.TWITTER_API_KEY;
 const oauthTokenSecret = process.env.TWITTER_API_SECRET;
 
-const baseUrl = isProd
-  ? 'https://stage.plor.io'
-  : `http://${process.env.HOST}:${process.env.PORT}`;
+const baseUrl = isProd ? 'https://stage.plor.io' : 'http://localhost:3000';
 
 // Configure oauth
 const oauth = new OAuth.OAuth(

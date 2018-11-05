@@ -116,7 +116,42 @@ export default {
 
 .deck {
   .post.on-deck {
+    position: relative;
     margin: 0.5rem 0 1rem 2rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 21px;
+      left: 0;
+      width: 11px;
+      height: 11px;
+      transform: translateX(calc(-50% + 1px)) rotate(45deg);
+      transition: box-shadow 200ms ease-in;
+      border-radius: 2px;
+      background-color: $white;
+      box-shadow: -1px 1px 0 $border-blue;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 21.5px;
+      left: -21.5px;
+      width: 10px;
+      height: 10px;
+      transition: background-color 200ms ease-in;
+      border-radius: 50%;
+      background-color: $border-blue;
+    }
+
+    &.active::before {
+      box-shadow: -1px 1px transparent;
+    }
+
+    &.active::after {
+      background-color: #52406d;
+    }
   }
 }
 </style>

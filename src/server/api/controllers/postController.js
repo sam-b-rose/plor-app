@@ -90,6 +90,7 @@ export default {
   },
   async updatePost(req, res) {
     const updates = {
+      updated: req.body.updated || new Date(),
       scheduled: req.body.scheduled,
       draft: req.body.draft,
       text: req.body.text,

@@ -7,6 +7,10 @@ const postSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  updated: {
+    type: Date,
+    default: Date.now
+  },
   scheduled: {
     type: Date
   },
@@ -32,10 +36,12 @@ const postSchema = new mongoose.Schema({
 
 function autopopulate(next) {
   this.populate('connections');
+  this.populate('author');
   next();
 }
 
 postSchema.pre('find', autopopulate);
 postSchema.pre('findOne', autopopulate);
+postSchema.pre('findOneAndUpdate', autopopulate);
 
 export default mongoose.model('Post', postSchema);

@@ -64,6 +64,7 @@
 
 .textarea {
   transition: color 0.3s ease;
+  color: $blue-dark;
 
   &.is-borderless {
     &,
@@ -85,7 +86,9 @@
 .card {
   position: relative;
   border-radius: $default-radius;
-  border-color: $light;
+  border-color: $border-blue;
+  box-shadow: 0 0 0 1px $border-blue;
+  color: $blue-dark;
 }
 
 .card-content {
@@ -99,6 +102,7 @@
   border-bottom-right-radius: $default-radius;
   border-bottom-left-radius: $default-radius;
   background: $white;
+  color: $purple-text;
 }
 
 .label {
@@ -152,6 +156,7 @@
 
 // Tag
 .tag:not(body) {
+  min-width: 1.5rem;
   height: 1.125rem;
   padding: 0 0.5rem;
   font-size: 0.75rem;

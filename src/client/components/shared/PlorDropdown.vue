@@ -37,7 +37,7 @@ export default {
   name: 'PlorDropdown',
   props: {
     value: {
-      type: [String, Number, Boolean, Object, Array, Symbol, Function],
+      type: [String, Number, Boolean, Object, Array, Set, Symbol, Function],
       default: null
     },
     disabled: {
@@ -60,7 +60,7 @@ export default {
       type: Boolean,
       default: true
     },
-    mutiselect: {
+    multiselect: {
       type: Boolean,
       default: false
     },
@@ -83,6 +83,7 @@ export default {
         {
           'is-disabled': this.disabled,
           'is-hoverable': this.hoverable,
+          'is-multiselect': this.mutiselect,
           'is-inline': this.inline,
           'is-right': this.right,
           'is-active': this.isActive || this.inline,
@@ -114,12 +115,26 @@ export default {
   },
   methods: {
     selectItem(value) {
-      if (this.selected !== value) {
+      // multiselect
+      if (this.multiselect && !this.selected.includes(value)) {
+        this.$emit('change', value);
+        const tempSet = new Set([...this.selected, value]);
+        this.selected = Array.from(tempSet);
+      } else if (!this.multiselect && this.selected !== value) {
         this.$emit('change', value);
         this.selected = value;
       }
-      this.$emit('input', value);
-      this.isActive = false;
+
+      this.update();
+    },
+    removeItem(value) {
+      const itemIndex = this.selected.indexOf(value);
+      this.selected = this.selected.filter(item => item._id != value._id);
+      this.update();
+    },
+    update() {
+      this.$emit('input', this.selected);
+      if (!this.multiselect) this.isActive = false;
     },
     clickedOutside(event) {
       if (this.inline) return;

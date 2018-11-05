@@ -6,7 +6,10 @@
     v-else-if="!custom && !hasLink"
     class="dropdown-item"
     :class="anchorClasses"
-    @click="selectItem">
+    @click.stop="selectItem">
+    <span
+      v-if="multiselect"
+      class="dropdown-item-checkbox" />
     <slot/>
   </a>
   <div
@@ -18,6 +21,8 @@
 </template>
 
 <script>
+import find from 'lodash/find';
+
 export default {
   name: 'PlorDropdownItem',
   props: {
@@ -44,6 +49,10 @@ export default {
     hasLink: {
       type: Boolean,
       default: false
+    },
+    multiselect: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -51,7 +60,8 @@ export default {
       return {
         'is-disabled': this.$parent.disabled || this.disabled,
         'is-paddingless': this.paddingless,
-        'is-active': this.value !== null && this.value === this.$parent.selected
+        'is-active': this.isActive,
+        'is-multiselect': this.multiselect
       };
     },
     itemClasses() {
@@ -59,10 +69,16 @@ export default {
         'dropdown-item': !this.hasLink,
         'is-disabled': this.disabled,
         'is-paddingless': this.paddingless,
-        'is-active':
-          this.value !== null && this.value === this.$parent.selected,
+        'is-active': this.isActive,
         'has-link': this.hasLink
       };
+    },
+    isActive() {
+      return (
+        this.value !== null &&
+        (this.value === this.$parent.selected ||
+          find(this.$parent.selected, { _id: this.value._id }))
+      );
     },
     /**
      * Check if item can be clickable.
@@ -82,7 +98,12 @@ export default {
      */
     selectItem() {
       if (!this.isClickable) return;
-      this.$parent.selectItem(this.value);
+
+      if (this.multiselect && this.isActive) {
+        this.$parent.removeItem(this.value);
+      } else {
+        this.$parent.selectItem(this.value);
+      }
       this.$emit('click');
     }
   },
@@ -106,9 +127,28 @@ export default {
     color: $purple-2;
   }
 
+  &.is-multiselect {
+    background-color: transparent;
+  }
+
   &:hover {
     background-color: $light;
     color: $blue-dark;
   }
+}
+
+.dropdown-item-checkbox {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 1rem;
+  margin-left: 0.5rem;
+  border: 1px solid $border-blue;
+  border-radius: 4px;
+}
+
+.dropdown-item.is-active .dropdown-item-checkbox {
+  border-color: $purple-2;
+  background-color: $purple-2;
 }
 </style>
