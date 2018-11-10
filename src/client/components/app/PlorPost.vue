@@ -3,22 +3,10 @@
     class="card post"
     :class="{
       'active': addingPost,
-      'z-to-top': inTransition,
       'on-deck': onDeck
     }"
     @submit.prevent
     @key.enter="submit">
-
-    <transition
-      name="fade"
-      enter-active-class="animated fadeIn"
-      leave-active-class="animated fadeOut"
-      @before-enter="inTransition = true"
-      @after-leave="inTransition = false">
-      <div
-        v-if="addingPost"
-        class="card-focus" />
-    </transition>
 
     <div class="card-content">
       <div class="field">
@@ -199,13 +187,12 @@ export default {
   data() {
     return {
       flatpickrConfig,
-      inTransition: false,
       addingPost: false,
       confirmDiscard: false,
       selectedAction: null,
       localPost: {
         text: '',
-        scheduled: this.defaultScheduleStart(),
+        scheduled: addHours(startOfTomorrow(), 12),
         connections: this.$store.state.connections.connections
       }
     };
@@ -237,11 +224,18 @@ export default {
       return actions;
     }
   },
+  watch: {
+    addingPost(val) {
+      this.$store.commit('SET_FOCUS', val);
+    }
+  },
   created() {
     this.selectedAction = this.onDeck
       ? this.actionItems.updatePost
       : this.actionItems.schedulePost;
-    if (this.post) this.localPost = Object.assign({}, this.post);
+    if (this.post) this.localPost = Object.assign(this.localPost, this.post);
+    if (this.localPost.draft)
+      this.localPost.scheduled = addHours(startOfTomorrow(), 12);
   },
   mounted() {
     const textarea = this.$refs.textarea;
@@ -266,7 +260,7 @@ export default {
     addMedia() {},
 
     edit() {
-      setTimeout(() => this.$refs.textarea.focus());
+      this.$nextTick(() => this.$refs.textarea.focus());
     },
 
     update() {
@@ -285,7 +279,7 @@ export default {
       this.localPost.updated = new Date();
       this.$store.dispatch(`posts/${action}`, this.localPost).then(() => {
         if (this.$store.state.notification.success) {
-          console.log('Post added!');
+          console.log(`${action} action success`);
           if (!this.onDeck) this.localPost.text = '';
           this.addingPost = false;
         }
@@ -306,12 +300,8 @@ export default {
       this.localPost.text = this.post ? this.post.text : '';
       this.localPost.scheduled = this.post
         ? this.post.scheduled
-        : this.localPost.schedulePost;
-      this.cancel();
-    },
-
-    defaultScheduleStart() {
-      return addHours(startOfTomorrow(), 12);
+        : this.localPost.scheduled;
+      setTimeout(this.cancel, 300);
     },
 
     updateConnections(selected) {
@@ -322,12 +312,13 @@ export default {
       if (isActive) return;
 
       const changes = differenceBy(
-        this.post.connections,
         this.localPost.connections,
+        this.post.connections,
         '_id'
       );
       console.log(this.localPost.connections, this.post.connections, changes);
-      if (changes.length > 0) this.update();
+      if (changes.length > 0 || this.localPost.connections.length === 0)
+        this.update();
     }
   }
 };
@@ -335,20 +326,9 @@ export default {
 
 <style lang="scss" scoped>
 .post {
-  &.z-to-top {
+  &.active {
     z-index: 1;
   }
-}
-
-.card-focus {
-  position: fixed;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  animation-duration: 0.3s;
-  background-color: rgba($purple-4, 0.7);
 }
 
 .card-content {

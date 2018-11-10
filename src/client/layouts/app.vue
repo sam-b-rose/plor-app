@@ -14,18 +14,18 @@
         aria-label="close" />
     </div>
     <PlorToaster />
+    <PlorFocus />
   </div>
 </template>
 
 <script>
-import PlorToaster from '~/components/shared/PlorToaster';
+import PlorFocus from '~/components/shared/PlorFocus';
 import PlorSidenav from '~/components/shared/PlorSidenav';
+import PlorToaster from '~/components/shared/PlorToaster';
 
 export default {
-  data() {
-    return {};
-  },
   components: {
+    PlorFocus,
     PlorSidenav,
     PlorToaster
   }

@@ -85,7 +85,8 @@ export default {
   async addPost(req, res) {
     req.body.author = req.user._id;
     const newPost = new Post(req.body);
-    const post = await newPost.save();
+    const { _id } = await newPost.save();
+    const post = await Post.findOne({ _id });
     res.json({ message: 'Post Saved!', post });
   },
   async updatePost(req, res) {

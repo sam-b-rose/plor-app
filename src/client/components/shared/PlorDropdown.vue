@@ -157,8 +157,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.buttons.has-addons .button:last-child {
+  position: relative;
+}
+
 .button > .dropdown-trigger.icon {
-  margin: 0 -1rem;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: translateX(15%);
 }
 
 .dropdown-menu {

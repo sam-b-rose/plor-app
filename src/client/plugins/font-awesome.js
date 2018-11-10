@@ -15,6 +15,7 @@ import {
 
 // Solid
 import faCamera from '@fortawesome/fontawesome-free-solid/faCamera';
+import faCheck from '@fortawesome/fontawesome-free-solid/faCheck';
 import faChevronDown from '@fortawesome/fontawesome-free-solid/faChevronDown';
 import faCircle from '@fortawesome/fontawesome-free-solid/faCircle';
 import faCheckCircle from '@fortawesome/fontawesome-free-solid/faCheckCircle';
@@ -38,6 +39,7 @@ fontawesome.library.add(
   faTwitter,
   // Solid
   faCamera,
+  faCheck,
   faChevronDown,
   faCircle,
   faCheckCircle,

@@ -115,6 +115,8 @@ export default {
 }
 
 .deck {
+  padding-bottom: 4rem;
+
   .post.on-deck {
     position: relative;
     margin: 0.5rem 0 1rem 2rem;
@@ -127,7 +129,7 @@ export default {
       width: 11px;
       height: 11px;
       transform: translateX(calc(-50% + 1px)) rotate(45deg);
-      transition: box-shadow 200ms ease-in;
+      transition: box-shadow 200ms ease;
       border-radius: 2px;
       background-color: $white;
       box-shadow: -1px 1px 0 $border-blue;
@@ -137,10 +139,10 @@ export default {
       content: '';
       position: absolute;
       top: 21.5px;
-      left: -21.5px;
+      left: -20.5px;
       width: 10px;
       height: 10px;
-      transition: background-color 200ms ease-in;
+      transition: background-color 200ms ease;
       border-radius: 50%;
       background-color: $border-blue;
     }

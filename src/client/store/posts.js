@@ -157,6 +157,7 @@ export const actions = {
         root: true
       });
     }
+    commit('SET_FOCUS', false, { root: true });
   },
   async fetchPosts({ commit }) {
     try {
@@ -229,7 +230,6 @@ export const actions = {
     const mutation = payload.created ? 'updatePost' : 'addPost';
     payload.updated = new Date();
     payload.draft = true;
-    payload.scheduled = null;
     dispatch(mutation, payload);
   }
 };

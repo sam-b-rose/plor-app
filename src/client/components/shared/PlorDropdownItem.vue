@@ -9,7 +9,11 @@
     @click.stop="selectItem">
     <span
       v-if="multiselect"
-      class="dropdown-item-checkbox" />
+      class="dropdown-item-checkbox">
+      <font-awesome-icon
+        v-if="isActive"
+        icon="check" />
+    </span>
     <slot/>
   </a>
   <div
@@ -124,7 +128,7 @@ export default {
   &.is-active,
   &:hover.is-active {
     background-color: $purple-0;
-    color: $purple-2;
+    color: $blue-dark;
   }
 
   &.is-multiselect {
@@ -148,7 +152,12 @@ export default {
 }
 
 .dropdown-item.is-active .dropdown-item-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-color: $purple-2;
   background-color: $purple-2;
+  color: $white;
+  font-size: 0.625rem;
 }
 </style>

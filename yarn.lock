@@ -205,6 +205,12 @@
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.1.7"
 
+"@fortawesome/fontawesome-pro-light@^5.0.13":
+  version "5.0.13"
+  resolved "https://npm.fontawesome.com/2622A741-F0AF-4134-A1A8-D6DDBE969FBA/@fortawesome/fontawesome-pro-light/-/fontawesome-pro-light-5.0.13.tgz#d233f91dffeb945a93b5723c3a7cabb63d24ca98"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.1.7"
+
 "@fortawesome/fontawesome-pro-regular@^5.0.13":
   version "5.0.13"
   resolved "https://npm.fontawesome.com/2622A741-F0AF-4134-A1A8-D6DDBE969FBA/@fortawesome/fontawesome-pro-regular/-/fontawesome-pro-regular-5.0.13.tgz#1a953a3826185d0446921ec59c89056f0564404e"

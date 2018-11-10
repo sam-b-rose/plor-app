@@ -2,6 +2,7 @@ import axios from '~/plugins/axios';
 
 export const state = () => {
   return {
+    focus: false,
     user: null,
     isDev: true,
     isProd: true,
@@ -14,6 +15,9 @@ export const state = () => {
   };
 };
 export const mutations = {
+  SET_FOCUS(state, focus) {
+    state.focus = focus;
+  },
   SET_USER(state, data) {
     state.user.isAuthenticated = true;
     state.user.name = data.name;
