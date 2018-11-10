@@ -1,7 +1,5 @@
 {
   "name": "plor",
-  "dotenv": ".prod.env",
-  "forwardNpm": true,
-  "version": 2,
-  "alias": ["stage.plor.io"]
+  "version": 1,
+  "dotenv": ".stage.env"
 }

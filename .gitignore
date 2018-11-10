@@ -1,10 +1,9 @@
-.dev.env
+*.env
 .nuxt
 .vscode
 dist
 node_modules
-stage.secrets.json
-prod.secrets.json
+*.secrets.json
 db
 
 static/manifest*.json

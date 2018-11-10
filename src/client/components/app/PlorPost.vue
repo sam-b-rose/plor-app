@@ -147,7 +147,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import differenceBy from 'lodash/differenceBy';
+import isEqual from 'lodash/isEqual';
 import addHours from 'date-fns/add_hours';
 import startOfTomorrow from 'date-fns/start_of_tomorrow';
 import differenceInDays from 'date-fns/difference_in_days';
@@ -310,16 +310,11 @@ export default {
 
     updateOnChange(isActive) {
       if (isActive) return;
-
-      const localPostIds = this.localPost.connections
-        .map(c => c._id)
-        .sort((c1, c2) => c1 > c2);
-      const postIds = this.post.connections
-        .map(c => c._id)
-        .sort((c1, c2) => c1 > c2);
-      const changes =
-        !localPostIds.length || localPostIds.some((c, i) => c !== postIds[i]);
-      if (changes) this.update();
+      const sameSelected = isEqual(
+        this.localPost.connections,
+        this.post.connections
+      );
+      if (!sameSelected) this.update();
     }
   }
 };
