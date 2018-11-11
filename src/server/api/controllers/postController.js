@@ -74,11 +74,13 @@ export default {
     );
     // Mark post as sent
     post.sent = true;
-    await post.save();
+    post.scheduled = new Date();
+    const updatedPost = await post.save();
     // Return success message
     res.json({
       message: 'Post successfully sent ',
       id: req.query.id,
+      post: updatedPost,
       data: JSON.parse(data)
     });
   },

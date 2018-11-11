@@ -14,99 +14,47 @@ export const state = () => {
 
 export const mutations = {
   // Add
-  ADD_POST_REQUEST(state) {
-    console.log('Add post pending...');
-  },
   ADD_POST_SUCCESS(state, data) {
     const list = data.post.draft ? 'drafts' : 'queue';
     state[list] = [...state[list], data.post];
     console.log('Add post success!');
   },
-  ADD_POST_FAILURE(state, error) {
-    console.log('Add post failure.');
-    console.error(error);
-  },
-
   // Update
-  UPDATE_POST_REQUEST(state) {
-    console.log('Update post pending...');
-  },
   UPDATE_POST_SUCCESS(state, data) {
     const list = data.post.draft ? 'drafts' : 'queue';
     const index = findIndex(state[list], { _id: data.post._id });
     state[list][index] = data.post;
     state[list] = [...state[list]];
-    console.log('Update post success!');
   },
-  UPDATE_POST_FAILURE(state, error) {
-    console.log('Update post failure.');
-    console.error(error);
-  },
-
   // Delete
-  DELETE_POST_REQUEST(state) {
-    console.log('Delete post pending...');
-  },
   DELETE_POST_SUCCESS(state, data) {
     const list = data.post.draft ? 'drafts' : 'queue';
     state[list] = state[list].filter(p => p._id !== data.post._id);
-    console.log('Delete post success!');
   },
-  DELETE_POST_FAILURE(error) {
-    console.log('Delete post failure.');
-    console.error(error);
-  },
-
   // Posts
-  FETCH_POSTS_REQUEST(state) {
-    console.log('Fetch posts pending...');
-  },
   FETCH_POSTS_SUCCESS(state, data) {
     state.queue = data.posts;
-    console.log('Fetch posts success!');
   },
-  FETCH_POSTS_FAILURE(state, error) {
-    console.log('Fetch posts failure.');
-    console.error(error);
-  },
-
   // Drafts
-  FETCH_DRAFTS_REQUEST(state) {
-    console.log('Fetch drafts pending...');
-  },
   FETCH_DRAFTS_SUCCESS(state, data) {
     state.drafts = data.posts;
-    console.log('Fetch drafts success!');
   },
-  FETCH_DRAFTS_FAILURE(state, error) {
-    console.log('Fetch drafts failure.');
-    console.error(error);
-  },
-
   // History
-  FETCH_HISTORY_REQUEST(state) {
-    console.log('Fetch history pending...');
-  },
   FETCH_HISTORY_SUCCESS(state, data) {
     state.history = data.posts;
-    console.log('Fetch history success!');
-  },
-  FETCH_HISTORY_FAILURE(state, error) {
-    console.log('Fetch history failure.');
-    console.error(error);
   }
 };
 
 export const actions = {
   async addPost({ commit }, payload) {
     try {
-      commit('ADD_POST_REQUEST');
       let { data } = await axios.post('/posts', payload);
       commit('ADD_POST_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
       commit('notification/ADD_TOAST', data, { root: true });
+      return data;
     } catch (error) {
-      commit('ADD_POST_FAILURE', error);
+      console.error(error);
       commit('notification/FAILURE', error.response.data, {
         root: true
       });
@@ -117,7 +65,6 @@ export const actions = {
   },
   async updatePost({ commit }, payload) {
     try {
-      commit('UPDATE_POST_REQUEST');
       const { oldPost } = payload;
       if (oldPost) {
         delete payload.oldPost;
@@ -131,8 +78,9 @@ export const actions = {
         });
       commit('notification/SUCCESS', data, { root: true });
       commit('notification/ADD_TOAST', data, { root: true });
+      return data;
     } catch (error) {
-      commit('UPDATE_POST_FAILURE', error);
+      console.error(error);
       commit('notification/FAILURE', error.response.data, {
         root: true
       });
@@ -143,13 +91,12 @@ export const actions = {
   },
   async deletePost({ commit }, payload) {
     try {
-      commit('DELETE_POST_REQUEST');
       let { data } = await axios.delete(`/posts/${payload._id}`);
       commit('DELETE_POST_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
       commit('notification/ADD_TOAST', data, { root: true });
     } catch (error) {
-      commit('DELETE_POST_FAILURE', error);
+      console.error(error);
       commit('notification/FAILURE', error.response.data, {
         root: true
       });
@@ -161,12 +108,11 @@ export const actions = {
   },
   async fetchPosts({ commit }) {
     try {
-      commit('FETCH_POSTS_REQUEST');
       let { data } = await axios.get('/posts');
       commit('FETCH_POSTS_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
-      commit('FETCH_POSTS_FAILURE', error);
+      console.error(error);
       commit('notification/FAILURE', error.response.data, {
         root: true
       });
@@ -187,22 +133,27 @@ export const actions = {
   },
   async fetchHistory({ commit }) {
     try {
-      commit('FETCH_HISTORY_REQUEST');
       let { data } = await axios.get('/posts/history');
       commit('FETCH_HISTORY_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
-      commit('FETCH_HISTORY_FAILURE', error);
+      console.error(error);
       commit('notification/FAILURE', error.response.data, {
         root: true
       });
     }
-  },
-  // TODO: Revise to send imediately
-  async sendPost({ dispatch }, payload) {
+  }, // TODO: Revise to send imediately
+  async sendPost({ dispatch, commit }, payload) {
+    // Update or add post
     const mutation = payload.created ? 'updatePost' : 'addPost';
     payload.scheduled = new Date();
-    dispatch(mutation, payload);
+    let { post } = await dispatch(mutation, payload);
+    // Then send it
+    console.log(post);
+    let { data } = await axios.get(`/posts/send?id=${post._id}`);
+    // Then remove it from the queue or drafts
+    commit('DELETE_POST_SUCCESS', { post: data.post });
+    commit('SET_FOCUS', false, { root: true });
   },
   async queuePost({ state, dispatch }, payload) {
     const oldestPost = state.queue.reduce(

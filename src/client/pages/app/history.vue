@@ -5,7 +5,7 @@
       <div class="columns">
         <div class="column column--stacked">
           <PlorDeck
-            v-if="false"
+            v-if="history.length"
             :deck="history"
             :most-recent="true" />
           <PlorEmpty

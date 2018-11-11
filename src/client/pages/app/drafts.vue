@@ -6,11 +6,9 @@
         <div class="column column--stacked">
           <PlorPost />
 
-          <PlorPost
+          <PlorDeck
             v-if="drafts.length"
-            v-for="post in drafts"
-            :key="post._id"
-            :post="post" />
+            :deck="drafts" />
 
           <PlorEmpty
             v-else

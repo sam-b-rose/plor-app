@@ -39,13 +39,11 @@ export const actions = {
   },
   async joingMailing({ commit }, payload) {
     try {
-      // commit('JOIN_MAILING_REQUEST');
       let { data } = await axios.post('/join', payload);
-      // commit('JOIN_MAILING_SUCCESS', data);
       commit('notification/SUCCESS', data, { root: true });
     } catch (error) {
-      // commit('JOIN_MAILING_FAILURE', error);
-      // commit('notification/FAILURE', error.response.data, { root: true });
+      console.error(error);
+      commit('notification/FAILURE', error.response.data, { root: true });
     }
   }
 };
