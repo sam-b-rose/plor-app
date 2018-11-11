@@ -9,10 +9,13 @@ module.exports = {
     browser: true,
     node: true
   },
-  extends: 'plugin:vue/strongly-recommended',
+  extends: ['plugin:vue/strongly-recommended'],
   // required to lint *.vue files
   plugins: ['vue'],
   // add your custom rules here
-  rules: {},
+  rules: {
+    'vue/max-attributes-per-line': 0,
+    'vue/html-self-closing': 0
+  },
   globals: {}
 };

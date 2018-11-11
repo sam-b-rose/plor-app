@@ -2,12 +2,12 @@
   <form
     class="card post"
     :class="{
-      'active': addingPost,
+      active: addingPost,
       'on-deck': onDeck
     }"
     @submit.prevent
-    @key.enter="submit">
-
+    @key.enter="submit"
+  >
     <div class="card-content">
       <div class="field">
         <div class="control">
@@ -16,69 +16,53 @@
             class="textarea is-borderless"
             placeholder="Type it loud and clear!"
             rows="1"
-            :readonly="isSent"
             @focus="onFocus"
             @input="autoExpand"
             @keydown.enter.prevent="submit"
-            v-model="localPost.text"/>
+            v-model="localPost.text"
+          />
         </div>
       </div>
     </div>
 
     <!-- FOOTER: Media -->
-    <footer
-      v-if="!onDeck || addingPost"
-      class="card-footer media-options">
+    <footer v-if="!onDeck || addingPost" class="card-footer light">
       <div class="field is-grouped">
-        <button
-          class="button is-text"
-          @click="addMedia">
-          <span class="icon">
-            <FontAwesomeIcon icon="camera" />
-          </span>
+        <button class="button is-text" @click="addMedia">
+          <span class="icon"> <FontAwesomeIcon icon="camera" /> </span>
           <span>Photo</span>
         </button>
       </div>
     </footer>
 
     <!-- FOOTER: Adding post -->
-    <footer
-      v-if="addingPost"
-      class="card-footer">
+    <footer v-if="addingPost" class="card-footer">
       <div class="field is-grouped">
         <div class="control">
-          <button
-            class="button"
-            @click="cancel">
-            Cancel
-          </button>
+          <button class="button" @click="cancel">Cancel</button>
         </div>
       </div>
-      <div
-        key="submit-post"
-        class="field is-grouped is-grouped-right">
-        <div
-          v-if="selectedAction === 'Schedule'"
-          class="control">
+      <div key="submit-post" class="field is-grouped is-grouped-right">
+        <div v-if="selectedAction === 'Schedule'" class="control">
           <flat-pickr
             class="input"
             key="schedule-post"
             v-model="localPost.scheduled"
             :config="flatpickrConfig"
-            name="scheduled" />
+            name="scheduled"
+          />
         </div>
         <div class="control">
           <div class="buttons has-addons is-right">
-            <div
-              class="button is-fancy"
-              @click="submit">
+            <div class="button is-fancy" @click="submit">
               {{ selectedAction }}
             </div>
             <PlorDropdown
               v-model="selectedAction"
               right
               class="button has-text-left is-fancy"
-              trigger-class="icon">
+              trigger-class="icon"
+            >
               <span slot="trigger">
                 <font-awesome-icon icon="chevron-down" />
               </span>
@@ -86,7 +70,8 @@
               <PlorDropdownItem
                 v-for="(action, i) in actionItems"
                 :key="i"
-                :value="action">
+                :value="action"
+              >
                 {{ action }}
               </PlorDropdownItem>
             </PlorDropdown>
@@ -95,66 +80,38 @@
       </div>
     </footer>
 
-    <footer
-      v-else-if="onDeck"
-      class="card-footer">
-      <div
-        key="draft-post"
-        v-if="!isSent && localPost.draft"
-        class="field is-grouped">
-        <div class="control updated">
-          <img
-            class="profile"
-            :src="localPost.author.gravatar"
-            :alt="localPost.author.name">
-          <strong class="user">{{ localPost.author.email }}</strong>
-          <span> updated a draft </span>
-          <span class="diff-days">{{ localPost.updated | diffDays }}</span>
-        </div>
-      </div>
-      <div
-        v-else
-        key="scheduled-post"
-        class="field is-grouped">
+    <footer v-else-if="onDeck" class="card-footer">
+      <div class="field is-grouped">
         <div class="control">
           <PlorAccounts
-            :disabled="isSent"
             :selected="localPost.connections"
             @selected="updateConnections"
-            @active-change="updateOnChange"/>
+            @active-change="updateOnChange"
+          />
         </div>
       </div>
-      <div
-        key="edit-post"
-        class="field is-grouped is-grouped-right">
-        <div
-          v-if="!localPost.draft"
-          class="control">
+      <div class="field is-grouped is-grouped-right">
+        <div class="control">
           <flat-pickr
             disabled
             class="input"
             key="schedule-post"
             v-model="localPost.scheduled"
             :config="flatpickrConfig"
-            name="scheduled" />
+            name="scheduled"
+          />
         </div>
-        <div
-          v-if="!isSent"
-          class="control">
-          <button
-            class="button"
-            @click="edit">
-            Edit
-          </button>
+        <div class="control">
+          <button class="button" @click="edit">Edit</button>
         </div>
       </div>
     </footer>
 
     <PlorPrompt
       :active="confirmDiscard"
-      @cancel="confirmDiscard = false"
-      @confirm="discard" />
-
+      @cancel="confirmDiscard = false;"
+      @confirm="discard"
+    />
   </form>
 </template>
 
@@ -173,12 +130,10 @@ import PlorPrompt from '@/components/shared/PlorPrompt';
 
 import flatpickrConfig from '@/config/flatpickr';
 
-const today = new Date();
-
 export default {
   filters: {
     diffDays(date) {
-      const days = differenceInDays(today, date);
+      const days = differenceInDays(new Date(), date);
       if (days === 0) return 'Today';
       if (days === 1) return 'Yesterday';
       return `${days} days ago`;
@@ -252,7 +207,7 @@ export default {
   },
   mounted() {
     const textarea = this.$refs.textarea;
-    textarea.baseScrollHeight = textarea.scrollHeight;
+    if (textarea) textarea.baseScrollHeight = textarea.scrollHeight;
   },
   methods: {
     // TODO: Improve to shrink as well
@@ -333,82 +288,56 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .post {
-  &.active {
-    z-index: 1;
+  .post-text {
+    padding: 0.625rem;
   }
-}
 
-.card-content {
-  min-height: 0;
-  padding: 0.5rem 1rem;
-  transition: min-height 0.3s ease;
+  .field {
+    &.is-grouped {
+      flex: 1 1 auto;
+      align-items: center;
+    }
 
-  &:last-child {
-    border-radius: $default-radius;
+    &:not(:last-child) {
+      margin-bottom: 0;
+    }
   }
-}
 
-.media-options {
-  padding: 0.5rem;
-  background-color: $light-gray-2;
-}
+  .card-content {
+    min-height: 0;
+    padding: 0.5rem 1rem;
+    transition: min-height 0.3s ease;
 
-.card {
-  &.active {
-    .card-content {
-      min-height: 200px;
+    &:last-child {
+      border-radius: $default-radius;
+    }
+  }
+
+  .card-footer {
+    &.light {
+      padding: 0.5rem;
+      background-color: $light-gray-2;
+    }
+
+    &:not(:last-of-type) {
+      border-radius: 0;
     }
   }
 }
 
-.card-footer {
-  &:not(:last-of-type) {
-    border-radius: 0;
+.post.active {
+  z-index: 1;
+
+  .card-content {
+    min-height: 200px;
   }
 }
 
-.on-deck:not(.active) {
+.post.on-deck:not(.active) {
   .card-footer {
-    padding: 0.5rem 1.5rem 1.5rem;
     border-top: none;
   }
-}
-
-.field {
-  &.is-grouped {
-    flex: 1 1 auto;
-    align-items: center;
-  }
-
-  &:not(:last-child) {
-    margin-bottom: 0;
-  }
-}
-
-.updated {
-  display: flex;
-  align-items: center;
-}
-
-.profile {
-  display: inline-block;
-  width: 36px;
-  height: 36px;
-  margin-right: 0.5rem;
-  border-radius: 50%;
-  background-color: $gray;
-  background-size: cover;
-}
-
-.user {
-  margin-right: 0.25rem;
-  color: $purple-text;
-}
-
-.diff-days {
-  margin-left: 0.75rem;
-  font-size: 0.825rem;
 }
 </style>

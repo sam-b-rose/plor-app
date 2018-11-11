@@ -1,19 +1,17 @@
 <template>
   <div class="deck">
-    <div
-      class="group"
-      v-for="[day, posts] in localDeck"
-      :key="day">
+    <div class="group" v-for="[day, posts] in localDeck" :key="day">
       <h2 class="date">
         {{ day | getMonthDay }}
         <span class="day">{{ day | getDayOfWeek }}</span>
       </h2>
 
-      <PlorPost
+      <component
+        :is="ptype"
         v-for="post in posts"
         :key="post._id"
-        :post="post" />
-
+        :post="post"
+      />
     </div>
   </div>
 </template>
@@ -30,6 +28,8 @@ import FlatPickr from 'vue-flatpickr-component';
 import PlorDropdown from '@/components/shared/PlorDropdown';
 import PlorDropdownItem from '@/components/shared/PlorDropdownItem';
 import PlorPost from '@/components/app/PlorPost';
+import PlorPostDraft from '@/components/app/PlorPostDraft';
+import PlorPostHistory from '@/components/app/PlorPostHistory';
 
 import flatpickrConfig from '@/config/flatpickr';
 
@@ -47,9 +47,15 @@ export default {
     PlorDropdown,
     PlorDropdownItem,
     PlorPost,
+    PlorPostDraft,
+    PlorPostHistory,
     FlatPickr
   },
   props: {
+    ptype: {
+      type: String,
+      default: 'PlorPost'
+    },
     deck: {
       type: Array,
       default: () => []

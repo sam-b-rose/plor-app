@@ -1,5 +1,12 @@
 {
   "name": "plor",
   "version": 1,
-  "dotenv": ".prod.env"
+  "dotenv": ".prod.env",
+  "env": {
+    "AIRTABLE_API_KEY": "@airtable_api_key",
+    "TWITTER_API_KEY": "@twitter_api_key",
+    "TWITTER_API_SECRET": "@twitter_api_secret",
+    "DB_URL": "@db_url",
+    "SECRET": "@secret"
+  }
 }

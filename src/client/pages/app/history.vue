@@ -6,15 +6,14 @@
         <div class="column column--stacked">
           <PlorDeck
             v-if="history.length"
+            ptype="PlorPostHistory"
             :deck="history"
-            :most-recent="true" />
-          <PlorEmpty
-            v-else
-            :title="emptyTitle"
-            :message="emptyMessage" />
+            :most-recent="true"
+          />
+          <PlorEmpty v-else :title="emptyTitle" :message="emptyMessage" />
         </div>
         <div class="column column--fixed">
-          <PlorFilter :items="filterItems"/>
+          <PlorFilter :items="filterItems" />
         </div>
       </div>
     </div>

@@ -6,17 +6,12 @@
         <div class="column column--stacked">
           <PlorPost />
 
-          <PlorDeck
-            v-if="drafts.length"
-            :deck="drafts" />
+          <PlorDeck ptype="PlorPostDraft" v-if="drafts.length" :deck="drafts" />
 
-          <PlorEmpty
-            v-else
-            :title="emptyTitle"
-            :message="emptyMessage" />
+          <PlorEmpty v-else :title="emptyTitle" :message="emptyMessage" />
         </div>
         <div class="column column--fixed">
-          <PlorFilter :items="filterItems"/>
+          <PlorFilter :items="filterItems" />
         </div>
       </div>
     </div>
