@@ -20,7 +20,8 @@
       class="dropdown-account"
       v-for="(account, i) in connections"
       :key="i"
-      :value="account">
+      :value="account"
+      :disabled="disabled">
       <figure class="image is-32x32">
         <img
           class="is-rounded"
@@ -44,6 +45,10 @@ export default {
     selected: {
       type: Array,
       default: () => []
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   components: {

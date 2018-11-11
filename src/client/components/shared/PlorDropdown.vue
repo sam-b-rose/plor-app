@@ -174,7 +174,7 @@ export default {
   right: -16px;
   padding: 0;
   border-radius: $default-radius;
-  box-shadow: 0 2px 12px rgba($black, 0.4);
+  box-shadow: 0 2px 4px rgba($black, 0.1);
 
   &::before,
   &::after {

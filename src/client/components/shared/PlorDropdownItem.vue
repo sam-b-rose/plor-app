@@ -121,7 +121,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.dropdown-item {
+a.dropdown-item {
   z-index: 1;
   padding: 0.825rem 2.75rem;
 
@@ -135,9 +135,17 @@ export default {
     background-color: transparent;
   }
 
-  &:hover {
+  &:hover:not(.is-disabled),
+  &:hover.is-multiselect.is-active {
     background-color: $light;
     color: $blue-dark;
+  }
+
+  &.is-disabled,
+  &is-active.is-disabled,
+  &:hover.is-active.is-disabled {
+    background-color: transparent;
+    cursor: default;
   }
 }
 

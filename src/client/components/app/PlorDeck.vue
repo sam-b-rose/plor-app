@@ -102,7 +102,7 @@ export default {
 }
 
 .date {
-  margin: 1.5rem 0;
+  margin: 0 0 1.5rem;
   border-bottom: 1px solid $border-blue;
   font-size: 1.5rem;
 }

@@ -100,7 +100,7 @@
       class="card-footer">
       <div
         key="draft-post"
-        v-if="localPost.draft"
+        v-if="!isSent && localPost.draft"
         class="field is-grouped">
         <div class="control updated">
           <img
@@ -118,6 +118,7 @@
         class="field is-grouped">
         <div class="control">
           <PlorAccounts
+            :disabled="isSent"
             :selected="localPost.connections"
             @selected="updateConnections"
             @active-change="updateOnChange"/>
@@ -125,9 +126,21 @@
       </div>
       <div
         key="edit-post"
-        v-if="!isSent"
         class="field is-grouped is-grouped-right">
-        <div class="control">
+        <div
+          v-if="!localPost.draft"
+          class="control">
+          <flat-pickr
+            disabled
+            class="input"
+            key="schedule-post"
+            v-model="localPost.scheduled"
+            :config="flatpickrConfig"
+            name="scheduled" />
+        </div>
+        <div
+          v-if="!isSent"
+          class="control">
           <button
             class="button"
             @click="edit">
