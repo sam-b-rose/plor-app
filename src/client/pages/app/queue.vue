@@ -5,16 +5,11 @@
       <div class="columns">
         <div class="column column--stacked">
           <PlorPost />
-          <PlorDeck
-            v-if="queue.length"
-            :deck="queue" />
-          <PlorEmpty
-            v-else
-            :title="emptyTitle"
-            :message="emptyMessage" />
+          <PlorDeck v-if="queue.length" :deck="queue" />
+          <PlorEmpty v-else :title="emptyTitle" :message="emptyMessage" />
         </div>
         <div class="column column--fixed">
-          <PlorFilter :items="filterItems"/>
+          <!-- <PlorFilter :items="filterItems"/> -->
         </div>
       </div>
     </div>
