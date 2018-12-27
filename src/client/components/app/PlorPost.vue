@@ -109,7 +109,7 @@
 
     <PlorPrompt
       :active="confirmDiscard"
-      @cancel="confirmDiscard = false;"
+      @cancel="confirmDiscard = false"
       @confirm="discard"
     />
   </form>

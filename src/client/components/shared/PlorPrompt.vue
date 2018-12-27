@@ -2,24 +2,17 @@
   <transition
     name="fade"
     enter-active-class="animated fadeIn"
-    leave-active-class="animated fadeOut">
-    <div
-      v-if="active"
-      class="prompt">
+    leave-active-class="animated fadeOut"
+  >
+    <div v-if="active" class="prompt">
       <div class="prompt-container">
         <div class="title prompt-message">Discard this post?</div>
         <div class="field is-grouped is-grouped-centered">
           <div class="control">
-            <button
-              class="button"
-              @click="$emit('cancel')">
-              Nevermind
-            </button>
+            <button class="button" @click="$emit('cancel')">Nevermind</button>
           </div>
           <div class="control">
-            <button
-              class="button is-primary"
-              @click="$emit('confirm')">
+            <button class="button is-primary" @click="$emit('confirm')">
               Discard
             </button>
           </div>

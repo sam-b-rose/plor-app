@@ -6,35 +6,22 @@
         <div class="level-left">
           <div class="field">
             <p class="control has-icons-left">
-              <input
-                class="input"
-                type="text"
-                placeholder="Search accounts">
+              <input class="input" type="text" placeholder="Search accounts" />
               <span class="icon is-small is-left">
-                <font-awesome-icon
-                  :icon="['fas', 'search']" />
+                <font-awesome-icon :icon="['fas', 'search']" />
               </span>
             </p>
           </div>
         </div>
         <div class="level-right">
-          <button
-            class="button"
-            @click="addAccount">
-            <span class="icon">
-              <font-awesome-icon icon="plus" />
-            </span>
+          <button class="button" @click="addAccount">
+            <span class="icon"> <font-awesome-icon icon="plus" /> </span>
             <span>Add Account</span>
           </button>
-          <portal to="plor-modal">
-            Twitter or Facebook
-          </portal>
+          <portal to="plor-modal"> Twitter or Facebook </portal>
         </div>
       </div>
-      <PlorTable
-        :rows="connections"
-        :order="order"
-        :labels="labels" />
+      <PlorTable :rows="connections" :order="order" :labels="labels" />
     </div>
   </section>
 </template>
@@ -73,5 +60,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -1,24 +1,18 @@
 <template>
   <ul class="list">
-    <li
-      class="list-item"
-      v-for="(item, i) in items"
-      :key="i">
+    <li class="list-item" v-for="(item, i) in items" :key="i">
       <span
         v-if="isObject && item.icon"
         class="icon"
-        :style="{ color: item.color }">
+        :style="{ color: item.color }"
+      >
         <font-awesome-icon :icon="item.icon" />
       </span>
       <span>
-        <a
-          class="list-link"
-          :href="isObject && item.url">
+        <a class="list-link" :href="isObject && item.url">
           {{ isObject ? item[textKey] : item }}
         </a>
-        <nuxt-link
-          v-if="isObject && item.link"
-          :to="item.link">
+        <nuxt-link v-if="isObject && item.link" :to="item.link">
           {{ isObject ? item[textKey] : item }}
         </nuxt-link>
       </span>

@@ -156,8 +156,8 @@ export const actions = {
     commit('SET_FOCUS', false, { root: true });
   },
   async queuePost({ state, dispatch }, payload) {
-    const oldestPost = state.queue.reduce(
-      (p1, p2) => (isAfter(p1.scheduled, p2.scheduled) ? p1 : p2)
+    const oldestPost = state.queue.reduce((p1, p2) =>
+      isAfter(p1.scheduled, p2.scheduled) ? p1 : p2
     );
     const randomHour = random(8, 20); // between 8 am and 8 pm
     const randomMinute = random(0, 59);

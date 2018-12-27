@@ -11,7 +11,8 @@
     <portal to="plor-modal">
       <PlorEarlyAccessModal
         :active="modalActive"
-        @close="modalActive = false" />
+        @close="modalActive = false"
+      />
     </portal>
   </div>
 </template>

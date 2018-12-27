@@ -1,13 +1,8 @@
 <template>
   <ul class="filter">
-    <li
-      class="filter-item"
-      v-for="(item, i) in items"
-      :key="i">
+    <li class="filter-item" v-for="(item, i) in items" :key="i">
       <span>{{ item.text }}</span>
-      <span class="icon">
-        <font-awesome-icon icon="chevron-down" />
-      </span>
+      <span class="icon"> <font-awesome-icon icon="chevron-down" /> </span>
     </li>
   </ul>
 </template>

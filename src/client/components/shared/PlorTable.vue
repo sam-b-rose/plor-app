@@ -2,39 +2,35 @@
   <table class="table is-fullwidth">
     <thead>
       <tr>
-        <th
-          v-for="(key, i) in order"
-          :key="i"
-          :title="key | upperCase">
+        <th v-for="(key, i) in order" :key="i" :title="key | upperCase">
           {{ key | upperCase }}
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr
-        v-for="(row, i) in flatRows"
-        :key="i">
-        <td
-          v-for="([key, value], j) in row"
-          :key="j">
+      <tr v-for="(row, i) in flatRows" :key="i">
+        <td v-for="([key, value], j) in row" :key="j">
           <div class="flex-center">
             <!-- HANDLE -->
             <img
               v-if="key === 'handle'"
               class="handle"
-              :src="rows[i].profileImageUrl || 'https://gravatar.com/avatar/s=200'">
+              :src="
+                rows[i].profileImageUrl || 'https://gravatar.com/avatar/s=200'
+              "
+            />
             <!-- TYPE -->
-            <font-awesome-layers
-              v-if="key === 'type'"
-              class="type">
+            <font-awesome-layers v-if="key === 'type'" class="type">
               <font-awesome-icon
                 :class="value"
                 transform="grow-6"
-                :icon="['fas', 'circle']" />
+                :icon="['fas', 'circle']"
+              />
               <font-awesome-icon
                 class="icon"
                 transform="shrink-4"
-                :icon="['fab', iconMap[value]]" />
+                :icon="['fab', iconMap[value]]"
+              />
             </font-awesome-layers>
             <span>{{ value }}</span>
           </div>

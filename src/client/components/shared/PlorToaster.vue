@@ -3,24 +3,24 @@
     <transition-group
       name="fade"
       enter-active-class="animated fadeIn faster"
-      leave-active-class="animated fadeOut faster">
-      <div
-        v-for="{ id, status, text } in toaster"
-        :key="id"
-        class="plor-toast">
+      leave-active-class="animated fadeOut faster"
+    >
+      <div v-for="{ id, status, text } in toaster" :key="id" class="plor-toast">
         <FontAwesomeIcon
           :class="['plor-toast__status', `plor-toast__status--${status}`]"
-          :icon="iconMap[status]" />
+          :icon="iconMap[status]"
+        />
         <div class="plor-toast__content">
-          <p class="plor-toast__content-title is-size-6">{{ status | startCase }}</p>
-          <p class="plor-toast__content-message">
-            {{ text }}
+          <p class="plor-toast__content-title is-size-6">
+            {{ status | startCase }}
           </p>
+          <p class="plor-toast__content-message">{{ text }}</p>
         </div>
         <FontAwesomeIcon
           class="plor-toast__close"
           icon="times"
-          @click="dismiss(id)"/>
+          @click="dismiss(id)"
+        />
       </div>
     </transition-group>
   </div>

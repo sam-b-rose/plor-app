@@ -1,27 +1,17 @@
 <template>
-  <hr
-    v-if="separator"
-    class="dropdown-divider">
+  <hr v-if="separator" class="dropdown-divider" />
   <a
     v-else-if="!custom && !hasLink"
     class="dropdown-item"
     :class="anchorClasses"
-    @click.stop="selectItem">
-    <span
-      v-if="multiselect"
-      class="dropdown-item-checkbox">
-      <font-awesome-icon
-        v-if="isActive"
-        icon="check" />
+    @click.stop="selectItem"
+  >
+    <span v-if="multiselect" class="dropdown-item-checkbox">
+      <font-awesome-icon v-if="isActive" icon="check" />
     </span>
-    <slot/>
+    <slot />
   </a>
-  <div
-    v-else
-    :class="itemClasses"
-    @click="selectItem">
-    <slot/>
-  </div>
+  <div v-else :class="itemClasses" @click="selectItem"><slot /></div>
 </template>
 
 <script>

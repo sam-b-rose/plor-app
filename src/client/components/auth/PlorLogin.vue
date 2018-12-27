@@ -1,32 +1,20 @@
 <template>
-  <form
-    @submit.prevent
-    @keyup.enter="signIn">
+  <form @submit.prevent @keyup.enter="signIn">
     <div class="field">
       <label class="label">Email</label>
       <div class="control">
-        <input
-          class="input"
-          type="text"
-          v-model="email">
+        <input class="input" type="text" v-model="email" />
       </div>
     </div>
     <div class="field">
       <label class="label">Password</label>
       <div class="control">
-        <input
-          class="input"
-          v-model="password"
-          type="password">
+        <input class="input" v-model="password" type="password" />
       </div>
     </div>
     <div class="field">
       <div class="control">
-        <button
-          class="button is-link"
-          @click="signIn">
-          Login
-        </button>
+        <button class="button is-link" @click="signIn">Login</button>
       </div>
     </div>
     <div class="field">
@@ -46,7 +34,7 @@ export default {
     redirect: {
       type: Object,
       default: () => {
-        name: 'index';
+        'index';
       }
     }
   },

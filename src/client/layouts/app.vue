@@ -1,17 +1,11 @@
 <template>
   <div class="columns is-gapless">
     <PlorSidenav class="sidebar column" />
-    <main class="main column">
-      <nuxt />
-    </main>
+    <main class="main column"><nuxt /></main>
     <div class="modal">
       <div class="modal-background" />
-      <div class="modal-content">
-        <portal-target name="plor-modal" />
-      </div>
-      <button
-        class="modal-close is-large"
-        aria-label="close" />
+      <div class="modal-content"><portal-target name="plor-modal" /></div>
+      <button class="modal-close is-large" aria-label="close" />
     </div>
     <PlorToaster />
     <PlorFocus />

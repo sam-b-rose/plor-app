@@ -1,11 +1,7 @@
 <template>
   <div class="field">
     <div class="control">
-      <button
-        class="button is-link"
-        @click="signOut">
-        Sign out
-      </button>
+      <button class="button is-link" @click="signOut">Sign out</button>
     </div>
   </div>
 </template>
@@ -16,7 +12,7 @@ export default {
     redirect: {
       type: Object,
       default: () => {
-        name: 'index';
+        'index';
       }
     }
   },

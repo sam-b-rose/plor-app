@@ -4,10 +4,9 @@
     enter-active-class="animated fadeIn"
     leave-active-class="animated fadeOut"
     @before-enter="inTransition = true"
-    @after-leave="inTransition = false">
-    <div
-      v-if="focus"
-      class="plor-focus" />
+    @after-leave="inTransition = false"
+  >
+    <div v-if="focus" class="plor-focus" />
   </transition>
 </template>
 

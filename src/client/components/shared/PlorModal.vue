@@ -2,30 +2,21 @@
   <transition
     name="fade"
     enter-active-class="animated fadeIn"
-    leave-active-class="animated fadeOut">
-    <div
-      v-if="active"
-      class="modal is-active">
-      <div
-        v-if="active"
-        class="modal-background"
-        @click.self="close" />
+    leave-active-class="animated fadeOut"
+  >
+    <div v-if="active" class="modal is-active">
+      <div v-if="active" class="modal-background" @click.self="close" />
       <transition
         appear
         name="fadeDown"
         enter-active-class="animated fadeInUp"
-        @after-enter="$emit('appear')">
-        <div
-          class="modal-card">
+        @after-enter="$emit('appear')"
+      >
+        <div class="modal-card">
           <header class="modal-card-head">
-            <button
-              class="delete"
-              aria-label="close"
-              @click="close" />
+            <button class="delete" aria-label="close" @click="close" />
           </header>
-          <section class="modal-card-body">
-            <slot name="content" />
-          </section>
+          <section class="modal-card-body"><slot name="content" /></section>
           <footer class="modal-card-foot" />
         </div>
       </transition>

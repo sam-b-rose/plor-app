@@ -4,16 +4,12 @@
       <nav class="navbar has-text-weight-bold is-spaced">
         <div class="container">
           <div class="navbar-brand">
-            <nuxt-link
-              class="logo navbar-item is-primary is-size-4"
-              to="/">
+            <nuxt-link class="logo navbar-item is-primary is-size-4" to="/">
               Plor
             </nuxt-link>
             <div class="navbar-item">
               <!-- Redirect to EA for now -->
-              <a
-                class="button is-text"
-                @click.prevent="$emit('open')">
+              <a class="button is-text" @click.prevent="$emit('open')">
                 Sign up
               </a>
               <!-- <nuxt-link
@@ -23,16 +19,10 @@
               </nuxt-link> -->
             </div>
             <div class="navbar-item">
-              <nuxt-link
-                class="button is-text"
-                to="/about">
-                About
-              </nuxt-link>
+              <nuxt-link class="button is-text" to="/about"> About </nuxt-link>
             </div>
             <div class="navbar-item">
-              <nuxt-link
-                class="button is-text"
-                to="/contact">
+              <nuxt-link class="button is-text" to="/contact">
                 Contact
               </nuxt-link>
             </div>

@@ -3,10 +3,10 @@
   "version": 1,
   "dotenv": ".prod.env",
   "env": {
-    "AIRTABLE_API_KEY": "@airtable_api_key",
-    "TWITTER_API_KEY": "@twitter_api_key",
-    "TWITTER_API_SECRET": "@twitter_api_secret",
-    "DB_URL": "@db_url",
-    "SECRET": "@secret"
+    "AIRTABLE_API_KEY": "@plor_airtable_api_key",
+    "TWITTER_API_KEY": "@plor_twitter_api_key",
+    "TWITTER_API_SECRET": "@plor_twitter_api_secret",
+    "DB_URL": "@plor_db_url",
+    "SECRET": "@plor_session_secret"
   }
 }

@@ -2,7 +2,7 @@
   <div>
     <h1 class="title">Sign up</h1>
     <h2 class="subtitle">Create an account</h2>
-    <PlorRegister :redirect="redirect"/>
+    <PlorRegister :redirect="redirect" />
   </div>
 </template>
 

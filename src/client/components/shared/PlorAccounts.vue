@@ -4,15 +4,12 @@
     multiselect
     trigger-class="button has-text-left"
     v-model="localSelected"
-    @active-change="passActiveChange">
+    @active-change="passActiveChange"
+  >
     <template slot="trigger">
-      <span class="tag is-primary is-rounded">
-        {{ selected.length }}
-      </span>
+      <span class="tag is-primary is-rounded"> {{ selected.length }} </span>
       <span>Account{{ selected.length > 1 ? 's' : '' }}</span>
-      <span class="icon">
-        <font-awesome-icon icon="chevron-down" />
-      </span>
+      <span class="icon"> <font-awesome-icon icon="chevron-down" /> </span>
     </template>
 
     <PlorDropdownItem
@@ -21,12 +18,14 @@
       v-for="(account, i) in connections"
       :key="i"
       :value="account"
-      :disabled="disabled">
+      :disabled="disabled"
+    >
       <figure class="image is-32x32">
         <img
           class="is-rounded"
           :src="account.profileImageUrl"
-          :alt="account.handle">
+          :alt="account.handle"
+        />
       </figure>
       {{ account.handle }}
     </PlorDropdownItem>

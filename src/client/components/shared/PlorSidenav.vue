@@ -1,49 +1,35 @@
 <template>
   <aside class="menu">
-    <nuxt-link
-      class="plor-brand"
-      to="/app/queue" />
+    <nuxt-link class="plor-brand" to="/app/queue" />
     <ul class="menu-list">
-      <p class="menu-label">
-        Posts
-      </p>
+      <p class="menu-label">Posts</p>
       <li>
         <nuxt-link to="/app/queue">
-          <IconBase
-            :width="20"
-            :height="20"
-            class="sidenav-icon">
+          <IconBase :width="20" :height="20" class="sidenav-icon">
             <IconPosts />
-          </IconBase> Queue
+          </IconBase>
+          Queue
         </nuxt-link>
         <nuxt-link to="/app/drafts">
-          <IconBase
-            :width="20"
-            :height="20"
-            class="sidenav-icon">
+          <IconBase :width="20" :height="20" class="sidenav-icon">
             <IconDrafts />
-          </IconBase> Drafts
+          </IconBase>
+          Drafts
         </nuxt-link>
         <nuxt-link to="/app/history">
-          <IconBase
-            :width="20"
-            :height="20"
-            class="sidenav-icon">
+          <IconBase :width="20" :height="20" class="sidenav-icon">
             <IconHistory />
-          </IconBase> History
+          </IconBase>
+          History
         </nuxt-link>
       </li>
-      <p class="menu-label">
-        Manage
-      </p>
+      <p class="menu-label">Manage</p>
       <li>
         <nuxt-link to="/manage">
-          <IconBase
-            :width="20"
-            :height="20"
-            class="sidenav-icon">
+          <IconBase :width="20" :height="20" class="sidenav-icon">
             <IconAccounts />
-          </IconBase> Accounts
+          </IconBase>
+          Accounts
         </nuxt-link>
       </li>
       <!-- <li>
@@ -63,12 +49,11 @@
     </ul>
     <ul class="menu-list bottom">
       <li>
-        <nuxt-link
-          class="profile-link"
-          :to="`/profile`">
+        <nuxt-link class="profile-link" :to="`/profile`">
           <div
             class="profile"
-            :style="{ backgroundImage: `url('${gravatar}')` }"/>
+            :style="{ backgroundImage: `url('${gravatar}')` }"
+          />
           {{ name }}
         </nuxt-link>
       </li>

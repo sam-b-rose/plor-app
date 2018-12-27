@@ -1,18 +1,11 @@
 <template>
   <nav class="navbar has-text-weight-bold is-spaced">
     <div class="navbar-brand">
-      <nuxt-link
-        class="logo navbar-item is-bold is-size-4"
-        to="/">
-        Plor
-        <span class="beta">beta</span>
+      <nuxt-link class="logo navbar-item is-bold is-size-4" to="/">
+        Plor <span class="beta">beta</span>
       </nuxt-link>
-      <div
-        class="navbar-burger burger"
-        @click="menuActive = !menuActive">
-        <span />
-        <span />
-        <span />
+      <div class="navbar-burger burger" @click="menuActive = !menuActive">
+        <span /> <span /> <span />
       </div>
     </div>
 
@@ -20,30 +13,12 @@
       <div class="navbar-start" />
       <div class="navbar-end">
         <div class="navbar-item">
-          <!-- Redirect to EA for now -->
-          <a
-            class="button is-text"
-            @click="goTo('app/queue')">
-            Login
-          </a>
-          <!-- <nuxt-link
-            class="button is-text"
-            to="/app">
-            Login
-          </nuxt-link> -->
+          <a class="button is-text" @click="goTo('app/queue')"> Login </a>
         </div>
         <div class="navbar-item">
-          <!-- Redirect to EA for now -->
-          <a
-            class="button is-link is-outlined"
-            @click="goTo('auth/register')">
+          <a class="button is-link is-outlined" @click="goTo('auth/register')">
             Sign up
           </a>
-          <!-- <nuxt-link
-            class="button is-link is-outlined"
-            to="/auth/register">
-            Sign up
-          </nuxt-link> -->
         </div>
       </div>
     </div>
@@ -60,11 +35,7 @@ export default {
   },
   methods: {
     goTo(path) {
-      if (this.$store.state.isDev) {
-        this.$router.push(path);
-      } else {
-        this.$emit('open');
-      }
+      this.$router.push(path);
     }
   }
 };

@@ -2,12 +2,10 @@
   <div class="columns is-centered is-gapless">
     <main class="column is-half">
       <section class="hero is-fullheight">
-        <div class="hero-body">
-          <nuxt class="container" />
-        </div>
+        <div class="hero-body"><nuxt class="container" /></div>
       </section>
     </main>
-    <aside class="column is-half is-hidden-touch artwork"/>
+    <aside class="column is-half is-hidden-touch artwork" />
   </div>
 </template>
 

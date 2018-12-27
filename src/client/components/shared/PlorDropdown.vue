@@ -1,32 +1,27 @@
 <template>
-  <span
-    class="dropdown"
-    :class="rootClasses">
+  <span class="dropdown" :class="rootClasses">
     <div
       v-if="!inline"
       role="button"
       ref="trigger"
       class="dropdown-trigger"
       :class="triggerClass"
-      @click="toggle">
-      <slot name="trigger"/>
+      @click="toggle"
+    >
+      <slot name="trigger" />
     </div>
 
     <transition name="fade">
-      <div
-        v-if="isMobileModal"
-        v-show="isActive"
-        class="background"/>
+      <div v-if="isMobileModal" v-show="isActive" class="background" />
     </transition>
 
     <transition name="fade">
       <div
         v-show="(!disabled && (isActive || hoverable)) || inline"
         ref="dropdownMenu"
-        class="dropdown-menu">
-        <div class="dropdown-content">
-          <slot/>
-        </div>
+        class="dropdown-menu"
+      >
+        <div class="dropdown-content"><slot /></div>
       </div>
     </transition>
   </span>

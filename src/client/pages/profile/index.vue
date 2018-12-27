@@ -4,14 +4,13 @@
       <h3 class="subtitle is-3">Profile</h3>
       <div class="columns">
         <div class="column column--fixed">
-          <form
-            @submit.prevent
-            @keyup.enter="save">
+          <form @submit.prevent @keyup.enter="save">
             <div class="field">
               <img
                 class="profile"
                 :src="gravatar"
-                :alt="`${name}'s gravatar'`">
+                :alt="`${name}'s gravatar'`"
+              />
             </div>
             <div class="field">
               <label class="label">Full Name</label>
@@ -20,7 +19,8 @@
                   class="input"
                   v-model="name"
                   :readonly="!isEditing"
-                  type="text">
+                  type="text"
+                />
               </div>
             </div>
             <div class="field">
@@ -30,41 +30,24 @@
                   class="input"
                   type="text"
                   :readonly="!isEditing"
-                  v-model="email">
+                  v-model="email"
+                />
               </div>
             </div>
-            <div
-              v-if="isEditing"
-              class="field is-grouped">
+            <div v-if="isEditing" class="field is-grouped">
               <div class="control">
-                <button
-                  class="button is-link"
-                  @click="updateUser">
-                  Save
-                </button>
+                <button class="button is-link" @click="updateUser">Save</button>
               </div>
               <div class="control">
-                <button
-                  class="button is-text"
-                  @click="cancel">
-                  Cancel
-                </button>
+                <button class="button is-text" @click="cancel">Cancel</button>
               </div>
             </div>
-            <div
-              v-else
-              class="field is-grouped">
+            <div v-else class="field is-grouped">
               <div class="control">
-                <button
-                  class="button"
-                  @click="isEditing = true">
-                  Edit
-                </button>
+                <button class="button" @click="isEditing = true">Edit</button>
               </div>
               <div class="control">
-                <button
-                  class="button is-text"
-                  @click="reset">
+                <button class="button is-text" @click="reset">
                   Reset password
                 </button>
               </div>

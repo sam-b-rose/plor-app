@@ -3,7 +3,8 @@
     :viewBox="`0 0 ${width} ${height}`"
     :width="width * scale"
     :height="height * scale"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <slot />
   </svg>
 </template>

@@ -1,41 +1,28 @@
 <template>
-  <PlorModal
-    :active="active"
-    @close="close">
-    <div
-      slot="content"
-      :class="{ submitted }">
-      <div
-        class="submitted-success">
-        <img
-          class="submitted-image"
-          src="/images/check.gif"
-          alt="success">
-        <h3 class="submitted-text title is-3">
-          Successfully submitted
-        </h3>
+  <PlorModal :active="active" @close="close">
+    <div slot="content" :class="{ submitted }">
+      <div class="submitted-success">
+        <img class="submitted-image" src="/images/check.gif" alt="success" />
+        <h3 class="submitted-text title is-3">Successfully submitted</h3>
       </div>
       <div class="signup columns is-variable is-8">
         <div class="column">
-          <img
-            src="/images/bucket.jpg"
-            alt="paint bucket">
+          <img src="/images/bucket.jpg" alt="paint bucket" />
           <h1 class="title">Get early access</h1>
           <p>
             We’re currently building Plor to be totally
             <a
               href="https://youtu.be/Pubd-spHN-0"
               taget="_blank"
-              rel="noopener">
-            fetch</a>.
-            Signup and we’ll let you know when we’re ready for you.
-            We promise absolutely no spam.
+              rel="noopener"
+            >
+              fetch</a
+            >. Signup and we’ll let you know when we’re ready for you. We
+            promise absolutely no spam.
           </p>
         </div>
-        <div
-          key="access-form"
-          class="column">
-          <PlorEarlyAccessForm @submitted="onSubmit"/>
+        <div key="access-form" class="column">
+          <PlorEarlyAccessForm @submitted="onSubmit" />
         </div>
       </div>
     </div>

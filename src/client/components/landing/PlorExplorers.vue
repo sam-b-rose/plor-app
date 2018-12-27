@@ -7,9 +7,12 @@
         class="explorer show"
         :href="explorer.link"
         target="_blank"
-        :style="`background-image: ${linGrad}, url('/images/${explorer.image}');`"
+        :style="
+          `background-image: ${linGrad}, url('/images/${explorer.image}');`
+        "
         :data-aos="`fade-${explorer.direction}`"
-        data-aos-anchor-placement="bottom-bottom">
+        data-aos-anchor-placement="bottom-bottom"
+      >
         <div>{{ explorer.name }}</div>
         <div>{{ explorer.role }}</div>
       </a>
@@ -19,8 +22,15 @@
         <div class="hero-body">
           <div class="content">
             <div class="section-title">Built by ex(plor)ers</div>
-            <p>Our team is composed of two friends (and an awesome dog) working day and night until this service is plorfect.</p>
-            <p>We believe services in this space aren't quite there yet. We felt there was an opportunity to build the best tool to help small and large buisinesses share their gifts with the world.</p>
+            <p>
+              Our team is composed of two friends (and an awesome dog) working
+              day and night until this service is plorfect.
+            </p>
+            <p>
+              We believe services in this space aren't quite there yet. We felt
+              there was an opportunity to build the best tool to help small and
+              large buisinesses share their gifts with the world.
+            </p>
           </div>
         </div>
       </section>

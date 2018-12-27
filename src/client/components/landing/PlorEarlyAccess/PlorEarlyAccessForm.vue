@@ -1,48 +1,32 @@
 <template>
-  <form
-    @submit.prevent
-    @keyup.enter="submit">
+  <form @submit.prevent @keyup.enter="submit">
     <div class="field">
       <label class="label">Full Name</label>
       <div class="control">
-        <input
-          class="input"
-          type="text"
-          v-model="name">
+        <input class="input" type="text" v-model="name" />
       </div>
     </div>
     <div class="field">
       <label class="label">Email</label>
       <div class="control">
-        <input
-          class="input"
-          type="text"
-          v-model="email">
+        <input class="input" type="text" v-model="email" />
       </div>
     </div>
     <div class="field">
       <label class="label">Job Title</label>
       <div class="control">
-        <input
-          class="input"
-          type="text"
-          v-model="title">
+        <input class="input" type="text" v-model="title" />
       </div>
     </div>
     <div class="field">
       <label class="label">Organization</label>
       <div class="control">
-        <input
-          class="input"
-          type="text"
-          v-model="org">
+        <input class="input" type="text" v-model="org" />
       </div>
     </div>
     <div class="field is-grouped is-grouped-right">
       <div class="control">
-        <button
-          class="button is-link is-outlined"
-          @click="submit">
+        <button class="button is-link is-outlined" @click="submit">
           Sign up
         </button>
       </div>

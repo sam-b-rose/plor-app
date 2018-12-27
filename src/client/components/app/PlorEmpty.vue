@@ -1,11 +1,7 @@
 <template>
   <div class="plor-empty">
-    <div
-      class="plor-empty__title"
-      v-html="title" />
-    <div
-      class="plor-empty__message"
-      v-html="message" />
+    <div class="plor-empty__title" v-html="title" />
+    <div class="plor-empty__message" v-html="message" />
   </div>
 </template>
 
