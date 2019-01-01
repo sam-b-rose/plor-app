@@ -1,4 +1,4 @@
-.dev.env
+.env
 .nuxt
 .vscode
 dist
@@ -9,6 +9,4 @@ db
 static/manifest*.json
 static/sw.js
 static/workbox-sw*.js
-demo/dump.rdb
-demo/.dev.env
 dump.rdb

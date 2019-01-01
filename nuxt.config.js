@@ -1,9 +1,6 @@
-const path = require('path');
+require('dotenv').config();
 
-require('dotenv').config({
-  silent: true,
-  path: process.env.NODE_ENV === 'production' ? '.prod.env' : '.dev.env'
-});
+const path = require('path');
 
 module.exports = {
   build: {
