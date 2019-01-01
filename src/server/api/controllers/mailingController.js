@@ -1,10 +1,6 @@
-import dotenv from 'dotenv';
 import Airtable from 'airtable';
 
 const isProd = process.env.NODE_ENV === 'production';
-dotenv.config({
-  path: isProd ? '.prod.env' : '.dev.env'
-});
 
 // Plor Airtable info
 const apiKey = process.env.AIRTABLE_API_KEY;

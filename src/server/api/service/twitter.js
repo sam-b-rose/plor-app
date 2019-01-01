@@ -1,4 +1,3 @@
-import dotenv from 'dotenv';
 import OAuth from 'oauth';
 import Connection from '../models/Connection';
 import User from '../models/User';
@@ -11,9 +10,6 @@ const _axios = axios.create({
 });
 
 const isProd = process.env.NODE_ENV === 'production';
-dotenv.config({
-  path: isProd ? '.prod.env' : '.dev.env'
-});
 
 // Plor Twitter info
 const oauthToken = process.env.TWITTER_API_KEY;

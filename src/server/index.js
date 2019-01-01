@@ -2,9 +2,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import app from './app';
 
-dotenv.config({
-  path: process.env.NODE_ENV === 'production' ? '.prod.env' : '.dev.env'
-});
+dotenv.config();
 
 // setup the database connection
 mongoose.Promise = global.Promise;

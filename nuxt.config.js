@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const path = require('path');
 
 module.exports = {
@@ -15,8 +13,8 @@ module.exports = {
   cache: true,
   css: ['aos/dist/aos.css', 'animate.css', '@/assets/style/main.scss'],
   env: {
-    HOST: process.env.HOST,
-    PORT: process.env.PORT
+    HOST: process.env.HOST || 'localhost',
+    PORT: process.env.PORT || 3000
   },
   head: {
     title: 'plor',
