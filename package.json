@@ -4,6 +4,10 @@
   "description": "A social media post scheduler",
   "author": "Sam Rose <samrose3@gmail.com>",
   "private": true,
+  "engines": {
+    "node": "10.x",
+    "npm": "6.x"
+  },
   "scripts": {
     "dev": "backpack dev",
     "debug": "backpack dev --inspect",
