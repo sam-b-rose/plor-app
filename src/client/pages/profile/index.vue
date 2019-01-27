@@ -52,6 +52,13 @@
                 </button>
               </div>
             </div>
+            <div class="field">
+              <div class="control">
+                <nuxt-link to="auth/logout" class="button">
+                  Sign out
+                </nuxt-link>
+              </div>
+            </div>
           </form>
         </div>
       </div>

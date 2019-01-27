@@ -15,7 +15,7 @@ const isProd = process.env.NODE_ENV === 'production';
 const oauthToken = process.env.TWITTER_API_KEY;
 const oauthTokenSecret = process.env.TWITTER_API_SECRET;
 
-const baseUrl = isProd ? 'https://stage.plor.io' : 'http://localhost:3000';
+const baseUrl = isProd ? 'https://plor.samrose3.com' : 'http://localhost:3000';
 
 // Configure oauth
 const oauth = new OAuth.OAuth(

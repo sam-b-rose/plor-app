@@ -6,7 +6,6 @@
       'on-deck': onDeck
     }"
     @submit.prevent
-    @key.enter="submit"
   >
     <div class="card-content">
       <div class="field">
@@ -17,8 +16,7 @@
             placeholder="Type it loud and clear!"
             rows="1"
             @focus="onFocus"
-            @input="autoExpand"
-            @keydown.enter.prevent="submit"
+            @input="setRows"
             v-model="localPost.text"
           />
         </div>
@@ -195,6 +193,13 @@ export default {
   watch: {
     addingPost(val) {
       this.$store.commit('SET_FOCUS', val);
+    },
+    localPost: {
+      immediate: true,
+      deep: true,
+      handler() {
+        this.setRows();
+      }
     }
   },
   created() {
@@ -206,18 +211,27 @@ export default {
       this.localPost.scheduled = addHours(startOfTomorrow(), 12);
   },
   mounted() {
+    // this.setRows();
     const textarea = this.$refs.textarea;
-    if (textarea) textarea.baseScrollHeight = textarea.scrollHeight;
+    if (textarea) {
+      textarea.baseScrollHeight = textarea.scrollHeight;
+    }
   },
   methods: {
-    // TODO: Improve to shrink as well
-    autoExpand() {
+    setRows() {
       const textarea = this.$refs.textarea;
       if (!textarea) return 1;
-      const rows = Math.ceil(
-        (textarea.scrollHeight - textarea.baseScrollHeight) / 24
-      );
-      textarea.rows = 1 + rows;
+      const lines = textarea.value.split(/\r\n|\r|\n/g);
+      const rows =
+        lines.reduce(
+          (rows, line) => rows + Math.floor(line.length / 50) + 1,
+          0
+        ) - 1;
+      // const rows = Math.ceil(
+      //   (textarea.scrollHeight - textarea.baseScrollHeight) / 24
+      // );
+      console.log(rows);
+      textarea.rows = rows;
     },
 
     onFocus() {
